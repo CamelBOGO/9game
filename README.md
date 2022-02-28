@@ -1,3 +1,27 @@
 # 9game
-Hello I am readme file.
-HI I AM FUNG
+Expected class & function:
+classes:
+  login:
+    username
+    password
+
+  user:
+    user type
+    username
+    password
+ 
+functions:
+  user:
+    login/ Signup
+    post
+    comment
+    like/unlike
+  
+  admin:
+    search function
+      search list of user
+    post management:
+      delete post
+      modify post
+  
+  
