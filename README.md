@@ -1,5 +1,5 @@
 # 9game
-Expected class interface & function
+Expected class & function:
 classes:
   login:
     username
