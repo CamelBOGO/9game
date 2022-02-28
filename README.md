@@ -2,11 +2,14 @@
 Expected class & function:
 classes:
   login:
-    username
+    (parameters)
+    email || username
     password
 
   user:
+    (parameters)
     user type
+    email
     username
     password
  
@@ -15,7 +18,7 @@ functions:
     login/ Signup
     post
     comment
-    like/unlike
+    like/unlike (or call push)
   
   admin:
     search function
