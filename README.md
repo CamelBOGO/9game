@@ -9,7 +9,7 @@ We are Group E2.
 Fong Sze Chung	1155127998
 Lam Siu Fung	1155127994
 Shek Tsz Chuen	1155128001
-Wong Wa Yiu		1155129302
+Wong Wa Yiu	1155129302
 Yu Sun Leung	1155128708
 ```
 
