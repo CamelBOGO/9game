@@ -1,55 +1,66 @@
-<html>
-    <head>
-        <title> 
-            9Game 
-        </title>
-    </head>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>9Game Login</title>
+    <link rel="stylesheet" href="/public/authstyle.css">
+  </head>
 
     <body>
-        <h1> Login </h1>
-        <form action="/login" method = "POST">
+        <div class = "center">
+            <h1> Login </h1>
 
-            <div>
-                <label for="email">Email </label>
-                <input type="email" id="email" name="email" required>
+            <form name = "login" onsubmit="return doLogin(this);">
+
+                <div class="input_field">
+                    <input type="text" id="username" name="username" required>
+                    <span></span>
+                    <label for="username">Enter Your Username </label>
+                </div>
+
+                <div class="input_field">
+                    <input type="password" id="password" name="password" required>
+                    <span></span>
+                    <label for="password">Enter Your Password </label>
+                </div>
+
+                <button type="submit" name="submit">Login</button>    
+
+                <div class="link"> 
+                    Not a Member? 
+                    <a href="/register">Register</a>
+                </div>
+
+            </form>
+
+            <div class = "forgotPW">
+                <a href="#">Forgot Password?</a>
             </div>
-            <div>
-                <label for="password">Password </label>
-                <input type="password" id="password" name="password" required>
-            </div>
 
-            <button type="submit" id="login" name="login">Login</button>
-
-        </form>
-
-        <a href = "/register"> Do not have an account?</a>
+        </div>
 
         <script>
             function doLogin(form) {
                 form.submit.setAttribute("disabled", "disabled")
                 form.submit.innerHTML = "Loading..."
-    
+                
                 const ajax = new XMLHttpRequest()
                 ajax.open("POST", "/login", true)
-    
+
                 ajax.onreadystatechange = () => {
-                    if (this.readyState == 4 && this.status == 200) {
+                    console.log("Pass OnreadyStateChange")
+                    if (ajax.readyState == 4 && ajax.status == 200) {
                         form.submit.removeAttribute("disabled")
                         form.submit.innerHTML = "Login"
     
-                        const response = JSON.parse(this.responseText)
+                        const response = JSON.parse(ajax.responseText)
     
                         if (response.status == "success") {
                             const accessToken = response.accessToken
                             localStorage.setItem("accessToken", accessToken)
-                            window.location.href = "/updateProfile"
-                            if (response.profileImage == "") {
-                                window.location.href = "/updateProfile"
-                            } else {
-                                window.location.href = "/"
-                            }
+                            alert("Test window: " + response.message)
+                            window.location.href = "/index"
                         } else {
-                            alert(response.message)
+                            alert("Test window: " + response.message)
                         }
                     }
                 }

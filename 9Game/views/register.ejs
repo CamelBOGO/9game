@@ -1,38 +1,49 @@
-<html>
-    <head>
-        <title> 
-            9Game 
-        </title>
-    </head>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>9Game Register</title>
+    <link rel="stylesheet" href="/public/authstyle.css">
+  </head>
 
     <body>
-        <h1> Register </h1>
-        <form action = "/register" method = "POST">
-            <div>
-                <label for="name">Name </label>
-                <input type="text" id="name" name="name" required>
-            </div>
+        <div class="center">
+            <h1> Register </h1>
 
-            <div>
-                <label for="username">Username </label>
-                <input type="text" id="username" name="username" required>
-            </div>
-        
-            <div>
-                <label for="email">Email </label>
-                <input type="email" id="email" name="email" required>
-            </div>
-        
-            <div>
-                <label for="password">Password </label>
-                <input type="password" id="password" name="password" required>
-            </div>
-        
-            <button type="submit" id="submit" name="submit">Register</button>
-        
-        </form>
+            <form onsubmit="return doRegister(this);">
 
-        <a href = "/login"> Already have an account</a>
+                <div class="input_field">
+                    <input type="text" id="name" name="name" required>
+                    <span></span>
+                    <label for="name">Name </label>
+                </div>
+
+                <div class="input_field">
+                    <input type="text" id="username" name="username" required>
+                    <span></span>
+                    <label for="username">Username </label>
+                </div>
+            
+                <div class="input_field">
+                    <input type="email" id="email" name="email" required>
+                    <span></span>
+                    <label for="email">Email </label>
+                </div>
+            
+                <div class="input_field">
+                    <input type="password" id="password" name="password" required>
+                    <span></span>
+                    <label for="password">Password </label>
+                </div>
+            
+                <button type="submit" name="submit">Register</button>
+
+                <div class="link"> 
+                    Already have an account? 
+                    <a href="/login">Login</a>
+                </div>
+            
+            </form>
+        </div>
 
         <script>
             function doRegister(form) {
@@ -43,15 +54,15 @@
                 ajax.open("POST", "/register", true)
     
                 ajax.onreadystatechange = () => {
-                    if (this.readyState == 4 && this.status == 200) {
+                    if (ajax.readyState == 4 && ajax.status == 200) {
                         form.submit.removeAttribute("disabled")
                         form.submit.innerHTML = "Register"
     
-                        //const response = JSON.parse(this.responseText)
-                        //alert(response.message)
-    
-                        if (response.status == "success") {
-                            window.location.href = "/login"
+                        const res = JSON.parse(ajax.responseText)
+                        alert("Test window: " + res.message)
+
+                        if (res.status == "success") {
+                            window.location.replace("/login")
                         }
                     }
                 }
