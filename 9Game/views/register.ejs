@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <title>9Game Register</title>
-    <link rel="stylesheet" href="/public/authstyle.css">
+    <link rel="stylesheet" href="/public/css/authstyle.css">
   </head>
 
     <body>
@@ -51,7 +51,7 @@
                 form.submit.innerHTML = "Loading..."
     
                 const ajax = new XMLHttpRequest()
-                ajax.open("POST", "/register", true)
+                ajax.open("POST", "/auth/register", true)
     
                 ajax.onreadystatechange = () => {
                     if (ajax.readyState == 4 && ajax.status == 200) {

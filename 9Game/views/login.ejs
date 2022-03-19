@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8">
     <title>9Game Login</title>
-    <link rel="stylesheet" href="/public/authstyle.css">
+    <link rel="stylesheet" href="/public/css/authstyle.css">
   </head>
 
     <body>
@@ -44,7 +44,7 @@
                 form.submit.innerHTML = "Loading..."
                 
                 const ajax = new XMLHttpRequest()
-                ajax.open("POST", "/login", true)
+                ajax.open("POST", "/auth/login", true)
 
                 ajax.onreadystatechange = () => {
                     console.log("Pass OnreadyStateChange")
