@@ -174,74 +174,74 @@ router.get("/verifyingEmail/:email/:verification_token", async(req, res) => {
 router.post("/resetEmail", (req, res) => {
 
     const email = req.fields.email;
-    const user = database.get().collection("users").findOne({
+    database.get().collection("users").findOne({
         "email": email
-    })
-
-    if (user == null) {
-        res.json({
-            "status": "error",
-            "message": "Email does not exist"
-        })
-    } else {
-        const reset_token = new Date().getTime()
-
-        database.get().collection("users").findOneAndUpdate({
-            "email": email
-        }, {
-            $set:{
-                "reset_token": reset_token
-            }
-        })
-
-        const transporter = nodemailer.createTransport(nodemailerObject)
-        const text = "Please click the following link to reset your password: " + mainURL + "/auth/resetEmail/" + email + "/" + reset_token
-        const html = "Please click the following link to reset your password: <br><br> <a href='" + mainURL + "/auth/resetEmail/" + email + "/" + reset_token + "'>Click Here to Reset Your Email</a> <br><br> Thank You."
-
-        transporter.sendMail({
-            from: nodemailerObject,
-            to: email,
-            subject: "Reset Password",
-            text: text,
-            html: html
-        }, (error, info) => {
-            if (error) {
-                console.error(error)
-            } else {
-                console.log("Email sent: " + info.response)
-            }
-
+    }, (error, user) => {
+        if (user == null) {
             res.json({
-                "status": "success",
-                "message": "Email has been sent to reset password"
+                "status": "error",
+                "message": "Email does not exist"
             })
-        })
-    }
+        } else {
+            const reset_token = new Date().getTime()
+    
+            database.get().collection("users").findOneAndUpdate({
+                "email": email
+            }, {
+                $set:{
+                    "reset_token": reset_token
+                }
+            })
+    
+            const transporter = nodemailer.createTransport(nodemailerObject)
+            const text = "Please click the following link to reset your password: " + mainURL + "/auth/resetEmail/" + email + "/" + reset_token
+            const html = "Please click the following link to reset your password: <br><br> <a href='" + mainURL + "/auth/resetEmail/" + email + "/" + reset_token + "'>Click Here to Reset Your Email</a> <br><br> Thank You."
+    
+            transporter.sendMail({
+                from: nodemailerObject,
+                to: email,
+                subject: "Reset Password",
+                text: text,
+                html: html
+            }, (error, info) => {
+                if (error) {
+                    console.error(error)
+                } else {
+                    console.log("Email sent: " + info.response)
+                }
+    
+                res.json({
+                    "status": "success",
+                    "message": "Email has been sent to reset password"
+                })
+            })
+        }    
+    })
 })
 
 router.get("/resetEmail/:email/:reset_token", async (req, res) => {
     const email = req.params.email
     const reset_token = req.params.reset_token
 
-    const user = database.get().collection("users").findOne({
+    database.get().collection("users").findOne({
         $and:[{
             "email": email
         }, {
             "reset_token": parseInt(reset_token)
         }]
+    }, (error, user) => {
+        if (user == null){
+            res.json({
+                "status": "error",
+                "message": "Link is expired"
+            })
+        } else {
+            res.render("resetPW.ejs",{
+                "email": email,
+                "reset_token": reset_token
+            })
+        }
     })
-
-    if (user == null){
-        res.json({
-            "status": "error",
-            "message": "Link is expired"
-        })
-    } else {
-        res.render("resetPW.ejs",{
-            "email": email,
-            "reset_token": reset_token
-        })
-    }
 })
 
 router.post("/resetPW", (req, res) => {
@@ -256,40 +256,40 @@ router.post("/resetPW", (req, res) => {
             "message": "Password does not match"
         })
     } else {
-        const user = database.get().collection("users").findOne({
+        database.get().collection("users").findOne({
             $and:[{
                 "email": email
             }, {
                 "reset_token": parseInt(reset_token)
             }]
-        })
-    
-        if (user == null){
-            res.json({
-                "status": "error",
-                "message": "Email does not exists, or recovery link is expired"
-            })
-        } else {
-            bcrypt.hash(new_password, 10, (error, hash) => {
-                database.get().collection("users").findOneAndUpdate({
-                    $and: [{
-                        "email": email,
-                    }, {
-                        "reset_token": parseInt(reset_token)
-                    }]
-                }, {
-                    $set:{
-                        "reset_token": "",
-                        "password": hash
-                    }
-                })
-    
+        }, (error, user) => {
+            if (user == null){
                 res.json({
-                    "status": "success",
-                    "message": "Password has been changed successfully"
+                    "status": "error",
+                    "message": "Email does not exists, or recovery link is expired"
                 })
-            })
-        }
+            } else {
+                bcrypt.hash(new_password, 10, (error, hash) => {
+                    database.get().collection("users").findOneAndUpdate({
+                        $and: [{
+                            "email": email,
+                        }, {
+                            "reset_token": parseInt(reset_token)
+                        }]
+                    }, {
+                        $set:{
+                            "reset_token": "",
+                            "password": hash
+                        }
+                    })
+        
+                    res.json({
+                        "status": "success",
+                        "message": "Password has been changed successfully"
+                    })
+                })
+            }
+        })
     }
 })
 
