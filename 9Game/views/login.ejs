@@ -33,7 +33,7 @@
             </form>
 
             <div class = "forgotPW">
-                <a href="#">Forgot Password?</a>
+                <a href="/resetEmail">Forgot Password?</a>
             </div>
 
         </div>
@@ -47,7 +47,6 @@
                 ajax.open("POST", "/auth/login", true)
 
                 ajax.onreadystatechange = () => {
-                    console.log("Pass OnreadyStateChange")
                     if (ajax.readyState == 4 && ajax.status == 200) {
                         form.submit.removeAttribute("disabled")
                         form.submit.innerHTML = "Login"
