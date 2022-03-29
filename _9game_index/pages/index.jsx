@@ -40,8 +40,9 @@ export default function Home({isConnected, posts}) {
                     <h1>MongoDB NOT connected.</h1>
                 )}
                 <h1>Hello, World!</h1>
+                <Button href="\new_post">New Post</Button>
                 {posts.map((post) => (
-                    <IndexCard title={post.title} content={post.content}></IndexCard>
+                    <IndexCard key={post._id} title={post.title} content={post.content}></IndexCard>
                 ))}
             </Grid>
 
@@ -53,16 +54,15 @@ export async function getServerSideProps() {
     let isConnected = true
     try {
         await dbConnect()
-        post_model.find({post_id: 1}, function (err, post) {
+        post_model.find({}, function (err, post) {
             // Create a sample data if no data inside.
             if (!post.length) {
                 console.log("Post not found!")
                 post = new post_model({
-                    post_id: 1,
                     title: "CS1.6",
-                    content: "CS1.6 is one of my favourite game. It was released in 1999 and laid the foundation of FPS e-sporting games."
+                    content: "CS1.6 is one of my favourite game. It was released in 1999 and laid the foundation of FPS e-sporting games. (This data is read from database.)"
                 })
-                post.save()
+                post.save() // You can upload it directly.*/
             }
         })
     } catch (e) {

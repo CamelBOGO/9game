@@ -7,7 +7,7 @@ import {Box} from "@mui/material";
 
 export default function IndexCard({title, content}) {
     return (
-        <Card sx={{maxWidth: 300, boxShadow: 5, m: 2}}>
+        <Card sx={{width: 300, boxShadow: 5, m: 2}}>
             <CardActionArea>
                 <Box sx={{minHeight: 300, m: 2}}>
                     {/*<CardMedia
