@@ -1,9 +1,6 @@
 import {useState} from "react";
 import {useRouter} from "next/router";
-import {Button, Input, TextField} from "@mui/material";
-import {Grid} from "@mui/material";
-import {InputLabel} from "@mui/material";
-import {FormControl} from "@mui/material";
+import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 
 export default function NewPost() {
     const router = useRouter()

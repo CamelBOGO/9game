@@ -1,9 +1,5 @@
-import {Card} from "@mui/material";
-import {CardContent} from "@mui/material";
-import {CardActionArea} from "@mui/material";
-import {CardMedia} from "@mui/material";
-import {Typography} from "@mui/material";
-import {Box} from "@mui/material";
+import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material"
+import {Box, Typography} from "@mui/material"
 
 export default function IndexCard({title, content}) {
     return (

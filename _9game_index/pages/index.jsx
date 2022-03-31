@@ -1,11 +1,9 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import '@fontsource/roboto'
+import Head from "next/head"
+import Link from "next/link"
+import "@fontsource/roboto"
 import {Button, AppBar, Toolbar, Typography, Grid} from "@mui/material";
 
 import IndexCard from "../components/card";
-
-import mongoose from "mongoose";
 import dbConnect from "../lib/dbConnect";
 import post_model from "../db_models/post_model";
 
@@ -16,7 +14,7 @@ export default function Home({isConnected, posts}) {
                 <title>9Game</title>
             </Head>
 
-            <AppBar position="fixed" style={{background: "#212121"}}>
+            <AppBar position="fixed">
                 <Toolbar>
                     <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
                         9Game
@@ -35,11 +33,11 @@ export default function Home({isConnected, posts}) {
                 justifyContent="center"
             >
                 {isConnected ? (
-                    <h1>MongoDB connected.</h1>
+                    <Typography variant="h4">MongoDB connected.</Typography>
                 ) : (
-                    <h1>MongoDB NOT connected.</h1>
+                    <Typography variant="h4">MongoDB NOT connected.</Typography>
                 )}
-                <h1>Hello, World!</h1>
+                <Typography variant="h4">Hello, World!</Typography>
                 <Button href="\new_post">New Post</Button>
                 {posts.map((post) => (
                     <IndexCard key={post._id} title={post.title} content={post.content}></IndexCard>
