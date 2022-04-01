@@ -1,7 +1,7 @@
 import Head from "next/head"
 import Link from "next/link"
 import "@fontsource/roboto"
-import {Button, AppBar, Toolbar, Typography, Grid} from "@mui/material";
+import {Button, AppBar, Toolbar, Typography, Grid, Box, Container} from "@mui/material";
 
 import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
@@ -27,7 +27,6 @@ export default function Home({isConnected, posts}) {
 
             <Grid
                 container
-                spaceing={0}
                 direction="column"
                 alignItems="center"
                 justifyContent="center"
@@ -39,11 +38,19 @@ export default function Home({isConnected, posts}) {
                 )}
                 <Typography variant="h4">Hello, World!</Typography>
                 <Button href="\new_post">New Post</Button>
-                {posts.map((post) => (
-                    <IndexCard key={post._id} title={post.title} content={post.content}></IndexCard>
-                ))}
             </Grid>
 
+            <Box display="flex" alignItems="center" justifyContent="center">
+                <Grid container style={{maxWidth: 700}}>
+                    {posts.map((post) => (
+                        <Grid item xs={12} sm={6} key={post._id} >
+                            <Container maxWidth="false" sx={{ width: 330, my: 2}}>
+                                <IndexCard title={post.title} content={post.content}/>
+                            </Container>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
         </div>
     )
 }
