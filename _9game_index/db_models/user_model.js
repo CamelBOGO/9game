@@ -24,11 +24,8 @@ const userSchema = new mongoose.Schema({
 
   verification_token: {
     type: String,
-  },
-  
-  accessToken:{
-    type: String,
   }
+  
 })
 
 

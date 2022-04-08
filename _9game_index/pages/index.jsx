@@ -1,22 +1,13 @@
 import Head from "next/head"
 import Link from "next/link"
 import "@fontsource/roboto"
-import { useState } from "react";
 import {Button, AppBar, Toolbar, Typography, Grid, Box, Container} from "@mui/material";
 
 import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
 import post_model from "../db_models/post_model";
-import NewPost from "./new_post";
-import NewPostPopUp from "../components/newPost/new_post_popup"
 
 export default function Home({isConnected, posts}) {
-    const [visibility, setVisibility] = useState(false);
-
-    const popupCloseHandler = () => {
-        setVisibility(false);
-    }
-    
     return (
         <div style={{paddingTop: 56}}>
             <Head>
@@ -46,21 +37,15 @@ export default function Home({isConnected, posts}) {
                     <Typography variant="h4">MongoDB NOT connected.</Typography>
                 )}
                 <Typography variant="h4">Hello, World!</Typography>
-                <Button onClick={() => setVisibility(true)}>New Post</Button>
-                <NewPostPopUp 
-                    display="flex"
-                    show={visibility}
-                    onClose={popupCloseHandler}>
-                    <NewPost onClose={popupCloseHandler} />
-                </NewPostPopUp>
+                <Button href="\new_post">New Post</Button>
             </Grid>
 
             <Box display="flex" alignItems="center" justifyContent="center">
                 <Grid container style={{maxWidth: 700}}>
                     {posts.map((post) => (
-                        <Grid item xs={12} sm={6} key={post._id} >
-                            <Container maxWidth="false" sx={{ width: 330, my: 2}}>
-                                <IndexCard title={post.title} content={post.content}/>
+                        <Grid item xs={12} sm={6} key={post._id}>
+                            <Container maxWidth="false" sx={{width: 330, my: 2}}>
+                                <IndexCard id={post._id} title={post.title} content={post.content}/>
                             </Container>
                         </Grid>
                     ))}

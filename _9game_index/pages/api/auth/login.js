@@ -20,11 +20,10 @@ export default async (req, res) => {
                     })
                 } else {
                     bcrypt.compare(password, user.password, (error, isVerified) => {
-                        const accessToken = jwt.sign({ email: email }, process.env.JWT_KEY)
                         if(isVerified){
                             if(user.isVerified){
-                                User.findOneAndUpdate({
-                                    "email": email
+                                database.get().collection("users").findOneAndUpdate({
+                                    "username": username
                                 }, {
                                     $set: {
                                         "accessToken": process.env.JWT_KEY
@@ -34,6 +33,7 @@ export default async (req, res) => {
                                         "status": "success",
                                         "message": "Login successfully",
                                         "accessToken": accessToken,
+                                        "profileImage": user.profileImage
                                     })
                                 })        
                             } else {
