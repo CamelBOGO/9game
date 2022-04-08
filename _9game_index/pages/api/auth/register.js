@@ -17,6 +17,7 @@ export default async (req, res) => {
     
             const HashedPassword = await bcrypt.hash(password, 12)
             const newUser = await new User({ email:email, password:HashedPassword }).save()
+            res.status(201).json( {message: "Register Success", email, password} )
         }
     } catch (error) {
         console.log(error)
