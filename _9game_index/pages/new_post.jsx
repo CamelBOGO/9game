@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useRouter} from "next/router";
 import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 
-export default function NewPost() {
+export default function NewPost(props) {
     const router = useRouter()
     const [form, setForm] = useState({
         title: "",
@@ -24,7 +24,8 @@ export default function NewPost() {
             if (!res.ok) {
                 throw new Error(res.status)
             }
-            router.push('/')
+            props.onClose(false);
+            window.location.reload();
         } catch (error) {
             console.error(error)
             console.log("Fail to upload!")

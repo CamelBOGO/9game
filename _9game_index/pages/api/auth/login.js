@@ -4,26 +4,26 @@ import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken"
 
 
-
 export default async (req, res) => {
     await dbConnect()
 
     try {
         if (req.method == "POST") {
-            const { email , password } = req.body
+            const {email, password} = req.body
 
-            User.findOne({ email: email }, (error, user) => {
-                if(!user){
+            User.findOne({email: email}, (error, user) => {
+                if (!user) {
                     res.json({
                         "status": "error",
-                        "message": "User does not exist"        
+                        "message": "User does not exist"
                     })
                 } else {
                     bcrypt.compare(password, user.password, (error, isVerified) => {
-                        if(isVerified){
-                            if(user.isVerified){
-                                database.get().collection("users").findOneAndUpdate({
-                                    "username": username
+                        const accessToken = jwt.sign({email: email}, process.env.JWT_KEY)
+                        if (isVerified) {
+                            if (user.isVerified) {
+                                User.findOneAndUpdate({
+                                    "email": email
                                 }, {
                                     $set: {
                                         "accessToken": process.env.JWT_KEY
@@ -35,18 +35,18 @@ export default async (req, res) => {
                                         "accessToken": accessToken,
                                         "profileImage": user.profileImage
                                     })
-                                })        
+                                })
                             } else {
                                 res.json({
                                     "status": "error",
                                     "message": "Email Not Verified",
-                                })    
+                                })
                             }
                         } else {
                             res.json({
                                 "status": "error",
                                 "message": "Email Not Verified",
-                            })    
+                            })
                         }
                     })
                 }
