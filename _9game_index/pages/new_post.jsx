@@ -6,7 +6,10 @@ export default function NewPost(props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     const router = useRouter()
+=======
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======

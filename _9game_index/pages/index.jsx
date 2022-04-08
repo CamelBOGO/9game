@@ -4,7 +4,11 @@ import "@fontsource/roboto"
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {useState} from "react";
+=======
+import { useState } from "react";
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
 import { useState } from "react";
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
@@ -31,7 +35,11 @@ export default function Home({isConnected, posts}) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
     
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
@@ -74,12 +82,15 @@ export default function Home({isConnected, posts}) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <NewPostPopUp
                     display="flex"
                     show={visibility}
                     onClose={popupCloseHandler}>
                     <NewPost onClose={popupCloseHandler}/>
 =======
+=======
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
@@ -91,6 +102,9 @@ export default function Home({isConnected, posts}) {
                     <NewPost onClose={popupCloseHandler} />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
+=======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
