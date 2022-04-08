@@ -19,9 +19,15 @@ export default async (req, res) => {
                     })
                 } else {
                     bcrypt.compare(password, user.password, (error, isVerified) => {
+<<<<<<< HEAD
                         const accessToken = jwt.sign({email: email}, process.env.JWT_KEY)
                         if (isVerified) {
                             if (user.isVerified) {
+=======
+                        const accessToken = jwt.sign({ email: email }, process.env.JWT_KEY)
+                        if(isVerified){
+                            if(user.isVerified){
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
                                 User.findOneAndUpdate({
                                     "email": email
                                 }, {
@@ -33,7 +39,6 @@ export default async (req, res) => {
                                         "status": "success",
                                         "message": "Login successfully",
                                         "accessToken": accessToken,
-                                        "profileImage": user.profileImage
                                     })
                                 })
                             } else {
