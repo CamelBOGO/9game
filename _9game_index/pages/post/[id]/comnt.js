@@ -71,7 +71,7 @@ export default function ({post, comnts}) {
             </form>
 
             {comnts.map((comnt) => (
-                <Typography>Comment: {comnt.text.toString()} /{comnt.date.toString()}</Typography>
+                <Typography key={comnt._id}>Comment: {comnt.text.toString()} /{comnt.date.toString()}</Typography>
             ))}
         </>
     )
