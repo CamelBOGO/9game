@@ -60,6 +60,9 @@ const userSchema = new mongoose.Schema({
     type: String,
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
+=======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)

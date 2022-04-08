@@ -3,7 +3,11 @@ import Link from "next/link"
 import "@fontsource/roboto"
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {useState} from "react";
+=======
+import { useState } from "react";
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
 import { useState } from "react";
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
@@ -26,7 +30,11 @@ export default function Home({isConnected, posts}) {
     }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
     
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
@@ -65,6 +73,7 @@ export default function Home({isConnected, posts}) {
                 <Button onClick={() => setVisibility(true)}>New Post</Button>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <NewPostPopUp
                     display="flex"
                     show={visibility}
@@ -73,12 +82,17 @@ export default function Home({isConnected, posts}) {
 =======
 =======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
+=======
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
                 <NewPostPopUp 
                     display="flex"
                     show={visibility}
                     onClose={popupCloseHandler}>
                     <NewPost onClose={popupCloseHandler} />
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
+=======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
