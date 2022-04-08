@@ -47,13 +47,14 @@ export default function Home({isConnected, posts}) {
                 )}
                 <Typography variant="h4">Hello, World!</Typography>
                 <Button onClick={() => setVisibility(true)}>New Post</Button>
-                <NewPostPopUp
-                    display="flex"
-                    show={visibility}
-                    onClose={popupCloseHandler}>
-                    <NewPost onClose={popupCloseHandler}/>
-                </NewPostPopUp>
             </Grid>
+
+            <NewPostPopUp
+                display="flex"
+                show={visibility}
+                onClose={popupCloseHandler}>
+                <NewPost onClose={popupCloseHandler}/>
+            </NewPostPopUp>
 
             <Box display="flex" alignItems="center" justifyContent="center">
                 <Grid container style={{maxWidth: 700}}>
