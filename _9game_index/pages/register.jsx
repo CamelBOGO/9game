@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import axios from 'axios'
-import bcrypt from 'bcryptjs'
 
 
 const Register = () => {
@@ -16,7 +15,7 @@ const Register = () => {
             }
         }
 
-        const { data } = await axios.post("/api/auth/register", {email, password}, config)
+        const { data } = await axios.post("/api/auth/register", { email, password }, config)
     }
     return (
         <div>

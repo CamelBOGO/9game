@@ -1,10 +1,6 @@
 import mongoose from "mongoose"
 
-const userSchema = mongoose.Schema({
-  name: {
-    type: String,
-  },
-
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -13,9 +9,9 @@ const userSchema = mongoose.Schema({
 
   password: {
     type: String,
-  },
+    required: true
+  }
 })
-
 
 
 export default mongoose.models.User || mongoose.model("User", userSchema)
