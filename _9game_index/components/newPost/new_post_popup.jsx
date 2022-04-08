@@ -1,5 +1,4 @@
-import React, { useEffect, useState} from "react";
-import NewPost from "../../pages/new_post";
+import React from "react";
 import popupStyles from "./custom-popup.module.css";
 
 const NewPostPopUp = (props) => {
