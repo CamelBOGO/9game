@@ -4,7 +4,10 @@ import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 
 export default function NewPost(props) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     const router = useRouter()
+=======
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
 >>>>>>> parent of 01769e88 (Added Comment Basic Structure)
     const [form, setForm] = useState({

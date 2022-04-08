@@ -20,9 +20,15 @@ export default async (req, res) => {
                 } else {
                     bcrypt.compare(password, user.password, (error, isVerified) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
                         const accessToken = jwt.sign({email: email}, process.env.JWT_KEY)
                         if (isVerified) {
                             if (user.isVerified) {
+=======
+                        const accessToken = jwt.sign({ email: email }, process.env.JWT_KEY)
+                        if(isVerified){
+                            if(user.isVerified){
+>>>>>>> parent of 01769e88 (Added Comment Basic Structure)
 =======
                         const accessToken = jwt.sign({ email: email }, process.env.JWT_KEY)
                         if(isVerified){
