@@ -11,27 +11,52 @@ export default async (req, res) => {
     try {
         if (req.method == "POST") {
             const { email , password } = req.body
-            const user = await User.findOne({ email: email })
-            const accessKey = process.env.JWT_KEY
 
-            if (!user) {
-                res.status(422).json({ message:  "User does not exists"})
-            }
-
-            console.log(email, password)
-    
-            const match = await bcrypt.compare(password, user.password)
-            if (!match) {
-                res.status(404).json( {message: "Incorrect Credentials"} )
-            } else {
-                const token = jwt.sign( { userID: user.id }, accessKey,{
-                    expiresIn:"7d",
-                })
-
-                res.status(201).json( {message: "Login Success", user, token} )
-            }
+            User.findOne({ email: email }, (error, user) => {
+                if(!user){
+                    res.json({
+                        "status": "error",
+                        "message": "User does not exist"        
+                    })
+                } else {
+                    bcrypt.compare(password, user.password, (error, isVerified) => {
+                        if(isVerified){
+                            if(user.isVerified){
+                                database.get().collection("users").findOneAndUpdate({
+                                    "username": username
+                                }, {
+                                    $set: {
+                                        "accessToken": process.env.JWT_KEY
+                                    }
+                                }, (error, data) => {
+                                    res.json({
+                                        "status": "success",
+                                        "message": "Login successfully",
+                                        "accessToken": accessToken,
+                                        "profileImage": user.profileImage
+                                    })
+                                })        
+                            } else {
+                                res.json({
+                                    "status": "error",
+                                    "message": "Email Not Verified",
+                                })    
+                            }
+                        } else {
+                            res.json({
+                                "status": "error",
+                                "message": "Email Not Verified",
+                            })    
+                        }
+                    })
+                }
+            })
         }
     } catch (error) {
-        console.log(error)
+        //console.log(error)
+        res.json({
+            "status": "error",
+            "message": "Password is not correct"
+        })
     }
 }
