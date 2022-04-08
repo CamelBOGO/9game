@@ -3,6 +3,7 @@ import {useRouter} from "next/router";
 import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 
 export default function NewPost(props) {
+    const router = useRouter()
     const [form, setForm] = useState({
         title: "",
         content: "",
@@ -12,7 +13,7 @@ export default function NewPost(props) {
         e.preventDefault()
 
         try {
-            const res = await fetch('/api/post_api', {
+            const res = await fetch('/api/post', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

@@ -1,7 +1,7 @@
 import Head from "next/head"
 import Link from "next/link"
 import "@fontsource/roboto"
-import { useState } from "react";
+import {useState} from "react";
 import {Button, AppBar, Toolbar, Typography, Grid, Box, Container} from "@mui/material";
 
 import IndexCard from "../components/card";
@@ -16,7 +16,7 @@ export default function Home({isConnected, posts}) {
     const popupCloseHandler = () => {
         setVisibility(false);
     }
-    
+
     return (
         <div style={{paddingTop: 56}}>
             <Head>
@@ -47,20 +47,20 @@ export default function Home({isConnected, posts}) {
                 )}
                 <Typography variant="h4">Hello, World!</Typography>
                 <Button onClick={() => setVisibility(true)}>New Post</Button>
-                <NewPostPopUp 
+                <NewPostPopUp
                     display="flex"
                     show={visibility}
                     onClose={popupCloseHandler}>
-                    <NewPost onClose={popupCloseHandler} />
+                    <NewPost onClose={popupCloseHandler}/>
                 </NewPostPopUp>
             </Grid>
 
             <Box display="flex" alignItems="center" justifyContent="center">
                 <Grid container style={{maxWidth: 700}}>
                     {posts.map((post) => (
-                        <Grid item xs={12} sm={6} key={post._id} >
-                            <Container maxWidth="false" sx={{ width: 330, my: 2}}>
-                                <IndexCard title={post.title} content={post.content}/>
+                        <Grid item xs={12} sm={6} key={post._id}>
+                            <Container maxWidth="false" sx={{width: 330, my: 2}}>
+                                <IndexCard id={post._id} title={post.title} content={post.content}/>
                             </Container>
                         </Grid>
                     ))}
