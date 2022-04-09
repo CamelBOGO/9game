@@ -38,8 +38,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean
     },
     profileimg:{
-        data: Buffer,
-        contentType: String
+        type:String
     },
 })
 

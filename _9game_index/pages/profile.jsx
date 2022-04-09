@@ -1,39 +1,44 @@
 import {useState} from "react";
 import axios from 'axios'
 //import multer from 'multer'
+import FileBase64 from 'react-file-base64';
 import {useRouter} from "next/router";
 import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 
 
 export default function Profile() {
-    const [images, setImages] = useState([]);
-    const [email, setEmail] = useState("")
+  
+    const [item, setItem] = useState({ email: '', image: '' });
 
 
     const onSubmit = async function (e) {
         e.preventDefault()
-
+        
         const config = {
             headers: {
                 "Content-Type": "application/json"
             }
         }
 
-        const {data} = await axios.post("/api/profile/profile", {email, images}, config)
+        const {data} = await axios.post("/api/profile/profile", item, config)
         console.log(data)
     }
     return (
         <div className="container">
             <div className="row">
-                <img/>
+
                 <form onSubmit={onSubmit}>
-                    <input value={email} onChange={e => setEmail(e.target.value)}/>
+                    <input type="text"  onChange={e => setItem({...item,email: e.target.value})}/>
                     <div className="form-group">
                         {/* <input type="file" id="profile" accept="image/png, image/jpeg"
                             value={images}onChange={e => setImages(e.target.value)}>
                             </input> */}
-                        <input type="file" id="image"
-                               name="image" value="" required></input>
+                            <FileBase64
+                            type="file"
+                            multiple={false}
+                            onDone={({ base64 }) => setItem({ ...item, image: base64 })}
+                            />
+
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary" type="submit">Upload</button>
@@ -41,8 +46,6 @@ export default function Profile() {
                 </form>
             </div>
             <div>
-                {/*<img src="data:image/<%=image.img.contentType%>;base64,
-                     <%=image.img.data.toString('base64')%>">*/}
             </div>
         </div>
 

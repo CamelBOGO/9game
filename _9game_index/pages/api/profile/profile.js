@@ -6,23 +6,18 @@ import { Photo } from "@mui/icons-material";
 export default async (req, res) => {
     const {method} = req
     await dbConnect()
-    var profileimg = {
-        img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
-    }
+    const {image}=  req.body
     const { email } = req.body
-    console.log(email,profileimg)
+    console.log(email)
     switch (method) {
         case "POST":
 
             try {
-                var profile = { $set: { "profileImg": profileimg.img.data } };
+                var profile = { $set: { "profileImg": image } };
                 const newUser =  User.findOneAndUpdate({ email:email},profile, (error, data) => {
                     res.json({
                         "status": "success",
-                        "message": "Login successfully",
+                        "message": "profile upload successfully",
                         
                     });})
                 // res.status(201).json({success: true, data: newUser})
