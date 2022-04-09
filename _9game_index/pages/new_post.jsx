@@ -4,21 +4,18 @@ import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 
 export default function NewPost(props) {
     const router = useRouter()
-    const email = "Temp username";
-   
     const [form, setForm] = useState({
         title: "",
         content: "",
-        username: email,
+        username: props.email,
         postdate: new Date(),
         likes: 0,
     })
 
     const handleSubmit = async function (e) {
         e.preventDefault()
-
         try {
-            const res = await fetch('/api/post', {
+            const res = await fetch('/api/post/', {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
