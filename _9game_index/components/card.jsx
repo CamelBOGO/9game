@@ -11,7 +11,7 @@ export default function IndexCard(props) {
         <Card sx={{width: 300, height: 400, boxShadow: 5}}>
             <CardActionArea href={`/post/${id}/comnt`}>
                 <Box component="div" sx={{height: 300, p: 2}}
-                     style={{position: "relative", top: "0", width: "auto", marginBottom: "20%"}}>
+                     style={{position: "relative", top: "0", width: "auto"}}>
                     {/*<CardMedia
                         component="img"
                         height="140"
@@ -31,20 +31,9 @@ export default function IndexCard(props) {
                         {props.content}
                     </Typography>
                 </Box>
-                <CardContent style={{
-                    position: "absolute",
-                    display: "inline-block",
-                    bottom: "0",
-                    left: "0",
-                    width: "auto",
-                    height: "10%",
-                    padding: "10"
-                }}>
-                    <Typography gutterBottom variant="h5" component="div"
-                                style={{width: "auto", display: "inline-flex", justifyContent: "space-between"}}>
-                        <Like id={props.id} style={{bottom: "0", left: "0", padding: "0"}} likes={props.likes}
-                              updateLikedPosts={props.updateLikedPosts} likedPosts={props.likedPosts}
-                              likeduser={props.likeduser}/>
+               <CardContent style={{position: "relative", display: "inline-block", width:"auto", height:"auto"}}>
+                    <Typography gutterBottom variant="h5" component="div" style={{width: "auto",display: "inline-flex", justifyContent: "space-between"}}>
+                        <Like id={props.id} style={{bottom: "0", left: "0", padding: "0"}} likes={props.likes} updateLikedPosts={props.updateLikedPosts} likedPosts={props.likedPosts} likeduser={props.likeduser}/>
                         {props.title}
                     </Typography>
                 </CardContent>
