@@ -8,7 +8,7 @@ export default function Like(props) {
     const id = props.id;
     const [isLiked, updateLike] = useState(false);
     const username = "brian@1.com"
-    
+
     let currentLikePosts = props.likedPosts;
     let likeduser = props.likeduser;
     const currentlikeduser = likeduser;
@@ -48,7 +48,7 @@ export default function Like(props) {
             //             },
             //             body: JSON.stringify(form),
             //         })
-                    
+
             //         if (!res.ok) {
             //             throw new Error(res.status)
             //         }
@@ -65,14 +65,13 @@ export default function Like(props) {
             //         if (!res.ok) {
             //             throw new Error(res.status)
             //         }
-                    
+
             //     } catch (error) {
             //         console.error(error)
             //         console.log("Fail to upload!")
             //     }
             // }
-        }
-        else {
+        } else {
             updateLike(false);
             // if (currentLikePosts.includes(id)) {
             //     props.updateLikedPosts(
@@ -122,14 +121,14 @@ export default function Like(props) {
     };
 
     return (
-            // <FormControlLabel
-            //     control={<Checkbox icon={<FavoriteBorder/>} 
-            //             checkedIcon={<Favorite/>}
-            //     name="checkedH" onClick={handleLike} 
-            //     />}
-            // />
-            <div>
-                
-            </div>
+        // <FormControlLabel
+        //     control={<Checkbox icon={<FavoriteBorder/>}
+        //             checkedIcon={<Favorite/>}
+        //     name="checkedH" onClick={handleLike}
+        //     />}
+        // />
+        <div>
+
+        </div>
     );
 };
