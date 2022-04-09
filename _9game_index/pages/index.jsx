@@ -10,7 +10,10 @@ import post_model from "../db_models/post_model";
 import NewPost from "./new_post";
 import NewPostPopUp from "../components/newPost/new_post_popup"
 
-export default function Home({isConnected, posts}) {
+import cookies from "js-cookie";
+import {parseCookies} from "nookies";
+
+export default function Home({isConnected, posts, user}) {
     const [visibility, setVisibility] = useState(false);
     const [likedPosts, updateLikedPosts] = useState([]);
 
@@ -47,6 +50,7 @@ export default function Home({isConnected, posts}) {
                     <Typography variant="h4">MongoDB NOT connected.</Typography>
                 )}
                 <Typography variant="h4">Hello, World!</Typography>
+                <Typography variant="h4">{user.toString()}</Typography>
                 <Button onClick={() => setVisibility(true)}>New Post</Button>
             </Grid>
 
@@ -75,7 +79,7 @@ export default function Home({isConnected, posts}) {
     )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(props) {
     let isConnected = true
     try {
         await dbConnect()
@@ -106,5 +110,9 @@ export async function getServerSideProps() {
         return post
     })
 
-    return {props: {isConnected: isConnected, posts: posts}}
+    const cookie = props.req ? props.req.headers.cookie : null
+    const user = cookies?.email ? JSON.parse(cookies.email) : "Not Logged-in."
+    console.log(user)
+
+    return {props: {isConnected: isConnected, posts: posts, user: user}}
 }
