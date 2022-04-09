@@ -10,7 +10,7 @@ import post_model from "../db_models/post_model";
 import NewPost from "./new_post";
 import NewPostPopUp from "../components/newPost/new_post_popup"
 
-import {parseCookies} from "nookies";
+import {parseCookies, destroyCookie} from "nookies";
 
 export default function Home({isConnected, posts, user}) {
     const [visibility, setVisibility] = useState(false);
@@ -18,6 +18,12 @@ export default function Home({isConnected, posts, user}) {
 
     const popupCloseHandler = () => {
         setVisibility(false);
+    }
+
+    const logout = async function () {
+        destroyCookie(null, 'token')
+        destroyCookie(null, 'email')
+        window.location.reload();
     }
 
     return (
@@ -32,7 +38,7 @@ export default function Home({isConnected, posts, user}) {
                         9Game
                     </Typography>
                     {user ? (
-                        <Button color="inherit" href="/">Logout</Button>
+                        <Button color="inherit" onClick={logout}>Logout</Button>
                     ) : (
                         <Button color="inherit" href="/login">Login</Button>
                     )}
@@ -113,7 +119,7 @@ export async function getServerSideProps(props) {
     })
 
     const cookies = parseCookies(props)
-    const user = cookies?.email ? cookies.email : null
+    const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
 
     return {props: {isConnected: isConnected, posts: posts, user: user}}
 }
