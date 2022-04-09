@@ -3,23 +3,35 @@ import React from 'react'
 import axios from 'axios'
 
 
-const token = () => {
+export default function EmailConfirm(){
+  const router = useRouter()
+  
+  const email = router.query["email"]
+  const v_token = router.query["token"]
 
-  const router = useRouter();
-  React.useEffect(()=>{
-      if(!router.isReady) return;
+  console.log(email, v_token)
+  
+  React.useEffect(() => {
+    sendToken(email, v_token)
+  }, [email, v_token])  
 
-      const { email, token} = router.query
-      const { data } = axios.get("/api/auth/verify", { email, token })
-      //console.log(data)
+  const sendToken = async(e) => {
+    try {
+        const config = {
+            headers:{
+                "Content-Type": "application/json"
+            },
+        }
+        const essential= {"email": email, "v_token": v_token}
+        const { data } = await axios.put("/api/auth/verify", {essential}, config)
 
-  }, [router.isReady]);
-
-    return (
-        <div>
-          <h1 onLoad={token}>Email Verified</h1>
-        </div>
-    )
+    } catch(error) {
+      console.log(error)
+    }
+  }
+  return (
+    <div>
+      <h1>Email Verified</h1>
+    </div>
+  )  
 }
-
-export default token
