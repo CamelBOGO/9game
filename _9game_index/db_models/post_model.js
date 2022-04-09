@@ -4,8 +4,8 @@ const PostSchema = new mongoose.Schema({
     title: String,
     content: String,
     username: String,
-    timestamp: String,
-    postdate: String
+    postdate: Date,
+    likes: Number
 })
 
 export default mongoose.models.Post || mongoose.model('Post', PostSchema, "Posts")
