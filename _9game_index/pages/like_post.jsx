@@ -28,96 +28,96 @@ export default function Like(props) {
 
         if (!isLiked) {
             updateLike(true);
-            if (!currentLikePosts.includes(id)) {
-                props.updateLikedPosts(
-                    currentLikePosts.push(id)
-                );
+            // if (!currentLikePosts.includes(id)) {
+            //     props.updateLikedPosts(
+            //         currentLikePosts.push(id)
+            //     );
 
-                try {
-                    setForm({
-                        likeduser: likeduser.push(username),
-                    })
-                    setUser({
-                        likedPosts: currentLikePosts,
-                    })
-                    const res = await fetch('/api/like_api', {
-                        method: 'POST',
-                        headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(form),
-                    })
+            //     try {
+            //         setForm({
+            //             likeduser: likeduser.push(username),
+            //         })
+            //         setUser({
+            //             likedPosts: currentLikePosts,
+            //         })
+            //         const res = await fetch('/api/like_api', {
+            //             method: 'POST',
+            //             headers: {
+            //                 Accept: 'application/json',
+            //                 'Content-Type': 'application/json',
+            //             },
+            //             body: JSON.stringify(form),
+            //         })
                     
-                    if (!res.ok) {
-                        throw new Error(res.status)
-                    }
+            //         if (!res.ok) {
+            //             throw new Error(res.status)
+            //         }
 
-                    res = await fetch('/api/user_api', {
-                            method: 'POST',
-                            headers: {
-                                Accept: 'application/json',
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify(userform),
-                    })
+            //         res = await fetch('/api/user_api', {
+            //                 method: 'POST',
+            //                 headers: {
+            //                     Accept: 'application/json',
+            //                     'Content-Type': 'application/json',
+            //                 },
+            //                 body: JSON.stringify(userform),
+            //         })
 
-                    if (!res.ok) {
-                        throw new Error(res.status)
-                    }
+            //         if (!res.ok) {
+            //             throw new Error(res.status)
+            //         }
                     
-                } catch (error) {
-                    console.error(error)
-                    console.log("Fail to upload!")
-                }
-            }
+            //     } catch (error) {
+            //         console.error(error)
+            //         console.log("Fail to upload!")
+            //     }
+            // }
         }
         else {
             updateLike(false);
-            if (currentLikePosts.includes(id)) {
-                props.updateLikedPosts(
-                    currentLikePosts.filter(_id => _id !== id)
-                );
+            // if (currentLikePosts.includes(id)) {
+            //     props.updateLikedPosts(
+            //         currentLikePosts.filter(_id => _id !== id)
+            //     );
 
-                try{
-                    likeduser.filter(likeduser => likeduser !== username);
-                    setForm({
-                        likeduser: likeduser,
-                    })
-                    setUser({
-                        likedPosts: currentLikePosts,
-                    })
+            //     try{
+            //         likeduser.filter(likeduser => likeduser !== username);
+            //         setForm({
+            //             likeduser: likeduser,
+            //         })
+            //         setUser({
+            //             likedPosts: currentLikePosts,
+            //         })
 
-                    const res = await fetch('/api/like_api', {
-                        method: 'POST',
-                        headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(form),
-                    })
+            //         const res = await fetch('/api/like_api', {
+            //             method: 'POST',
+            //             headers: {
+            //                 Accept: 'application/json',
+            //                 'Content-Type': 'application/json',
+            //             },
+            //             body: JSON.stringify(form),
+            //         })
 
-                    if (!res.ok) {
-                        throw new Error(res.status)
-                    }
+            //         if (!res.ok) {
+            //             throw new Error(res.status)
+            //         }
 
-                    res = await fetch('/api/user_api', {
-                        method: 'POST',
-                        headers: {
-                            Accept: 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(userform),
-                    })
+            //         res = await fetch('/api/user_api', {
+            //             method: 'POST',
+            //             headers: {
+            //                 Accept: 'application/json',
+            //                 'Content-Type': 'application/json',
+            //             },
+            //             body: JSON.stringify(userform),
+            //         })
 
-                    if (!res.ok) {
-                        throw new Error(res.status)
-                    }
-                } catch (error) {
-                    console.error(error)
-                    console.log("Fail to upload!")
-                }
-            }
+            //         if (!res.ok) {
+            //             throw new Error(res.status)
+            //         }
+            //     } catch (error) {
+            //         console.error(error)
+            //         console.log("Fail to upload!")
+            //     }
+            // }
         }
     };
 

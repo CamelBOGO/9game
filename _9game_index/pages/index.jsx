@@ -85,7 +85,7 @@ export async function getServerSideProps() {
                 console.log("Post not found!")
                 post = new post_model({
                     title: "CS1.6",
-                    content: "CS1.6 is one of my favourite game. It was released in 1999 and laid the foundation of FPS e-sporting games. (This data is read from database.)"
+                    content: "CS1.6 is one of my favourite game. It was released in 1999 and laid the foundation of FPS e-sporting games. (This data is read from database.)",
                     postdate: new Date(),
                     username: "Admin",
                     likes: 1000
