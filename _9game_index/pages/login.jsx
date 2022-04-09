@@ -2,6 +2,7 @@ import {useState} from 'react'
 import axios from 'axios'
 import cookies from 'js-cookie'
 import {useRouter} from "next/router";
+import styles from "../styles/authstyle.module.css"
 
 const Register = () => {
     const [email, setEmail] = useState("")
@@ -25,12 +26,12 @@ const Register = () => {
         router.push("/")
     }
     return (
-        <div>
-            <form onSubmit={SubmitHandler}>
-                <h1>Login</h1>
-                <input value={email} onChange={e => setEmail(e.target.value)}/>
-                <input value={password} onChange={e => setPassword(e.target.value)}/>
-                <button type="submit">Login</button>
+        <div className={styles.body}>
+            <form className={styles.form} onSubmit={SubmitHandler}>
+                <h1 className={styles.h1}>Login</h1>
+                <input className={styles.input_field} value={email} onChange={e => setEmail(e.target.value)}/>
+                <input className={styles.input_field} value={password} onChange={e => setPassword(e.target.value)}/>
+                <button className={styles.button} type="submit">Login</button>
             </form>
         </div>
     )
