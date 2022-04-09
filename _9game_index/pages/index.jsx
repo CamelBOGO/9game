@@ -12,6 +12,7 @@ import NewPostPopUp from "../components/newPost/new_post_popup"
 
 export default function Home({isConnected, posts}) {
     const [visibility, setVisibility] = useState(false);
+    const [likedPosts, updateLikedPosts] = useState([]);
 
     const popupCloseHandler = () => {
         setVisibility(false);
