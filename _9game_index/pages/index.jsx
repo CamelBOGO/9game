@@ -54,8 +54,6 @@ export default function Home({isConnected, posts, user}) {
 
                 <Typography variant="h4">{isConnected ? "MongoDB connected." : "MongoDB NOT connected."}</Typography>
 
-                <Typography variant="h4">Hello, World!</Typography>
-
                 <Typography
                     variant="h4">{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
 
