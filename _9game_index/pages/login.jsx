@@ -7,7 +7,7 @@ const Register = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const router = useRouter()
-    
+
     const SubmitHandler = async (e) => {
         e.preventDefault()
 
