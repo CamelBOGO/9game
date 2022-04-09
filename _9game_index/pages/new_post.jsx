@@ -10,6 +10,7 @@ export default function NewPost(props) {
         username: props.email,
         postdate: new Date(),
         likes: 0,
+        likeduser: [],
     })
 
     const handleSubmit = async function (e) {
