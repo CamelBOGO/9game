@@ -6,16 +6,6 @@ import Like from "../pages/like_post";
 
 export default function IndexCard(props) {
     const id = props.id
-    const cardTextStyle = makeStyles({
-        textEllipsis: {
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            display: "-webkit-box",
-            "-webkit-line-clamp": 12,
-            "-webkit-box-orient": "vertical"
-        }
-    });
-    const classes = cardTextStyle()
 
     return (
         <Card sx={{width: 300, height: 400, boxShadow: 5}}>
