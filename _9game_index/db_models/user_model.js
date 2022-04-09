@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import { stringifyQuery } from "next/dist/server/server-route-utils"
 import validator from "validator"
 
 const userSchema = new mongoose.Schema({
@@ -32,6 +33,13 @@ const userSchema = new mongoose.Schema({
 
     likedPosts: {
         type: Array
+    },
+    isAdmin:{
+        type: Boolean
+    },
+    profileimg:{
+        data: Buffer,
+        contentType: String
     },
 })
 
