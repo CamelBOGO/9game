@@ -40,7 +40,7 @@ export default function IndexCard(props) {
                     </Typography>
                 </Box>
                 <CardContent style={{position: "relative", display: "inline-block", width: "auto", height: "auto"}}>
-                    <Typography gutterBottom variant="h5" component="div"
+                    <Typography noWrap gutterBottom variant="h5" component="div"
                                 style={{width: "auto", display: "inline-flex", justifyContent: "space-between"}}>
                         <Like id={props.id} style={{bottom: "0", left: "0", padding: "0"}} likes={props.likes}
                               updateLikedPosts={props.updateLikedPosts} likedPosts={props.likedPosts}
