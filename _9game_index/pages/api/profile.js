@@ -1,5 +1,5 @@
-import dbConnect from "../../../lib/dbConnect";
-import User from "../../../db_models/user_model"
+import dbConnect from "../../lib/dbConnect";
+import User from "../../db_models/user_model"
 import { Photo } from "@mui/icons-material";
 
 
