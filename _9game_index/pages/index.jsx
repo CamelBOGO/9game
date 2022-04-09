@@ -31,9 +31,11 @@ export default function Home({isConnected, posts, user}) {
                     <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
                         9Game
                     </Typography>
-                    <Button color="inherit" href="/login">
-                        Login
-                    </Button>
+                    {user ? (
+                        <Button color="inherit" href="/">Logout</Button>
+                    ) : (
+                        <Button color="inherit" href="/login">Login</Button>
+                    )}
                 </Toolbar>
             </AppBar>
 
@@ -43,13 +45,14 @@ export default function Home({isConnected, posts, user}) {
                 alignItems="center"
                 justifyContent="center"
             >
-                {isConnected ? (
-                    <Typography variant="h4">MongoDB connected.</Typography>
-                ) : (
-                    <Typography variant="h4">MongoDB NOT connected.</Typography>
-                )}
+
+                <Typography variant="h4">{isConnected ? "MongoDB connected." : "MongoDB NOT connected."}</Typography>
+
                 <Typography variant="h4">Hello, World!</Typography>
-                <Typography variant="h4">{user ? user.toString() : "NOT LOGIN!"}</Typography>
+
+                <Typography
+                    variant="h4">{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
+
                 <Button onClick={() => setVisibility(true)}>New Post</Button>
             </Grid>
 
