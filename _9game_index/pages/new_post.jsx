@@ -5,16 +5,13 @@ import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 export default function NewPost(props) {
     const router = useRouter()
     const email = "Temp username";
-    const today = new Date();
-    const currentTime = today.getHours() +":"+today.getMinutes();
-    const currentDate =  today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
    
     const [form, setForm] = useState({
         title: "",
         content: "",
         username: email,
-        timestamp: currentTime,
-        postdate: currentDate
+        postdate: new Date(),
+        likes: 0,
     })
 
     const handleSubmit = async function (e) {
