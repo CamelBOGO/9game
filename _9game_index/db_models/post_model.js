@@ -5,7 +5,8 @@ const PostSchema = new mongoose.Schema({
     content: String,
     username: String,
     postdate: Date,
-    likes: Number
+    likes: Number,
+    likeduser: Array
 })
 
 export default mongoose.models.Post || mongoose.model('Post', PostSchema, "Posts")
