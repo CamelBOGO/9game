@@ -10,7 +10,7 @@ const token = () => {
       if(!router.isReady) return;
 
       const { email, token} = router.query
-      const { data } = axios.post("/api/auth/verify", { email, token })
+      const { data } = axios.get("/api/auth/verify", { email, token })
       //console.log(data)
 
   }, [router.isReady]);
