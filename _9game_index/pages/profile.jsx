@@ -1,11 +1,7 @@
 import {useState} from "react";
 import axios from 'axios'
-<<<<<<< Updated upstream
 //import multer from 'multer'
-=======
 import FileBase64 from 'react-file-base64';
-// import multer from 'multer'
->>>>>>> Stashed changes
 import {useRouter} from "next/router";
 import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 
