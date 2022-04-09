@@ -45,6 +45,7 @@ export default function Home({isConnected, posts, user}) {
                                 sx={{mr: 2}}
                                 onClick={() => setVisibility(true)}
                             >New Post</Button>
+                            <Button color="inherit" sx={{mr: 2}} href="/profile">My Profile</Button>
                             <Button color="inherit" onClick={logout}>Logout</Button>
                         </>
                     ) : (
@@ -65,7 +66,7 @@ export default function Home({isConnected, posts, user}) {
                 <Typography
                     variant="h4"
                     sx={{m: 3}}>{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
-                
+
             </Grid>
 
             <NewPostPopUp
