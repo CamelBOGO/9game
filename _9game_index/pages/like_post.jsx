@@ -10,7 +10,6 @@ export default function Like(props) {
     const username = "brian@1.com"
     
     let currentLikePosts = props.likedPosts;
-    let currentLikes = props.likes;
     let likeduser = props.likeduser;
     const currentlikeduser = likeduser;
 
@@ -31,12 +30,12 @@ export default function Like(props) {
             updateLike(true);
             if (!currentLikePosts.includes(id)) {
                 props.updateLikedPosts(
-                    [currentLikePosts, id]
+                    currentLikePosts.push(id)
                 );
 
                 try {
                     setForm({
-                        likeduser: [likeduser, username],
+                        likeduser: likeduser.push(username),
                     })
                     setUser({
                         likedPosts: currentLikePosts,
