@@ -65,7 +65,7 @@ export default function Home({isConnected, posts, user}) {
 
                 <Typography
                     variant="h4"
-                    sx={{m: 3}}>{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
+                    sx={{m: 3, mt: 5}}>{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
 
             </Grid>
 
