@@ -61,8 +61,10 @@ export default function Home({isConnected, posts}) {
                     {posts.map((post) => (
                         <Grid item xs={12} sm={6} key={post._id}>
                             <Container maxWidth="false" sx={{width: 330, my: 2}}>
-                                <IndexCard id={post._id} title={post.title} content={post.content} date={post.postdate} user={post.username} 
-                                likes={post.likes} updateLikedPosts={updateLikedPosts} likedPosts={likedPosts} likeduser={post.likeduser}/>
+                                <IndexCard id={post._id} title={post.title} content={post.content} date={post.postdate}
+                                           user={post.username}
+                                           likes={post.likes} updateLikedPosts={updateLikedPosts}
+                                           likedPosts={likedPosts} likeduser={post.likeduser}/>
                             </Container>
                         </Grid>
                     ))}
@@ -96,6 +98,7 @@ export async function getServerSideProps() {
     const posts = result.map((doc) => {
         const post = doc.toObject()
         post._id = post._id.toString()
+        post.postdate = post.postdate.toDateString()
         return post
     })
 
