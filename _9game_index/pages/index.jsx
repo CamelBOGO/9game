@@ -37,8 +37,16 @@ export default function Home({isConnected, posts, user}) {
                     <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
                         9Game
                     </Typography>
+
                     {user ? (
-                        <Button color="inherit" onClick={logout}>Logout</Button>
+                        <>
+                            <Button
+                                color="inherit"
+                                sx={{mr: 2}}
+                                onClick={() => setVisibility(true)}
+                            >New Post</Button>
+                            <Button color="inherit" onClick={logout}>Logout</Button>
+                        </>
                     ) : (
                         <Button color="inherit" href="/login">Login</Button>
                     )}
@@ -52,12 +60,12 @@ export default function Home({isConnected, posts, user}) {
                 justifyContent="center"
             >
 
-                <Typography variant="h4">{isConnected ? "MongoDB connected." : "MongoDB NOT connected."}</Typography>
+                {/*<Typography variant="h4">{isConnected ? "MongoDB connected." : "MongoDB NOT connected."}</Typography>*/}
 
                 <Typography
-                    variant="h4">{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
-
-                <Button onClick={() => setVisibility(true)}>New Post</Button>
+                    variant="h4"
+                    sx={{m: 3}}>{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
+                
             </Grid>
 
             <NewPostPopUp
@@ -71,7 +79,7 @@ export default function Home({isConnected, posts, user}) {
                 <Grid container style={{maxWidth: 700}}>
                     {posts.map((post) => (
                         <Grid item xs={12} sm={6} key={post._id}>
-                            <Container maxWidth="false" sx={{width: 330, my: 2}}>
+                            <Container maxWidth="false" sx={{width: 330, my: 3}}>
                                 <IndexCard id={post._id} title={post.title} content={post.content} date={post.postdate}
                                            user={post.username}
                                            likes={post.likes} updateLikedPosts={updateLikedPosts}
