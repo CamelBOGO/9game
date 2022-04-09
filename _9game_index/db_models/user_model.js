@@ -28,10 +28,10 @@ const userSchema = new mongoose.Schema({
 
     accessToken: {
         type: String,
-    }
+    },
 
     likedPosts: {
-      type: Array
+        type: Array
     },
 })
 
