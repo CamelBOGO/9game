@@ -3,6 +3,7 @@ import axios from 'axios'
 import cookies from 'js-cookie'
 import {useRouter} from "next/router";
 import styles from "../styles/authstyle.module.css"
+import {FormControl, Grid, TextField, Typography, Card} from "@mui/material";
 
 const Register = () => {
     const [email, setEmail] = useState("")
@@ -27,12 +28,63 @@ const Register = () => {
     }
     return (
         <div className={styles.body}>
-            <form className={styles.form} onSubmit={SubmitHandler}>
-                <h1 className={styles.h1}>Login</h1>
-                <input className={styles.input_field} value={email} onChange={e => setEmail(e.target.value)}/>
-                <input className={styles.input_field} value={password} onChange={e => setPassword(e.target.value)}/>
-                <button className={styles.button} type="submit">Login</button>
-            </form>
+            <Grid
+                container
+                sx={{pt: 2}}
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+            >
+
+                <Card sx={{width: 400, height: 450, boxShadow: 10}}>
+                    <Grid
+                        container
+                        sx={{pt: 2}}
+                        direction="column"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+
+                        <Typography variant="h3" sx={{mt: 2}}>Login</Typography>
+                        <form className={styles.form} onSubmit={SubmitHandler}>
+                            <Grid
+                                container
+                                sx={{pt: 2}}
+                                direction="column"
+                                alignItems="center"
+                                justifyContent="center"
+                            >
+                                <FormControl>
+                                    <TextField value={email} onChange={e => setEmail(e.target.value)} label="Email"
+                                               autoComplete="off"
+                                               margin="dense" sx={{width: 300}}/>
+                                </FormControl>
+                                <br/>
+                                <FormControl>
+                                    <TextField value={password} onChange={e => setPassword(e.target.value)}
+                                               type="password"
+                                               label="Password"
+                                               margin="dense"
+                                               sx={{width: 300, mb: 5}}/>
+                                </FormControl>
+
+                                <button className={styles.button} type="submit">Login</button>
+                            </Grid>
+                        </form>
+                    </Grid>
+
+                    <Grid
+                        container
+                        sx={{pt: 5}}
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                    >
+                        <Typography sx={{mx: 3}}>Forget Password?</Typography>
+                        <Typography sx={{mx: 3}}>Sign Up</Typography>
+                    </Grid>
+                </Card>
+            </Grid>
         </div>
     )
 }
