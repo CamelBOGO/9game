@@ -3,8 +3,6 @@ import User from "../../../db_models/user_model"
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken"
 
-
-
 export default async (req, res) => {
     await dbConnect()
 
@@ -12,7 +10,7 @@ export default async (req, res) => {
         if (req.method == "POST") {
             const { email , password } = req.body
 
-            User.findOne({ email: email }, (error, user) => {
+            const user = User.findOne({ email: email }, (error, user) => {
                 if(!user){
                     res.json({
                         "status": "error",
@@ -20,19 +18,22 @@ export default async (req, res) => {
                     })
                 } else {
                     bcrypt.compare(password, user.password, (error, isVerified) => {
-                        const accessToken = jwt.sign({ email: email }, process.env.JWT_KEY)
+                        const accessToken = jwt.sign({ userID: user._id }, process.env.JWT_KEY,{
+                            expiresIn: "7d",
+                        })
                         if(isVerified){
                             if(user.isVerified){
                                 User.findOneAndUpdate({
                                     "email": email
                                 }, {
                                     $set: {
-                                        "accessToken": process.env.JWT_KEY
+                                        "accessToken": accessToken,
                                     }
                                 }, (error, data) => {
                                     res.json({
                                         "status": "success",
                                         "message": "Login successfully",
+                                        "email": email,
                                         "accessToken": accessToken,
                                     })
                                 })        

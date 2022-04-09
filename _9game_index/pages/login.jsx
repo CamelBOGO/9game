@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import cookies from 'js-cookie'
 
 
 const Register = () => {
@@ -16,6 +17,8 @@ const Register = () => {
         }
 
         const { data } = await axios.post("/api/auth/login", { email, password }, config)
+        cookies.set('email', data.email)
+        cookies.set('token', data.accessToken)
         console.log(data)
     }
     return (

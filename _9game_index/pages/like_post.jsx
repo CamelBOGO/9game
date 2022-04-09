@@ -122,11 +122,14 @@ export default function Like(props) {
     };
 
     return (
-            <FormControlLabel
-                control={<Checkbox icon={<FavoriteBorder/>} 
-                        checkedIcon={<Favorite/>}
-                name="checkedH" onClick={handleLike} 
-                />}
-            />
+            // <FormControlLabel
+            //     control={<Checkbox icon={<FavoriteBorder/>} 
+            //             checkedIcon={<Favorite/>}
+            //     name="checkedH" onClick={handleLike} 
+            //     />}
+            // />
+            <div>
+                
+            </div>
     );
 };
