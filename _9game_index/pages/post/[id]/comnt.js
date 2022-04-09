@@ -85,6 +85,7 @@ export async function getServerSideProps(context) {
     // but you can also call api to help you.
     let post = await Post.findById(id).lean()
     post._id = post._id.toString()
+    post.postdate = post.postdate.toString()
 
     const comntsResult = await Comnt.find({post_id: id.toString()})
     const comnts = comntsResult.map((doc) => {
