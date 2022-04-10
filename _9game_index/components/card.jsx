@@ -2,7 +2,7 @@ import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material"
 import {Box, Typography} from "@mui/material"
 import {makeStyles} from "@material-ui/styles"
 import {Grid} from "@mui/material"
-import Like from "../pages/like_post"
+import Like from "./like_post"
 
 
 export default function IndexCard(props) {
