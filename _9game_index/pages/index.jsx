@@ -11,6 +11,7 @@ import NewPost from "./new_post";
 import NewPostPopUp from "../components/newPost/new_post_popup"
 
 import {parseCookies, destroyCookie} from "nookies";
+import Post1 from "./card_postpopup";
 
 export default function Home({isConnected, posts, user}) {
     const [visibility, setVisibility] = useState(false);
@@ -84,6 +85,13 @@ export default function Home({isConnected, posts, user}) {
                                 <IndexCard id={post._id} title={post.title} content={post.content}
                                             date={post.postdate} user={post.username} likes={post.likes}
                                             likeduser={post.likeduser} currentuser={user} />
+
+                                            <Post1 id={post._id} title={post.title} content={post.content} date={post.postdate}
+                                                                user={post.username}
+                                                                likes={post.likes} updateLikedPosts={updateLikedPosts}
+                                                                likedPosts={likedPosts} likeduser={post.likeduser} >
+                                            </Post1>
+                                            
                             </Container>
                         </Grid>
                     ))}
