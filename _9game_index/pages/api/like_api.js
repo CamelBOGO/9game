@@ -17,7 +17,7 @@ export default async function handler(req, res) {
                     var action = {$push: {"likeduser": currentuser}, $inc: {"likes": 1}}
                 }
                 const updates = await Post.findOneAndUpdate({_id: body._id}, action)
-                res.status(201).json({success: true, data: post})
+                res.status(201).json({success: true, data: updates})
             } catch (error) {
                 res.status(400).json({success: false})
             }
