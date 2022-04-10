@@ -23,7 +23,7 @@ export default function Profile() {
             }
         }
 
-        const {data} = await axios.post("/api/profile/profile", item, config)
+    const {data} = await axios.post("/api/profile/profile", {item, user}, config)
         console.log(data)
         console.log(item.image)
     }
@@ -47,6 +47,7 @@ export default function Profile() {
             <div className="row">
 
                 <form onSubmit={onSubmit}>
+                    {/* <input type="text"  onChange={e => setItem({...item,email: e.target.value})}/> */}
                     <div className="form-group">
                         {/* <input type="file" id="profile" accept="image/png, image/jpeg"
                             value={images}onChange={e => setImages(e.target.value)}>
