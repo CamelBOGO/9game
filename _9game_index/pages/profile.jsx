@@ -10,7 +10,7 @@ export default function Profile() {
   
     const [item, setItem] = useState({ email: '', image: '' });
     const [items, setItems] = useState([])
-
+    const email="michael@gmail.com"
     const onSubmit = async function (e) {
         e.preventDefault()
         
@@ -27,7 +27,7 @@ export default function Profile() {
     useEffect(() => {
         const fetchData = async () => {
             
-          const result = await axios.get("/api/profile/profile");;
+          const result = await axios.get("/api/profile/profile");
           console.log('fetch data;m', result)
           setItems(result)
           console.log(items)

@@ -1,25 +1,32 @@
 import Head from "next/head"
-import {useState} from 'react'
+import {useEffect,useState} from 'react'
 import axios from 'axios'
-import cookies from 'js-cookie'
 import {useRouter} from "next/router";
 import styles from "../styles/authstyle.module.css"
 import { AppBar,Button,Toolbar,FormControl, Grid, TextField, Typography, Card} from "@mui/material";
+// import dbConnect from "../lib/dbConnect";
+// import User from"../db_models/user_model"
+import cookies from 'nookies'
 import { parseCookies } from 'nookies'
-import dbConnect from "../lib/dbConnect";
-import User from"../db_models/user_model"
 
-export default function admin(props) {
+
+
+export default function admin() {
     const cookies = parseCookies()
     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
-    // getServerSideProps(props)
-    const testemail="michael@gmail.com"
-    const result =  axios.get("/api/profile/admin",testemail);;
-    const isAdmin= result.isAdmin
-    console.log(result)
-    console.log(isAdmin)
-
+    // console.log("email:",user)
+    const email="michael@gamil.com"
     
+    useEffect(() => {
+        const fetchData = async () => {
+          const result = await axios.get("/api/profile/admin",{ params: { email: email } });  
+          console.log('fetch data;m', result)
+          console.log(result)
+  
+        }
+        fetchData()
+      }, [])
+
     return(
         <div style={{paddingTop: 56}}>
             <Head>
@@ -43,7 +50,7 @@ export default function admin(props) {
                 alignItems="center"
                 justifyContent="center"
             >
-                {isAdmin ? (
+                {
                     // <Grid container style={{maxWidth: 700}}>
                     // {User.map((users) => (
                     //     <Grid item xs={12} sm={6} key={User.email}>
@@ -54,33 +61,39 @@ export default function admin(props) {
                     // ))}
                     // </Grid>
                     <Typography variant="h4">You are admin</Typography>
-                ) : (
-                    <Typography variant="h4">You are not admin</Typography>
-                )}
+                    }
             </Grid>
         </div>
     );
 
 }
 
-export async function getServerSideProps(props) {
-    await dbConnect()
-    const {id} = context.query
+// export async function getServerSideProps(props) {
+//     let isAdmin=false;
+//     const cookies = parseCookies(props.header)
+    
+//     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
+//     await dbConnect()
+//     console.log(user)
 
+//     let admin=await User.findOne({ email: user })
+//     console.log(admin)
+//     // if(admin.isAdmin==true){S
+//     //     isAdmin=true
+//     //     console.log(admin.isAdmin)
+//     // }
 
-    // Here I show you how to fetch data in script,
-    // but you can also call api to help you.
-    let users = await User.findById(id).lean()
-    users._id = users._id.toString()
-    post.postdate = post.postdate.toString()
+//     // let users = await User.findById(id).lean()
+//     // users._id = users._id.toString()
+//     // post.postdate = post.postdate.toString()
 
-    const comntsResult = await Comnt.find({post_id: id.toString()})
-    const comnts = comntsResult.map((doc) => {
-        const comnt = doc.toObject()
-        comnt._id = comnt._id.toString()
-        comnt.date = comnt.date.toDateString()
-        return comnt
-    })
+//     // const Result = await User.find({post_id: id.toString()})
+//     // const usersdata = Result.map((doc) => {
+//     //     const userdata = doc.toObject()
+//     //     userdata.email = userdata.email.toString()
+//     //     userdata.password = userdata.password.toString()
+//     //     return userdata
+//     // })
 
-    return {props: {post: post, comnts: comnts}}
-}
+//     return {props: {users: user, usersdata: admin }}
+// }

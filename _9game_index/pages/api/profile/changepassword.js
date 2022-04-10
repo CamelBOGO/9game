@@ -26,7 +26,8 @@ export default async (req, res) => {
 
             res.status(201).json({
                 "status": "success",
-                "message": "change successfully."
+                "message": "change successfully.",
+                "new password":password,
             })
         }
 
