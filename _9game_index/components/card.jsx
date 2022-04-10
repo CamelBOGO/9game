@@ -1,6 +1,7 @@
 import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material"
 import {Box, Typography} from "@mui/material"
 import {makeStyles} from "@material-ui/styles"
+import {Grid} from "@mui/material"
 import Like from "../pages/like_post"
 
 
@@ -42,17 +43,24 @@ export default function IndexCard(props) {
                         {props.content}
                     </Typography>
                 </Box>
-                <CardContent style={{position: "relative", display: "inline-block", width: "auto", height: "auto"}}>
-                    <Like       id={props.id} likes={props.likes}
-                                likeduser={props.likeduser}
-                                email={props.currentuser} checked={check}
-                                style={{width: "auto"}}/>
-                    <Typography gutterBottom variant="h5" component="div"
-                                sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}
-                                style={{display: "inline-flex", width: "auto"}}>
-                        {props.title}
-                    </Typography>
-                </CardContent>
+                <Grid
+                        container
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="left"
+                    >
+                    <CardContent style={{position: "relative", display: "inline-block", width: "auto", height: "auto"}}>
+                        <Like       id={props.id} likes={props.likes}
+                                    likeduser={props.likeduser}
+                                    email={props.currentuser} checked={check}
+                                    style={{width: "auto"}}/>
+                        <Typography gutterBottom variant="h5" component="div"
+                                    sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}
+                                    style={{display: "inline-flex", width: "auto"}}>
+                            {props.title}
+                        </Typography>
+                    </CardContent>
+                </Grid>
             </CardActionArea>
         </Card>
     )
