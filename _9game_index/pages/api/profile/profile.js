@@ -11,12 +11,17 @@ export default async (req, res) => {
         case "POST":
 
             try {
+<<<<<<< Updated upstream
                 const {item,user}=req.body
                 console.log("backend image" + item)
                 console.log("backend email" + user)
+=======
+                const {user,item}=req.body
+                console.log(email)
+>>>>>>> Stashed changes
 
-                const newUser = User.findOneAndUpdate({ "email": email},
-                {$set: { "profileimg": image  }},
+                const newUser = User.findOneAndUpdate({ "email": user},
+                {$set: { "profileimg": item  }},
                 (error, data) =>{
                     // console.log(image)
 
