@@ -15,6 +15,7 @@ import Post1 from "./card_postpopup";
 
 export default function Home({isConnected, posts, user}) {
     const [visibility1, setVisibility1] = useState(false);
+    const [visibility2, setVisibility2] = useState(false);
     const [likedPosts, updateLikedPosts] = useState([]);
 
     const popupCloseHandler = () => {
