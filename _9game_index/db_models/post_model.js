@@ -5,7 +5,13 @@ const PostSchema = new mongoose.Schema({
     content: String,
     username: String,
     postdate: Date,
-    likes: Number,
+    likes: {
+        type:           Number,
+        validate        :{
+            validator  : Number.isInteger,
+            message     : props => `${props.value} is not an integer value`
+        }
+    },
     likeduser: Array
 })
 
