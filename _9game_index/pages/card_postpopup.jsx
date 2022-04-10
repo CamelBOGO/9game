@@ -11,7 +11,7 @@ import {Button, FormControl, Input, InputLabel, Card, CardActionArea, CardConten
 import {Box} from "@mui/material"
 import {useState} from "react";
 import {useRouter} from "next/router";
-import Like from "./like_post"
+import Like from "../components/like_post"
 
 export default function ScrollDialog(props) {
   const [open, setOpen] = React.useState(false);

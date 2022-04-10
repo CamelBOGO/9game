@@ -3,11 +3,13 @@ import {useRouter} from "next/router";
 import {Grid, FormControl, InputLabel, Input, Button, Typography} from "@mui/material";
 
 export default function NewPost(props) {
+    const email = props.email
+
     const router = useRouter()
     const [form, setForm] = useState({
         title: "",
         content: "",
-        username: props.email,
+        username: email,
         postdate: new Date(),
         likes: 0,
         likeduser: [],
@@ -54,7 +56,7 @@ export default function NewPost(props) {
                 alignItems="center"
                 justifyContent="center"
             >
-                <Typography>New post by {props.email.toString()}</Typography>
+                <Typography>New post by {email}</Typography>
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <InputLabel htmlFor="title">Title</InputLabel>
