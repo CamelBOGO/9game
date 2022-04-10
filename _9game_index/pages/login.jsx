@@ -35,7 +35,7 @@ const Register = () => {
     }
 
     return (
-        <body className={styles.body}>
+        <div className={styles.body}>
             <Grid
                 container
                 sx={{pt: 2}}
@@ -93,7 +93,7 @@ const Register = () => {
                     </Grid>
                 </Card>
             </Grid>
-        </body>
+        </div>
     )
 }
 
