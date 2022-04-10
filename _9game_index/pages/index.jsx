@@ -14,11 +14,11 @@ import {parseCookies, destroyCookie} from "nookies";
 import Post1 from "./card_postpopup";
 
 export default function Home({isConnected, posts, user}) {
-    const [visibility, setVisibility] = useState(false);
+    const [visibility1, setVisibility1] = useState(false);
     const [likedPosts, updateLikedPosts] = useState([]);
 
     const popupCloseHandler = () => {
-        setVisibility(false);
+        setVisibility1(false);
     }
 
     const logout = async function () {
@@ -44,7 +44,7 @@ export default function Home({isConnected, posts, user}) {
                             <Button
                                 color="inherit"
                                 sx={{mr: 2}}
-                                onClick={() => setVisibility(true)}
+                                onClick={() => setVisibility1(true)}
                             >New Post</Button>
                             <Button color="inherit" sx={{mr: 2}} href="/profile">My Profile</Button>
                             <Button color="inherit" onClick={logout}>Logout</Button>
@@ -72,7 +72,7 @@ export default function Home({isConnected, posts, user}) {
 
             <NewPostPopUp
                 display="flex"
-                show={visibility}
+                show={visibility1}
                 onClose={popupCloseHandler}>
                 <NewPost email={user} onClose={popupCloseHandler}/>
             </NewPostPopUp>

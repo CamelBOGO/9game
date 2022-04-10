@@ -54,7 +54,7 @@ export default function NewPost(props) {
                 alignItems="center"
                 justifyContent="center"
             >
-                <Typography>New post by {props.user.toString()}</Typography>
+                <Typography>New post by {props.email.toString()}</Typography>
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <InputLabel htmlFor="title">Title</InputLabel>
