@@ -7,7 +7,7 @@ import {Button, AppBar, Toolbar, Typography, Grid, Box, Container} from "@mui/ma
 import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
 import post_model from "../db_models/post_model";
-import NewPost from "./new_post";
+import NewPost from "../components/newPost/new_post";
 import NewPostPopUp from "../components/newPost/new_post_popup"
 
 import {parseCookies, destroyCookie} from "nookies";
