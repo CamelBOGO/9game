@@ -44,7 +44,7 @@ const Register = () => {
                 alignItems="center"
                 justifyContent="center"
             >
-                <Card sx={{width: 400, height: 450, boxShadow: 10}}>
+                <Card sx={{width: 400, height: 500, boxShadow: 10}}>
                     <Grid
                             container
                             sx={{pt: 2}}
@@ -63,27 +63,35 @@ const Register = () => {
                                     justifyContent="center"
                                 >
                                     <FormControl>
-                                        <TextField value={email} onChange={e => setEmail(e.target.value)} label="Email"
+                                        <TextField value={email} onChange={e => setEmail(e.target.value)} 
+                                                type="email"
+                                                label="email"
                                                 autoComplete="off"
                                                 margin="dense" sx={{width: 300}}/>
                                     </FormControl>
                                     <br/>
 
                                     <FormControl>
-                                        <TextField value={password} onChange={e => setPassword(e.target.value)} label="Password"
-                                                autoComplete="off"
+                                        <TextField value={password} onChange={e => setPassword(e.target.value)} 
+                                                type="password"
+                                                label="Password"
                                                 margin="dense" sx={{width: 300}}/>
                                     </FormControl>
                                     <br/>
 
                                     <FormControl>
-                                        <TextField value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} label="Confirm Password"
-                                                autoComplete="off"
+                                        <TextField value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} 
+                                                type="password"
+                                                label="Confirm Password"
                                                 margin="dense" sx={{width: 300}}/>
                                     </FormControl>
                                     <br/>
 
                                     <button className={styles.button} type="submit">Register</button>
+                                    <br/>
+
+                                    <Link href="/login" sx={{mx: 3}}>Already has an account?</Link>
+
                                 </Grid>
                             </form>
                     </Grid>

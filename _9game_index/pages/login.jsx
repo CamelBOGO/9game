@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import axios from 'axios'
 import cookies from 'js-cookie'
+
 import {useRouter} from "next/router";
 import styles from "../styles/authstyle.module.css"
 import {FormControl, Grid, TextField, Typography, Card, Link} from "@mui/material";
@@ -24,6 +25,7 @@ const Register = () => {
 
         const status = data.status
         const message = data.message
+
         if(status == "error"){
             alert(data.message)
         } else {
@@ -63,11 +65,13 @@ const Register = () => {
                                 justifyContent="center"
                             >
                                 <FormControl>
-                                    <TextField value={email} onChange={e => setEmail(e.target.value)} label="Email"
-                                               autoComplete="off"
+                                    <TextField value={email} onChange={e => setEmail(e.target.value)}
+                                               type="email"
+                                               label="email"
                                                margin="dense" sx={{width: 300}}/>
                                 </FormControl>
                                 <br/>
+
                                 <FormControl>
                                     <TextField value={password} onChange={e => setPassword(e.target.value)}
                                                type="password"
@@ -88,8 +92,8 @@ const Register = () => {
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <Link href="/" sx={{mx: 3}}>Forget Password?</Link>
-                        <Typography sx={{mx: 3}}>Sign Up</Typography>
+                        <Link href="/forget" sx={{mx: 3}}>Forget Password?</Link>
+                        <Link href="/register" sx={{mx: 3}}>Sign Up</Link>
                     </Grid>
                 </Card>
             </Grid>
