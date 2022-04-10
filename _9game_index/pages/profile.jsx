@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useEffect,useState} from "react";
 import axios from 'axios'
 //import multer from 'multer'
 import FileBase64 from 'react-file-base64';
@@ -9,8 +9,8 @@ import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 export default function Profile() {
   
     const [item, setItem] = useState({ email: '', image: '' });
-
-
+    const [items, setItems] = useState([])
+    const testemail="test@gmail.com"
     const onSubmit = async function (e) {
         e.preventDefault()
         
@@ -22,7 +22,18 @@ export default function Profile() {
 
         const {data} = await axios.post("/api/profile/profile", item, config)
         console.log(data)
+        setItems([...items, result]);
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            
+          const result = await axios.get("/api/profile/profile");;
+          console.log('fetch data;m', result)
+          setItems(result)
+        }
+        fetchData()
+      }, [])
     return (
         <div className="container">
             <div className="row">
@@ -47,6 +58,17 @@ export default function Profile() {
             </div>
             <div>
             </div>
+            {/* {items=> (
+
+                <div className="card" key={item._id}>
+                <div className="card-image waves-effect waves-block waves-light">
+                    <img className="activator" style={{ width: '100%', height: 300 }} src={item.image} />
+                </div>
+                <div className="card-content">
+                    <span className="card-title activator grey-text text-darken-4">{item.email}</span>
+                </div>
+                </div>
+                )} */}
         </div>
 
     )
