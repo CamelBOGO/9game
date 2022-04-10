@@ -5,10 +5,13 @@ import cookies from 'js-cookie'
 import {useRouter} from "next/router";
 import styles from "../styles/authstyle.module.css"
 import { AppBar,Button,Toolbar,FormControl, Grid, TextField, Typography, Card} from "@mui/material";
+import { parseCookies } from 'nookies'
 
 export default function admin(props) {
-
-
+    const cookies = parseCookies()
+    const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
+    getServerSideProps(props)
+    
     return(
         <div style={{paddingTop: 56}}>
             <Head>

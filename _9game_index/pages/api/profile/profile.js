@@ -12,16 +12,27 @@ export default async (req, res) => {
 
             try {
                 const {email,image}=req.body
-                var profile = { $set: { "profileImg": image } };
-                const newUser =  User.findOneAndUpdate({ email:email},profile, 
-                     (error, data) => {
+                console.log(email)
+                const query = { "email":email}
+                const update = {
+                    $set: { "profileImg": image }
+                }
+                const options = {
+                  upsert: true,
+                  new: true,
+                  setDefaultsOnInsert: true
+                };
+                // var profile = { $set: { "profileImg": image } };
+                // console.log(profile)
+                const newUser =  User.findOneAndUpdate(query, update, options, 
+                (error, data) => {
                     // res.json({
                     //     "status": "success",
                     //     "message": "profile upload successfully",
                     //     "data": newUser
                     // });
                     // res.end(JSON.stringify(newUser));
-                    console.log(newUser.profileImg)
+                    console.log(newUser)
                     }
                 )
                 res.status(201).json({success: true, data: newUser})
