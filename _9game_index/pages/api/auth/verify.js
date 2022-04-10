@@ -15,11 +15,8 @@ export default async (req, res) => {
             console.log("backend: " + essential.v_token)
 
             const user = await User.findOne({
-                $and: [{
-                    "email": email,
-                }, {
-                    "verification_token": parseInt(verification_token)
-                }]
+                $and: [{"email": email,}, 
+                {"verification_token": parseInt(verification_token)}]
             })
             
             if (user==null){
