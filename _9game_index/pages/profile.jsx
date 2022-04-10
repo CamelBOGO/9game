@@ -24,16 +24,17 @@ export default function Profile() {
         }
 
     const {data} = await axios.post("/api/profile/profile", {item, user}, config)
-        console.log(data)
-        console.log(item.image)
+    console.log(data)
+    console.log(item.image)
     }
     useEffect(() => {
         const fetchData = async () => {
             
-          const result = await axios.get("/api/profile/profile");
-          console.log('fetch data;m', result)
-          setItems(result)
-          console.log(items)
+          const result = await axios.get("/api/profile/profile").then(res => res.data);
+          console.log('get profile ',  result)
+          console.log('Extract '+ result.email)
+          //setItems(result)
+          //console.log(items)
   
         }
         fetchData()

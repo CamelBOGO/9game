@@ -11,8 +11,9 @@ export default async (req, res) => {
         case "POST":
 
             try {
-                const {email,image}=req.body
-                console.log(email)
+                const {item,user}=req.body
+                console.log("backend image" + item)
+                console.log("backend email" + user)
 
                 const newUser = User.findOneAndUpdate({ "email": email},
                 {$set: { "profileimg": image  }},
@@ -39,6 +40,7 @@ export default async (req, res) => {
                 const email="michael@gmail.com"
  
                 const profile= await User.findOne({email:email})
+                //console.log(profile)
                 
                 if(!profile.profileimg){
                     // console.log("not img")
@@ -46,7 +48,7 @@ export default async (req, res) => {
                 }else{
                     // console.log("have img")
                 }
-                res.status(200).json({ data: profile})
+                res.status(200).json(profile)
             } catch (error) {
                 res.status(401).json({success: false})
             }

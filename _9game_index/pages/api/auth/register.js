@@ -35,7 +35,7 @@ export default async (req, res) => {
             const user = await User.findOne({ email: email })
             const HashedPassword = await bcrypt.hash(password, 12)
             const newUser = await new User({ email:email, password:HashedPassword, reset_token: reset_token, 
-                isVerified: isVerified, verification_token: verification_token }).save()
+                isVerified: isVerified, verification_token: verification_token, isAdmin: false }).save()
 
 
             //*****************************Email*****************************//
