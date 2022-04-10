@@ -2,15 +2,15 @@ import React, {useState} from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import Favorite from '@mui/icons-material/Favorite';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import { pink } from '@mui/material/colors'
+import {pink} from '@mui/material/colors'
 
 export default function Like(props) {
     const id = props.id;
     const username = props.email
 
     let currentlikeduser = props.likeduser
-    const checkprevious = (currentlikeduser.includes(username))? true: false
-    const label = { inputProps: { 'aria-label': 'Checkbox demo'}};
+    const checkprevious = (currentlikeduser.includes(username)) ? true : false
+    const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
     const [form, setForm] = useState({
         _id: id,
@@ -20,8 +20,8 @@ export default function Like(props) {
 
     const tryfetch = async (e) => {
         e.persist()
-        
-        if (username){
+
+        if (username) {
             const check = e.target.checked
             setForm({
                 _id: id,
@@ -50,8 +50,9 @@ export default function Like(props) {
     }
 
     return (
-        <Checkbox {...label} checked={form.inside} icon={<FavoriteBorder/>} checkedIcon={<Favorite sx={{ color: pink[300], '&.Mui-checked': { color: pink[300], }, }} />} 
-        onChange={tryfetch} style={{position: "relative", width: "auto", height: "auto", zIndex: "2"}}
+        <Checkbox {...label} checked={form.inside} icon={<FavoriteBorder/>}
+                  checkedIcon={<Favorite sx={{color: pink[300], '&.Mui-checked': {color: pink[300],},}}/>}
+                  onChange={tryfetch} style={{position: "relative", width: "auto", height: "auto", zIndex: "2"}}
         />
     );
 };

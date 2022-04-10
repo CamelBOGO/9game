@@ -31,36 +31,36 @@ export default function IndexCard(props) {
                         alt={content}
                         sx={{m: 2}}
                     />*/}
+
                     <Typography gutterBottom variant="body1"
                                 component="div"
                                 sx={{
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
                                     display: '-webkit-box',
-                                    WebkitLineClamp: '12',
+                                    WebkitLineClamp: '13',
                                     WebkitBoxOrient: 'vertical',
                                 }}>
                         {props.content}
                     </Typography>
                 </Box>
-                <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justifyContent="left"
-                    >
-                    <CardContent style={{position: "relative", display: "inline-block", width: "auto", height: "auto"}}>
-                        <Like       id={props.id} likes={props.likes}
-                                    likeduser={props.likeduser}
-                                    email={props.currentuser} checked={check}
-                                    style={{width: "auto"}}/>
-                        <Typography gutterBottom variant="h5" component="div"
-                                    sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}
-                                    style={{display: "inline-flex", width: "auto"}}>
-                            {props.title}
-                        </Typography>
-                    </CardContent>
-                </Grid>
+
+                <Box component="div"
+                     direction="row"
+                     alignItems="center"
+                     justifyContent="left"
+                     sx={{height: 68, px: 1}}
+                     style={{display: "flex"}}
+                >
+                    <Like id={props.id} likes={props.likes}
+                          likeduser={props.likeduser}
+                          email={props.currentuser} checked={check}
+                    />
+                    <Typography noWrap variant="h5" component="div" sx={{my: 1}}>
+                        {props.title}
+                    </Typography>
+                </Box>
+
             </CardActionArea>
         </Card>
     )
