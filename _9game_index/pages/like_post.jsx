@@ -21,29 +21,31 @@ export default function Like(props) {
     const tryfetch = async (e) => {
         e.persist()
         
-        const check = e.target.checked
-        setForm({
-            _id: id,
-            email: username,
-            inside: check
-        })
-        
-        try {
-            const res = await fetch('/api/like_api', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(form),
+        if (username){
+            const check = e.target.checked
+            setForm({
+                _id: id,
+                email: username,
+                inside: check
             })
 
-            if (!res.ok) {
-                throw new Error(res.status)
+            try {
+                const res = await fetch('/api/like_api', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(form),
+                })
+
+                if (!res.ok) {
+                    throw new Error(res.status)
+                }
+            } catch (error) {
+                console.error(error)
+                console.log("Fail to upload!")
             }
-        } catch (error) {
-            console.error(error)
-            console.log("Fail to upload!")
         }
     }
 
