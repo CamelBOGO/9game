@@ -3,7 +3,7 @@ import axios from 'axios'
 import cookies from 'js-cookie'
 import {useRouter} from "next/router";
 import styles from "../styles/authstyle.module.css"
-import {FormControl, Grid, TextField, Typography, Card} from "@mui/material";
+import {FormControl, Grid, TextField, Typography, Card, Link} from "@mui/material";
 
 const Register = () => {
     const [email, setEmail] = useState("")
@@ -80,7 +80,7 @@ const Register = () => {
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <Typography sx={{mx: 3}}>Forget Password?</Typography>
+                        <Link href="/" sx={{mx: 3}}>Forget Password?</Link>
                         <Typography sx={{mx: 3}}>Sign Up</Typography>
                     </Grid>
                 </Card>
