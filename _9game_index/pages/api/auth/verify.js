@@ -24,8 +24,10 @@ export default async (req, res) => {
             
             if (user==null){
                 if(email == undefined && verification_token == undefined)   return
-                req.status  = "error"
-                req.message = "Email does not exists or link is expired."
+                res.json({
+                    "status": "success",
+                    "message": "Account has been activitated"
+                })
             } else {
                 await User.findOneAndUpdate({
                     $and: [{
@@ -39,14 +41,19 @@ export default async (req, res) => {
                         "isVerified" : true
                     }        
                 })
-                                
-                req.status = "success"
-                req.message = "Account has been activitated"   
+                              
+                res.json({
+                    "status": "success",
+                    "message": "Account has been activitated"
+                })
             }
 
             //console.log(email, token)
         }
     } catch(error) {
-        console.log(error)
-    }
+        res.json({
+            "status": "error",
+            "message": ""
+        })
+}
 }
