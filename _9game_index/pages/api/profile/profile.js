@@ -12,8 +12,8 @@ export default async (req, res) => {
 
             try {
                 const {item,user}=req.body
-                // console.log("backend image" + item)
-                // console.log("backend email" + user)
+                console.log("backend image" + item)
+                console.log("backend email" + user)
 
                 const newUser = User.findOneAndUpdate({ "email": user},
                 {$set: { "profileimg": item  }},
