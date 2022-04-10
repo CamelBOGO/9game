@@ -8,7 +8,6 @@ export default async (req, res) => {
     await dbConnect()
     const {image}=  req.body
     const { email } = req.body
-    console.log(email)
     switch (method) {
         case "POST":
 
@@ -18,14 +17,15 @@ export default async (req, res) => {
                     res.json({
                         "status": "success",
                         "message": "profile upload successfully",
-                        
+                        "data": profile
                     });})
                 // res.status(201).json({success: true, data: newUser})
             } catch (error) {
-                res.json({
+                res.status(422).json({
                     "status": "error",
                     "message": "cannot post"        
                 })
+                
             }
             break
 
