@@ -13,29 +13,22 @@ export default async (req, res) => {
             try {
                 const {email,image}=req.body
                 console.log(email)
-                const query = { "email":email}
-                const update = {
-                    $set: { "profileImg": image }
-                }
-                const options = {
-                  upsert: true,
-                  new: true,
-                  setDefaultsOnInsert: true
-                };
                 // var profile = { $set: { "profileImg": image } };
                 // console.log(profile)
-                const newUser =  User.findOneAndUpdate(query, update, options, 
-                (error, data) => {
-                    // res.json({
+                const newUser = User.findOneAndUpdate({ "email": email},
+                {$set: { "profileimg": image  }},
+                (error, data) =>{
+                    // console.log(image)
+                    // res.status(201).json({
                     //     "status": "success",
-                    //     "message": "profile upload successfully",
-                    //     "data": newUser
-                    // });
-                    // res.end(JSON.stringify(newUser));
-                    console.log(newUser)
-                    }
-                )
-                res.status(201).json({success: true, data: newUser})
+                    //     "message": "Change password successfully.",
+                    //     "New Password": password,
+                    // })
+                });
+                res.status(201).json({
+                    "status": "success",
+                    "message": "change successfully."
+                })
             } catch (error) {
                 res.status(422).json({
                     "status": "error",
@@ -57,13 +50,15 @@ export default async (req, res) => {
                 // if(!profile){
                 //     res.status(200).json({success: true, data: Photo});
                 // }
-                const profile= await User.findOne({email:"test@gmail.com"})
-                console.log(profile.profileImg)
-                if(!profile.profileImg){
+                const profile= await User.findOne({email:"michael@gmail.com"})
+                
+                if(!profile.profileimg){
                     console.log("not img")
                     
+                }else{
+                    console.log("have img")
                 }
-                res.status(200).json({success: true, data: profile.profileImg})
+                res.status(200).json({ data: profile})
             } catch (error) {
                 res.status(401).json({success: false})
             }

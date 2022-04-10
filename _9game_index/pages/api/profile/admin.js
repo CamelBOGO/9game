@@ -7,9 +7,11 @@ export default async (req, res) => {
 
     try {
         if (req.method == "GET") {
+            console.log(email)
             User.findOne({ email: email }, (error, user) => {
                 if(user.isAdmin){
                     const users = User.find();
+                    console.log(users)
                     res.status(200).json({success: true, data: users})
                 }else{
                     res.status(422).json({

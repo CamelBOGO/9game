@@ -10,7 +10,7 @@ export default function Profile() {
   
     const [item, setItem] = useState({ email: '', image: '' });
     const [items, setItems] = useState([])
-    const testemail="test@gmail.com"
+
     const onSubmit = async function (e) {
         e.preventDefault()
         
@@ -22,18 +22,26 @@ export default function Profile() {
 
         const {data} = await axios.post("/api/profile/profile", item, config)
         console.log(data)
-        setItems([...items, result]);
+        console.log(item.image)
     }
-
     useEffect(() => {
         const fetchData = async () => {
             
           const result = await axios.get("/api/profile/profile");;
           console.log('fetch data;m', result)
           setItems(result)
+          console.log(items)
+  
         }
         fetchData()
       }, [])
+
+    const photo=items     
+    console.log("a,",items)
+    console.log("b",items.data)
+    console.log("c",items.data)
+    console.log("photo",photo)
+    console.log("email",photo)
     return (
         <div className="container">
             <div className="row">
@@ -58,18 +66,24 @@ export default function Profile() {
             </div>
             <div>
             </div>
-            {/* {items=> (
+                {
 
-                <div className="card" key={item._id}>
+                <div className="card" key={ photo._id}>
                 <div className="card-image waves-effect waves-block waves-light">
-                    <img className="activator" style={{ width: '100%', height: 300 }} src={item.image} />
+                    <img className="activator" style={{ width: '100%', height: 300 }} src={photo.profileimg} />
                 </div>
                 <div className="card-content">
-                    <span className="card-title activator grey-text text-darken-4">{item.email}</span>
+                    <span className="card-title activator grey-text text-darken-4">{photo.email}</span>
                 </div>
+
                 </div>
-                )} */}
+
+
+
+                }
         </div>
 
     )
 }
+
+
