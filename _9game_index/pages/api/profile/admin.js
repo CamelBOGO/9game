@@ -5,13 +5,14 @@ import User from "../../../db_models/user_model"
 export default async (req, res) => {
     await dbConnect()
     let checkadmin=false
-    const { email  } = req.body
-    // console.log(email)
+    const { user } = req.body
+    
     try {
-        if (req.method == "GET") {
+        if (req.method == "POST") {
             console.log("get req GET")
-            const admin = User.findOne({ "email": "michael@gmail.com"},(error, user) => {
-                console.log("user",user.isAdmin)
+            console.log(user)
+            const admin = User.findOne({ "email": user},(error, user) => {
+                // console.log("user",user.isAdmin)
                 if(user.isAdmin==true){
                     checkadmin=true;
                     // const users= User.find({},{profileimg:0})

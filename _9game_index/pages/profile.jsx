@@ -13,7 +13,6 @@ export default function Profile() {
     console.log("email:",user)
     const [item, setItem] = useState({  image: '' });
     const [items, setItems] = useState([])
-    const email="michael@gmail.com"
     const onSubmit = async function (e) {
         e.preventDefault()
         
@@ -33,15 +32,15 @@ export default function Profile() {
           const result = await axios.get("/api/profile/profile").then(res => res.data);
           console.log('get profile ',  result)
           console.log('Extract '+ result.email)
-          //setItems(result)
-          //console.log(items)
+          setItems(result)
+          console.log(items)
   
         }
         fetchData()
       }, [])
 
-    const photo=items     
-    console.log("a,",items)
+    const photo=items   
+    console.log("photo,",items)
 
     return (
         <div className="container">
@@ -69,13 +68,14 @@ export default function Profile() {
             </div>
                 {
 
-                <div className="card" key={ photo._id}>
-                <div className="card-image waves-effect waves-block waves-light">
-                    <img className="activator" style={{ width: '100%', height: 300 }} src={photo.profileimg} />
-                </div>
+                <div className="card" key={ photo._id}>                
                 <div className="card-content">
                     <span className="card-title activator grey-text text-darken-4">{photo.email}</span>
                 </div>
+                <div className="card-image waves-effect waves-block waves-light">
+                    <img className="activator" style={{ width: '100%', height: 300 }} src={photo.profileimg} />
+                </div>
+
 
                 </div>
 

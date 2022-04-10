@@ -11,14 +11,9 @@ export default async (req, res) => {
         case "POST":
 
             try {
-<<<<<<< Updated upstream
                 const {item,user}=req.body
                 console.log("backend image" + item)
                 console.log("backend email" + user)
-=======
-                const {user,item}=req.body
-                console.log(email)
->>>>>>> Stashed changes
 
                 const newUser = User.findOneAndUpdate({ "email": user},
                 {$set: { "profileimg": item  }},
@@ -42,13 +37,13 @@ export default async (req, res) => {
         case "GET":
             try {
 
-                const email="michael@gmail.com"
+                const email="test@gmail.com"
  
                 const profile= await User.findOne({email:email})
                 //console.log(profile)
                 
                 if(!profile.profileimg){
-                    // console.log("not img")
+                     console.log("not img")
                     
                 }else{
                     // console.log("have img")

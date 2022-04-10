@@ -1,8 +1,6 @@
 import Head from "next/head"
 import {useEffect,useState} from 'react'
 import axios from 'axios'
-import {useRouter} from "next/router";
-import styles from "../styles/authstyle.module.css"
 import { AppBar,Button,Toolbar,FormControl, Grid, TextField, Typography, Card, Box, Container} from "@mui/material";
 import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
@@ -25,7 +23,7 @@ export default function admin({users}) {
 
     useEffect(() => {
         const fetchData = async () => {
-          const result = await axios.get("/api/profile/admin");  
+          const result = await axios.post("/api/profile/admin",user);  
           console.log('fetch data;m', result)  
         }
         fetchData()
@@ -59,7 +57,13 @@ export default function admin({users}) {
                     {users.map((user) => (
                         <Grid item xs={12} sm={6} key={user._id}>
                             <Container maxWidth="false" sx={{width: 330, my: 3}}>
-                                <IndexCard id={user._id} title={user.email} content={user.password} />
+                                <form>
+                                    <p>{user.email}</p>
+                                    <br></br>
+                                    <p>{user.password}</p>
+                                    <br></br>
+                                </form>
+                                {/* <IndexCard id={user._id} title={user.email} content={user.password} /> */}
                             </Container>
                         </Grid>
                     ))}
