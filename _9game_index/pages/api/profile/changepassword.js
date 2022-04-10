@@ -17,11 +17,6 @@ export default async (req, res) => {
             {$set: { "password": HashedPassword  }},
             (error, data) =>{
                 console.log(password,HashedPassword)
-                // res.status(201).json({
-                //     "status": "success",
-                //     "message": "Change password successfully.",
-                //     "New Password": password,
-                // })
             });
 
             res.status(201).json({
