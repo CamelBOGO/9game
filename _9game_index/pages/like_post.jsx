@@ -19,7 +19,6 @@ export default function Like(props) {
     })
 
     const tryfetch = async (e) => {
-        e.preventDefault()
         e.persist()
         
         const check = e.target.checked
