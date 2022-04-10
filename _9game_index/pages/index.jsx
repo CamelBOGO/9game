@@ -81,10 +81,9 @@ export default function Home({isConnected, posts, user}) {
                     {posts.map((post) => (
                         <Grid item xs={12} sm={6} key={post._id}>
                             <Container maxWidth="false" sx={{width: 330, my: 3}}>
-                                <IndexCard id={post._id} title={post.title} content={post.content} date={post.postdate}
-                                           user={post.username}
-                                           likes={post.likes} updateLikedPosts={updateLikedPosts}
-                                           likedPosts={likedPosts} likeduser={post.likeduser}/>
+                                <IndexCard id={post._id} title={post.title} content={post.content}
+                                            date={post.postdate} user={post.username} likes={post.likes}
+                                            likeduser={post.likeduser} currentuser={user} />
                             </Container>
                         </Grid>
                     ))}
