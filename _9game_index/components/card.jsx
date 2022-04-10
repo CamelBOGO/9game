@@ -16,6 +16,9 @@ export default function IndexCard(props) {
     });
     const classes = cardTextStyle()
 
+    const likeduser = props.likeduser
+    const currentuser = props.currentuser
+    const check = (likeduser?.includes(currentuser)) ? true : false
     return (
         <Card sx={{width: 300, height: 400, boxShadow: 5}}>
             <CardActionArea href={`/post/${props.id}/comnt`}>
@@ -40,11 +43,13 @@ export default function IndexCard(props) {
                     </Typography>
                 </Box>
                 <CardContent style={{position: "relative", display: "inline-block", width: "auto", height: "auto"}}>
-                    <Typography noWrap gutterBottom variant="h5" component="div"
-                                style={{width: "auto", display: "inline-flex", justifyContent: "space-between"}}>
-                        <Like id={props.id} style={{bottom: "0", left: "0", padding: "0"}} likes={props.likes}
-                              updateLikedPosts={props.updateLikedPosts} likedPosts={props.likedPosts}
-                              likeduser={props.likeduser}/>
+                    <Like       id={props.id} likes={props.likes}
+                                likeduser={props.likeduser}
+                                email={props.currentuser} checked={check}
+                                style={{width: "auto"}}/>
+                    <Typography gutterBottom variant="h5" component="div"
+                                sx={{overflow: 'hidden', textOverflow: 'ellipsis'}}
+                                style={{display: "inline-flex", width: "auto"}}>
                         {props.title}
                     </Typography>
                 </CardContent>
