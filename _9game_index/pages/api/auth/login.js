@@ -46,7 +46,7 @@ export default async (req, res) => {
                         } else {
                             res.json({
                                 "status": "error",
-                                "message": "Email Not Verified",
+                                "message": "Incorrect Password",
                             })    
                         }
                     })
@@ -54,10 +54,6 @@ export default async (req, res) => {
             })
         }
     } catch (error) {
-        //console.log(error)
-        res.json({
-            "status": "error",
-            "message": "Password is not correct"
-        })
+        console.log(error)
     }
 }

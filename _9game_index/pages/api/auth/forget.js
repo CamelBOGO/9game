@@ -34,9 +34,7 @@ export default async (req, res) => {
                     "message": "Email does not exist"
                 })
             } else {
-                const reset_token = jwt.sign({ userID: user._id }, process.env.JWT_KEY,{
-                    expiresIn: "7d",
-                })
+                const reset_token = new Date().getTime()
 
                 await User.findOneAndUpdate({
                     "email": email
@@ -47,8 +45,8 @@ export default async (req, res) => {
                 })
 
                 const transporter = nodemailer.createTransport(nodemailerObject)
-                const text = "Please click the following link to reset your password: " + mainURL + "/auth/resetEmail/" + email + "/" + reset_token
-                const html = "Please click the following link to reset your password: <br><br> <a href='" + mainURL + "/auth/resetEmail/" + email + "/" + reset_token + "'>Click Here to Reset Your Email</a> <br><br> Thank You."
+                const text = "Please click the following link to reset your password: " + mainURL + "/resetEmail/" + email + "/" + reset_token
+                const html = "Please click the following link to reset your password: <br><br> <a href='" + mainURL + "/resetEmail/" + email + "/" + reset_token + "'>Click Here to Reset Your Email</a> <br><br> Thank You."
 
                 transporter.sendMail({
                     from: nodemailerObject,
