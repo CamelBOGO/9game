@@ -50,7 +50,7 @@ export default async (req, res) => {
     } catch(error) {
         res.json({
             "status": "error",
-            "message": ""
-        })
-}
+            "message": "Unknown Error",
+        })    
+    }
 }

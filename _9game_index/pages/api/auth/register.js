@@ -32,7 +32,13 @@ export default async (req, res) => {
     try {
         if (req.method == "POST") {
             const { email , password, confirmPassword } = req.body
-            if( password != confirmPassword) {
+            
+            if( password == "" || confirmPassword == "") {
+                res.json({
+                    "status": "error",
+                    "message": "Password cannot be empty"
+                })
+            } else if( password != confirmPassword) {
                 res.json({
                     "status": "error",
                     "message": "Password Not Match"

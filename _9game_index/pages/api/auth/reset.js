@@ -14,7 +14,12 @@ export default async (req, res) => {
             const reset_token = essential.r_token
 
             //console.log(password, confirmPassword, email, reset_token)
-            if (password != confirmPassword) {
+            if (password == "" || confirmPassword == "") {
+                res.json({
+                    "status": "error",
+                    "message": "Password cannot be empty"
+                })
+            } else if (password != confirmPassword) {
                 res.json({
                     "status": "error",
                     "message": "Password does not match"
