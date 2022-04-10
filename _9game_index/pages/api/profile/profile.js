@@ -37,7 +37,7 @@ export default async (req, res) => {
         case "GET":
             try {
 
-                const email="test@gmail.com"
+                const email="michael@gmail.com"
  
                 const profile= await User.findOne({email:email})
                 //console.log(profile)

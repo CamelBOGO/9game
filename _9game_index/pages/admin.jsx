@@ -13,54 +13,37 @@ import { parseCookies } from 'nookies'
 export default function admin({users}) {
     const cookies = parseCookies()
     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
-    // console.log("email:",user)
+    console.log("email:",user)
     const email="michael@gamil.com"
     // ,{ params: { email: user } }
-    const [visibility, setVisibility] = useState(false);
-    const popupCloseHandler = () => {
-        setVisibility(false);
-    }
+
 
     useEffect(() => {
         const fetchData = async () => {
-          const result = await axios.post("/api/profile/admin",user);  
-          console.log('fetch data;m', result)  
+            const {data} = await axios.post("/api/profile/admin", { user})
+          console.log('fetch data;m', data)  
         }
         fetchData()
       }, [])
-
+//    console.log("photo",users.map((user) => (user.profileimg)))
     return(
         <div style={{paddingTop: 56}}>
-            <Head>
-                <title>9Game</title>
-            </Head>
 
-            <AppBar position="fixed">
-                <Toolbar>
-                    <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
-                        9Game
-                    </Typography>
-                    <Button color="inherit" href="/login">
-                        Login
-                    </Button>
-                </Toolbar>
-            </AppBar>
 
-            {/* <NewPostPopUp
-                display="flex"
-                show={visibility}
-                onClose={popupCloseHandler}>
-                <NewPost onClose={popupCloseHandler}/>
-            </NewPostPopUp> */}
             <Box display="flex" alignItems="center" justifyContent="center">
-                <Grid container style={{maxWidth: 700}}>
+                <Grid container style={{maxWidth: 1400}}>
                     {users.map((user) => (
                         <Grid item xs={12} sm={6} key={user._id}>
                             <Container maxWidth="false" sx={{width: 330, my: 3}}>
                                 <form>
                                     <p>{user.email}</p>
                                     <br></br>
-                                    <p>{user.password}</p>
+                                    user.profileimg?( <img className="activator" style={{ width: '100%', height: 300 }} 
+                                    src= {user.profileimg} />):(
+                                        <img className="activator" style={{ width: '100%', height: 300 }} src=  />)
+                                    )
+                                    <img className="activator" style={{ width: '100%', height: 300 }} 
+                                    src= {user.profileimg} />
                                     <br></br>
                                 </form>
                                 {/* <IndexCard id={user._id} title={user.email} content={user.password} /> */}
@@ -100,13 +83,13 @@ export async function getServerSideProps(props) {
         await dbConnect()
         User.find({}, function (err, user) {
             // Create a sample data if no data inside.
-            console.log(user)
+            // console.log(user)
         })
     } catch (e) {
         console.error(e)
     }
 
-    const result = await User.find({},{profileimg:0})
+    const result = await User.find({})
     const users = result.map((doc) => {
         const user = doc.toObject()
         user._id = user._id.toString()
