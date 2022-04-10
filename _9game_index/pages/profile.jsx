@@ -39,8 +39,13 @@ export default function Profile() {
         fetchData()
     }, [])
 
+<<<<<<< Updated upstream
     const photo = items
     console.log("photo,", items)
+=======
+    const photo=items   
+    console.log("photo,",photo.profileimg)
+>>>>>>> Stashed changes
 
     return (
         <div className="container">

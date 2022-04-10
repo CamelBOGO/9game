@@ -12,7 +12,7 @@ export default async (req, res) => {
             console.log("get req GET")
             console.log(user)
             const admin = User.findOne({ "email": user},(error, user) => {
-                // console.log("user",user.isAdmin)
+                 console.log("user",user.isAdmin)
                 if(user.isAdmin==true){
                     checkadmin=true;
                     // const users= User.find({},{profileimg:0})
