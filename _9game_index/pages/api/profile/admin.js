@@ -15,9 +15,11 @@ export default async (req, res) => {
                 console.log("user",user.isAdmin)
                 if(user.isAdmin==true){
                     checkadmin=true;
+                    const users= User.find()
                     res.status(200).json({
                     "statue":"success",
-                    "message":"you are admin"
+                    "message":"you are admin",
+                    data: users
                 })
                 }else{
                     res.status(422).json({
@@ -29,10 +31,15 @@ export default async (req, res) => {
             console.log("check",checkadmin)
 
 
-            // res.status(201).json({
-            //     "status": "success",
-            //     "message": "change successfully."
-            // })
+            res.status(201).json({
+                "status": "success",
+                "message": "change successfully."
+            })
+        }else{
+            res.status(400).json({
+                "status": "error",
+                "message": "Error occur in admin."
+            })
         }
 
     } 

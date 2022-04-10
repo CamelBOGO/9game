@@ -16,10 +16,10 @@ export default function admin() {
     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
     // console.log("email:",user)
     const email="michael@gamil.com"
-    
+    // ,{ params: { email: user } }
     useEffect(() => {
         const fetchData = async () => {
-          const result = await axios.get("/api/profile/admin",{ params: { email: email } });  
+          const result = await axios.get("/api/profile/admin");  
           console.log('fetch data;m', result)
           console.log(result)
   
@@ -50,6 +50,7 @@ export default function admin() {
                 alignItems="center"
                 justifyContent="center"
             >
+                <Typography variant="h4">You are admin</Typography>
                 {
                     // <Grid container style={{maxWidth: 700}}>
                     // {User.map((users) => (
@@ -60,40 +61,11 @@ export default function admin() {
                     //     </Grid>
                     // ))}
                     // </Grid>
-                    <Typography variant="h4">You are admin</Typography>
+                    
+
                     }
             </Grid>
         </div>
     );
 
 }
-
-// export async function getServerSideProps(props) {
-//     let isAdmin=false;
-//     const cookies = parseCookies(props.header)
-    
-//     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
-//     await dbConnect()
-//     console.log(user)
-
-//     let admin=await User.findOne({ email: user })
-//     console.log(admin)
-//     // if(admin.isAdmin==true){S
-//     //     isAdmin=true
-//     //     console.log(admin.isAdmin)
-//     // }
-
-//     // let users = await User.findById(id).lean()
-//     // users._id = users._id.toString()
-//     // post.postdate = post.postdate.toString()
-
-//     // const Result = await User.find({post_id: id.toString()})
-//     // const usersdata = Result.map((doc) => {
-//     //     const userdata = doc.toObject()
-//     //     userdata.email = userdata.email.toString()
-//     //     userdata.password = userdata.password.toString()
-//     //     return userdata
-//     // })
-
-//     return {props: {users: user, usersdata: admin }}
-// }

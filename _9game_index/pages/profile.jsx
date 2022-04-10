@@ -4,11 +4,14 @@ import axios from 'axios'
 import FileBase64 from 'react-file-base64';
 import {useRouter} from "next/router";
 import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
+import { parseCookies } from 'nookies'
 
 
 export default function Profile() {
-  
-    const [item, setItem] = useState({ email: '', image: '' });
+    const cookies = parseCookies()
+    const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
+    console.log("email:",user)
+    const [item, setItem] = useState({  image: '' });
     const [items, setItems] = useState([])
     const email="michael@gmail.com"
     const onSubmit = async function (e) {
@@ -38,16 +41,12 @@ export default function Profile() {
 
     const photo=items     
     console.log("a,",items)
-    console.log("b",items.data)
-    console.log("c",items.data)
-    console.log("photo",photo)
-    console.log("email",photo)
+
     return (
         <div className="container">
             <div className="row">
 
                 <form onSubmit={onSubmit}>
-                    <input type="text"  onChange={e => setItem({...item,email: e.target.value})}/>
                     <div className="form-group">
                         {/* <input type="file" id="profile" accept="image/png, image/jpeg"
                             value={images}onChange={e => setImages(e.target.value)}>
