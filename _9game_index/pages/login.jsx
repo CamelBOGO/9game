@@ -3,12 +3,7 @@ import axios from 'axios'
 import cookies from 'js-cookie'
 import {useRouter} from "next/router";
 import styles from "../styles/authstyle.module.css"
-<<<<<<< Updated upstream
 import {FormControl, Grid, TextField, Typography, Card, Link} from "@mui/material";
-=======
-import {FormControl, Grid, TextField, Typography, Card} from "@mui/material";
-import React from 'react'
->>>>>>> Stashed changes
 
 const Register = () => {
     const [email, setEmail] = useState("")
