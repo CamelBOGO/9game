@@ -3,7 +3,12 @@ import axios from 'axios'
 import cookies from 'js-cookie'
 import {useRouter} from "next/router";
 import styles from "../styles/authstyle.module.css"
+<<<<<<< Updated upstream
 import {FormControl, Grid, TextField, Typography, Card, Link} from "@mui/material";
+=======
+import {FormControl, Grid, TextField, Typography, Card} from "@mui/material";
+import React from 'react'
+>>>>>>> Stashed changes
 
 const Register = () => {
     const [email, setEmail] = useState("")
@@ -21,11 +26,19 @@ const Register = () => {
         }
 
         const {data} = await axios.post("/api/auth/login", {email, password}, config)
-        cookies.set('email', data.email)
-        cookies.set('token', data.accessToken)
-        console.log(data)
-        router.push("/")
+
+        const status = data.status
+        const message = data.message
+        if(status == "error"){
+            alert(data.message)
+        } else {
+            cookies.set('email', data?.email)
+            cookies.set('token', data?.accessToken)
+            alert(data.message)
+            
+        }
     }
+
     return (
         <div className={styles.body}>
             <Grid
