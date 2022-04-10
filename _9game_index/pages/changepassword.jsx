@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-const ChangePassword = () => {
+export default function ChangePassword({users: users, currentUser}) {
+
     const [email,setEmail] = useState("")
     const [password, setPassword] = useState("")
     const SubmitHandler = async(e) => {
@@ -27,5 +28,3 @@ const ChangePassword = () => {
         </div>
     )
 }
-
-export default ChangePassword
