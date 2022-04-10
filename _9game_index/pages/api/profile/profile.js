@@ -12,13 +12,14 @@ export default async (req, res) => {
 
             try {
                 const {item,user}=req.body
-                console.log("backend image" + item)
-                console.log("backend email" + user)
+                // console.log("backend image" + item)
+                // console.log("backend email" + user)
 
                 const newUser = User.findOneAndUpdate({ "email": user},
                 {$set: { "profileimg": item  }},
                 (error, data) =>{
-                     console.log(item)
+                    console.log(user)
+                    // console.log(item)
 
                 });
                 res.status(201).json({
@@ -43,7 +44,7 @@ export default async (req, res) => {
                 //console.log(profile)
                 
                 if(!profile.profileimg){
-                     console.log("not img")
+                    // console.log("not img")
                     
                 }else{
                     // console.log("have img")
