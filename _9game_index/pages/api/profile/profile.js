@@ -18,7 +18,7 @@ export default async (req, res) => {
                 const newUser = User.findOneAndUpdate({ "email": user},
                 {$set: { "profileimg": item  }},
                 (error, data) =>{
-                    // console.log(image)
+                     console.log(item)
 
                 });
                 res.status(201).json({

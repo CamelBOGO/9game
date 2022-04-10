@@ -7,6 +7,7 @@ import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
 import {parseCookies} from 'nookies'
 
 
+
 export default function Profile() {
     const cookies = parseCookies()
     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
@@ -39,13 +40,8 @@ export default function Profile() {
         fetchData()
     }, [])
 
-<<<<<<< Updated upstream
     const photo = items
     console.log("photo,", items)
-=======
-    const photo=items   
-    console.log("photo,",photo.profileimg)
->>>>>>> Stashed changes
 
     return (
         <div className="container">
@@ -62,7 +58,6 @@ export default function Profile() {
                             multiple={false}
                             onDone={({base64}) => setItem({...item, image: base64})}
                         />
-
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary" type="submit">Upload</button>
@@ -92,3 +87,25 @@ export default function Profile() {
 }
 
 
+// export async function getServerSideProps(props) {
+//     try {
+//         await dbConnect()
+//         User.find({}, function (err, user) {
+//             // Create a sample data if no data inside.
+//             // console.log(user)
+//         })
+//     } catch (e) {
+//         console.error(e)
+//     }
+
+//     const result = await User.find({})
+//     const users = result.map((doc) => {
+//         const user = doc.toObject()
+//         user._id = user._id.toString()
+//         user.email = user.email.toString()
+//         return user
+//     })
+
+
+//     return {props: { users: users}}
+// }

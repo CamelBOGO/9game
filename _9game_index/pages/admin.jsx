@@ -38,10 +38,6 @@ export default function admin({users}) {
                                 <form>
                                     <p>{user.email}</p>
                                     <br></br>
-                                    user.profileimg?( <img className="activator" style={{ width: '100%', height: 300 }} 
-                                    src= {user.profileimg} />):(
-                                        <img className="activator" style={{ width: '100%', height: 300 }} src=  />)
-                                    )
                                     <img className="activator" style={{ width: '100%', height: 300 }} 
                                     src= {user.profileimg} />
                                     <br></br>
