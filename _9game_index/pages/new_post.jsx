@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {useRouter} from "next/router";
-import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
+import {Grid, FormControl, InputLabel, Input, Button, Typography} from "@mui/material";
 
 export default function NewPost(props) {
     const router = useRouter()
@@ -54,6 +54,7 @@ export default function NewPost(props) {
                 alignItems="center"
                 justifyContent="center"
             >
+                <Typography>New post by {props.user.toString()}</Typography>
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <InputLabel htmlFor="title">Title</InputLabel>

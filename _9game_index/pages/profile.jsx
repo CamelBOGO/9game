@@ -1,46 +1,46 @@
-import { useEffect,useState} from "react";
+import {useEffect, useState} from "react";
 import axios from 'axios'
 // import multer from 'multer'
 import FileBase64 from 'react-file-base64';
 import {useRouter} from "next/router";
 import {Grid, FormControl, InputLabel, Input, Button} from "@mui/material";
-import { parseCookies } from 'nookies'
+import {parseCookies} from 'nookies'
 
 
 export default function Profile() {
     const cookies = parseCookies()
     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
-    console.log("email:",user)
-    const [item, setItem] = useState({  image: '' });
+    console.log("email:", user)
+    const [item, setItem] = useState({image: ''});
     const [items, setItems] = useState([])
     const onSubmit = async function (e) {
         e.preventDefault()
-        
+
         const config = {
             headers: {
                 "Content-Type": "application/json"
             }
         }
 
-    const {data} = await axios.post("/api/profile/profile", {item, user}, config)
-    console.log(data)
-    console.log(item.image)
+        const {data} = await axios.post("/api/profile/profile", {item, user}, config)
+        console.log(data)
+        console.log(item.image)
     }
     useEffect(() => {
         const fetchData = async () => {
-            
-          const result = await axios.get("/api/profile/profile").then(res => res.data);
-          console.log('get profile ',  result)
-          console.log('Extract '+ result.email)
-          setItems(result)
-          console.log(items)
-  
+
+            const result = await axios.get("/api/profile/profile").then(res => res.data);
+            console.log('get profile ', result)
+            console.log('Extract ' + result.email)
+            setItems(result)
+            console.log(items)
+
         }
         fetchData()
-      }, [])
+    }, [])
 
-    const photo=items   
-    console.log("photo,",items)
+    const photo = items
+    console.log("photo,", items)
 
     return (
         <div className="container">
@@ -52,11 +52,11 @@ export default function Profile() {
                         {/* <input type="file" id="profile" accept="image/png, image/jpeg"
                             value={images}onChange={e => setImages(e.target.value)}>
                             </input> */}
-                            <FileBase64
+                        <FileBase64
                             type="file"
                             multiple={false}
-                            onDone={({ base64 }) => setItem({ ...item, image: base64 })}
-                            />
+                            onDone={({base64}) => setItem({...item, image: base64})}
+                        />
 
                     </div>
                     <div className="form-group">
@@ -66,22 +66,21 @@ export default function Profile() {
             </div>
             <div>
             </div>
-                {
+            {
 
-                <div className="card" key={ photo._id}>                
-                <div className="card-content">
-                    <span className="card-title activator grey-text text-darken-4">{photo.email}</span>
+                <div className="card" key={photo._id}>
+                    <div className="card-content">
+                        <span className="card-title activator grey-text text-darken-4">{photo.email}</span>
+                    </div>
+                    <div className="card-image waves-effect waves-block waves-light">
+                        <img className="activator" style={{width: '100%', height: 300}} src={photo.profileimg}/>
+                    </div>
+
+
                 </div>
-                <div className="card-image waves-effect waves-block waves-light">
-                    <img className="activator" style={{ width: '100%', height: 300 }} src={photo.profileimg} />
-                </div>
 
 
-                </div>
-
-
-
-                }
+            }
         </div>
 
     )
