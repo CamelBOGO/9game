@@ -74,7 +74,7 @@ export default function Home({isConnected, posts, user}) {
                 display="flex"
                 show={visibility}
                 onClose={popupCloseHandler}>
-                <NewPost onClose={popupCloseHandler}/>
+                <NewPost email={user} onClose={popupCloseHandler}/>
             </NewPostPopUp>
 
             <Box display="flex" alignItems="center" justifyContent="center">
