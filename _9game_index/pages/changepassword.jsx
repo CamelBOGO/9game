@@ -6,14 +6,12 @@ const ChangePassword = () => {
     const [password, setPassword] = useState("")
     const SubmitHandler = async(e) => {
         e.preventDefault()
-
         //console.log(email, password)
         const config = {
             headers:{
                 "Content-Type": "application/json"
             }
         }
-
         const { data } = await axios.post("/api/profile/changepassword", { email, password }, config)
         console.log(data)
     }

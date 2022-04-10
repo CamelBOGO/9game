@@ -10,10 +10,10 @@ import {parseCookies} from 'nookies'
 
 
 export default function admin({users, currentUser}) {
-    const cookies = parseCookies()
-    const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
-    console.log("email:", user)
-    const email = "michael@gamil.com"
+    // const cookies = parseCookies()
+    // const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
+    // console.log("email:", user)
+    // const email = "michael@gamil.com"
     // ,{ params: { email: user } }
 
 
@@ -30,28 +30,35 @@ export default function admin({users, currentUser}) {
         <div style={{paddingTop: 56}}>
 
             {currentUser.isAdmin ? (
-                <p>You are admin!</p>
+                <div>
+                    <Typography
+                        variant="h4"
+                        sx={{m: 3, mt: 5}}>Welcome! Admin</Typography>
+                    <Box display="flex" alignItems="center" justifyContent="center">                
+    
+                        <Grid container style={{maxWidth: 1400}}>
+
+                            {users.map((user) => (
+                                <Grid item xs={12} sm={6} key={user._id}>
+                                    <Container maxWidth="false" sx={{width: 330, my: 3}}>
+                                        <form>
+                                            <p>{user.email}</p>
+                                            <br></br>
+                                            <img className="activator" style={{width: '100%', height: 300}}
+                                                src={user.profileimg}/>
+                                            <br></br>
+                                        </form>
+                                        {/* <IndexCard id={user._id} title={user.email} content={user.password} /> */}
+                                    </Container>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </Box>
+                </div>
             ) : (
                 <p>404</p>
             )}
-            <Box display="flex" alignItems="center" justifyContent="center">
-                <Grid container style={{maxWidth: 1400}}>
-                    {users.map((user) => (
-                        <Grid item xs={12} sm={6} key={user._id}>
-                            <Container maxWidth="false" sx={{width: 330, my: 3}}>
-                                <form>
-                                    <p>{user.email}</p>
-                                    <br></br>
-                                    <img className="activator" style={{width: '100%', height: 300}}
-                                         src={user.profileimg}/>
-                                    <br></br>
-                                </form>
-                                {/* <IndexCard id={user._id} title={user.email} content={user.password} /> */}
-                            </Container>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Box>
+
             {/* <Grid
                 container
                 direction="column"

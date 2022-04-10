@@ -2,43 +2,42 @@ import { useEffect,useState} from "react";
 import axios from 'axios'
 import FileBase64 from 'react-file-base64';
 import { parseCookies } from 'nookies'
+import dbConnect from "../lib/dbConnect";
+import User from "../db_models/user_model"
+import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card, Box, Container} from "@mui/material";
 
 
-export default function Profile() {
-    const cookies = parseCookies()
-    const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
-    console.log("email:",user)
+export default function Profile({users: users, currentUser}) {
+    // const cookies = parseCookies()
+    // const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
+    // console.log("email:",user)
     const [item, setItem] = useState({  image: '' });
-    const [items, setItems] = useState([])
-    const email="michael@gmail.com"
-    const onSubmit = async function (e) {
-        e.preventDefault()
 
+    const onSubmit = async (e) => {
+        e.preventDefault()
         //console.log(email, password)
         const config = {
             headers:{
                 "Content-Type": "application/json"
             }
         }
-    const {data} = await axios.post("/api/profile/profile", {item, user}, config)
-    console.log("data get",data)
+        const { data } = await axios.post("/api/profile/profile", { currentUser,item}, config)
+        console.log(data)
     // console.log("image",item.image)
     }
-    useEffect(() => {
-        const fetchData = async () => {
+    // useEffect(() => {
+    //     const fetchData = async () => {
             
-          const result = await axios.post("/api/profile/profileget",{user}).then(res => res.data);
-          console.log('get profile ',  result)
-          console.log('Extract '+ result.email)
-          setItems(result)
-          console.log(items)
+    //       const result = await axios.post("/api/profile/profileget",{user}).then(res => res.data);
+    //       console.log('get profile ',  result)
+    //       console.log('Extract '+ result.email)
+    //       setItems(result)
+    //       console.log(items)
   
-        }
-        fetchData()
-      }, [])
+    //     }
+    //     fetchData()
+    //   }, [])
 
-    const photo=items   
-    console.log("photo,",items)
 
     return (
         <div className="container">
@@ -66,12 +65,12 @@ export default function Profile() {
             </div>
                 {
 
-                <div className="card" key={ photo._id}>                
+                <div className="card" key={ currentUser._id}>                
                 <div className="card-content">
-                    <span className="card-title activator grey-text text-darken-4">{photo.email}</span>
+                    <span className="card-title activator grey-text text-darken-4">{currentUser.email}</span>
                 </div>
                 <div className="card-image waves-effect waves-block waves-light">
-                    <img className="activator" style={{ width: '100%', height: 300 }} src={photo.profileimg} />
+                    <img className="activator" style={{ width: '100%', height: 300 }} src={currentUser.profileimg} />
                 </div>
 
 
@@ -80,9 +79,40 @@ export default function Profile() {
 
 
                 }
+
+            {currentUser.isAdmin ? (
+                <div>
+                   <p>You are admin</p> 
+                   <fomr>
+                        <Button color="inherit" href="/changepassword">password Change</Button>
+                        <Button color="inherit" href="/admin">admin page</Button>
+                   </fomr>
+                </div>
+            ):(
+                <div>
+                    <p>not a admin</p>
+                </div>
+            )}
         </div>
 
     )
 }
 
 
+export async function getServerSideProps(ctx) {
+    await dbConnect()
+    const cookies = parseCookies(ctx)
+    const email = cookies?.email && cookies.email != "undefined" ? cookies.email : null
+
+    const result = await User.find({})
+    const users = result.map((doc) => {
+        const user = doc.toObject()
+        user._id = user._id.toString()
+        return user
+    })
+
+    let currentUser = await User.findOne({email: email}).lean()
+    currentUser._id = currentUser._id.toString()
+
+    return {props: {users: users, currentUser}}
+}
