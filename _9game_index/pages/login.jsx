@@ -30,7 +30,7 @@ const Register = () => {
             cookies.set('email', data?.email)
             cookies.set('token', data?.accessToken)
             alert(data.message)
-            
+            router.push("/")
         }
     }
 
