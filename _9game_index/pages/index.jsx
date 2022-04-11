@@ -66,7 +66,10 @@ export default function Home({isConnected, posts, user}) {
 
                 <Typography
                     variant="h4"
-                    sx={{m: 3, mt: 5}}>{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
+                    sx={{
+                        m: 3,
+                        mt: 5
+                    }}>{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
 
             </Grid>
 
@@ -83,15 +86,15 @@ export default function Home({isConnected, posts, user}) {
                         <Grid item xs={12} sm={6} key={post._id}>
                             <Container maxWidth="false" sx={{width: 330, my: 3}}>
                                 <IndexCard id={post._id} title={post.title} content={post.content}
-                                            date={post.postdate} user={post.username} likes={post.likes}
-                                            likeduser={post.likeduser} currentuser={user} />
+                                           date={post.postdate} user={post.username} likes={post.likes}
+                                           likeduser={post.likeduser} currentuser={user}/>
 
-                                            <Post1 id={post._id} title={post.title} content={post.content} date={post.postdate}
-                                                                user={post.username}
-                                                                likes={post.likes} updateLikedPosts={updateLikedPosts}
-                                                                likedPosts={likedPosts} likeduser={post.likeduser} >
-                                            </Post1>
-                                            
+                                <Post1 id={post._id} title={post.title} content={post.content} date={post.postdate}
+                                       user={post.username}
+                                       likes={post.likes} updateLikedPosts={updateLikedPosts}
+                                       likedPosts={likedPosts} likeduser={post.likeduser}>
+                                </Post1>
+
                             </Container>
                         </Grid>
                     ))}
@@ -124,7 +127,7 @@ export async function getServerSideProps(props) {
         isConnected = false
     }
 
-    const result = await post_model.find({})
+    const result = await post_model.find().sort({postdate: "desc"})
     const posts = result.map((doc) => {
         const post = doc.toObject()
         post._id = post._id.toString()
