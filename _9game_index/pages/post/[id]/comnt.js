@@ -116,10 +116,10 @@ export default function ({post, comnts}) {
                                                 {comnts.map((comnt) => (
                                                         <Typography key={comnt._id}>
                                                                     Comment:{comnt.text.toString()} 
-                                                                    <div class="combox">
-                                                                            <span class="userID">
+                                                                    <div  className="combox">
+                                                                            <span  className="userID">
                                                                             </span>
-                                                                            <span class="Date"> Date: {comnt.date.toString()}</span>
+                                                                            <span  className="Date"> Date: {comnt.date.toString()}</span>
                                                                     </div>              
                                                         </Typography>
                                                     ))}
