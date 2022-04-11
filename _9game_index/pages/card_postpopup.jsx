@@ -27,22 +27,44 @@ import axios from 'axios'
 export default function ScrollDialog(props) {
     const [open, setOpen] = React.useState(false);
     const [scroll, setScroll] = React.useState('paper');
-    const[data1,  setData] = useState([]);
-  
-    useEffect(() => {
+    const [data1, setData] = useState([]);
+    const [comnts, setComnts] = useState({data: []})
+
+    /*useEffect(() => {
 
         axios.get("api/comnt/index")
-        .then(res =>{
-            con.log(res)
-            setData(res.data)
-        } )
-        .catch(err => {
-            console.log(err)
-        })
+            .then(res => {
+                con.log(res)
+                setData(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
-    })
+    })*/
 
-    const handleClickOpen = (scrollType) => () => {
+    const handleClickOpen = (scrollType) => async () => {
+        try {
+            console.log("NOW FETCH: " + props.id)
+            const res = await fetch(`/api/post/${props.id}/comnt`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            })
+            if (!res.ok) {
+                throw new Error(res.status)
+            }
+            const data = await res.json()
+            setComnts({
+                ...comnts,
+                data: data.data,
+            })
+        } catch (error) {
+            console.error(error)
+        }
+
         setOpen(true);
         setScroll(scrollType);
     };
@@ -182,9 +204,13 @@ export default function ScrollDialog(props) {
                             <Button type="submit">Comment</Button>
                         </form>
 
-                        {data1.map((comnt) => (
-                <Typography key={comnt._id}>Comment: {comnt.text.toString()} /{comnt.date.toString()}</Typography>
-                         ))}
+                        {comnts.data.map((comnt) => (
+                            <Typography
+                                key={comnt._id}
+                            >
+                                Comment: {comnt.text} / {comnt.date}
+                            </Typography>
+                        ))}
 
                     </>
 
