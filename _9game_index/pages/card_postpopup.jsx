@@ -19,13 +19,28 @@ import {
     Typography
 } from "@mui/material";
 import {Box} from "@mui/material"
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useRouter} from "next/router";
 import Like from "../components/like_post"
+import axios from 'axios'
 
 export default function ScrollDialog(props) {
     const [open, setOpen] = React.useState(false);
     const [scroll, setScroll] = React.useState('paper');
+    const[data1,  setData] = useState([]);
+  
+    useEffect(() => {
+
+        axios.get("api/comnt/index")
+        .then(res =>{
+            con.log(res)
+            setData(res.data)
+        } )
+        .catch(err => {
+            console.log(err)
+        })
+
+    })
 
     const handleClickOpen = (scrollType) => () => {
         setOpen(true);
@@ -167,7 +182,9 @@ export default function ScrollDialog(props) {
                             <Button type="submit">Comment</Button>
                         </form>
 
-                        <Typography key={props._id}>Comment: {props.text} / {props.date}</Typography>
+                        {data1.map((comnt) => (
+                <Typography key={comnt._id}>Comment: {comnt.text.toString()} /{comnt.date.toString()}</Typography>
+                         ))}
 
                     </>
 

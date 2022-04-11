@@ -1,0 +1,116 @@
+.body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    border-radius: 0.875rem;
+}
+
+
+.container {
+
+    background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    color: rgb(0, 0, 0);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.875rem;
+
+}
+
+.box1{
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    position: relative;
+    border-radius: 0.875rem;
+    padding: 0.2rem 1rem 2rem;
+    width: 720px;
+
+}
+
+
+.box2{
+    position: relative;
+    height:50px;
+
+}
+
+.box3{
+    position: relative;
+    margin: auto;
+    width: 50%;
+    height:350px;
+    width: 600px;
+    
+
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 0.875rem;
+    padding: 20px;
+    box-shadow:
+         inset 0 -3em 3em rgba(0,0,0,0.1),
+               0 0  0 2px rgb(255,255,255),
+               0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+
+.box4{
+    position: relative;
+    height:190px;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 0.875rem;
+    padding: 20px;
+    box-shadow:
+         inset 0 -3em 3em rgba(0,0,0,0.1),
+               0 0  0 2px rgb(255,255,255),
+               0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
+
+.box5{
+    height:600px;
+    position: relative;
+    margin: auto;
+
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 0.875rem;
+
+    padding: 20px;
+    box-shadow:
+         inset 0 -3em 3em rgba(0,0,0,0.1),
+               0 0  0 2px rgb(255,255,255),
+               0.3em 0.3em 1em rgba(0,0,0,0.3);
+    
+}
+
+
+.box6{
+    position: relative;
+    height:15px;
+}
+
+
+.button[type="submit"] {
+    width: 93%;
+    height: 50px;
+    border: 1px solid;
+    background: #000000;
+    border-radius: 25px;
+    font-size: 18px;
+    color: rgb(255, 251, 0);
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+}
+
+.button[type="submit"]:hover {
+    border-color: #000000;
+    transition: .5s;
+}
+
+
