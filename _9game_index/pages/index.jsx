@@ -15,7 +15,6 @@ import Post1 from "./card_postpopup";
 
 export default function Home({isConnected, posts, user}) {
     const [visibility1, setVisibility1] = useState(false);
-    const [visibility2, setVisibility2] = useState(false);
     const [likedPosts, updateLikedPosts] = useState([]);
 
     const popupCloseHandler = () => {
@@ -43,15 +42,15 @@ export default function Home({isConnected, posts, user}) {
                     {user ? (
                         <>
                             <Button
-                                color="inherit"
+                                color="secondary"
                                 sx={{mr: 2}}
                                 onClick={() => setVisibility1(true)}
                             >New Post</Button>
-                            <Button color="inherit" sx={{mr: 2}} href="/profile">My Profile</Button>
-                            <Button color="inherit" onClick={logout}>Logout</Button>
+                            <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
+                            <Button color="secondary" onClick={logout}>Logout</Button>
                         </>
                     ) : (
-                        <Button color="inherit" href="/login">Login</Button>
+                        <Button color="secondary" href="/login">Login</Button>
                     )}
                 </Toolbar>
             </AppBar>
