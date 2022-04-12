@@ -1,11 +1,9 @@
 import {useState} from "react";
-import {useRouter} from "next/router";
 import {Grid, FormControl, InputLabel, Input, Button, Typography} from "@mui/material";
 
 export default function NewPost(props) {
     const email = props.email
 
-    const router = useRouter()
     const [form, setForm] = useState({
         title: "",
         content: "",
@@ -29,7 +27,6 @@ export default function NewPost(props) {
             if (!res.ok) {
                 throw new Error(res.status)
             }
-            props.onClose(false);
             window.location.reload();
         } catch (error) {
             console.error(error)
@@ -62,13 +59,13 @@ export default function NewPost(props) {
                         <InputLabel htmlFor="title">Title</InputLabel>
                         <Input
                             type="text"
-                            maxLength="30"
                             name="title"
                             autoComplete="off"
+                            fullWidth
                             multiline
                             onChange={handleChange}
                             required
-                            sx={{mb: 2, width: 300}}
+                            sx={{mb: 2}}
                         />
                     </FormControl>
                     <br/>
@@ -78,11 +75,12 @@ export default function NewPost(props) {
                             type="text"
                             name="content"
                             autoComplete="off"
+                            fullWidth
                             multiline
                             rows={6}
                             onChange={handleChange}
                             required
-                            sx={{mb: 2, width: 300}}
+                            sx={{mb: 2}}
                         />
                     </FormControl>
                     <br/>
