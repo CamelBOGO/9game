@@ -88,39 +88,37 @@ export default function PostPopUp(props) {
                 {postdate}
             </Typography>
         </Box>
+        
+        <hr/>
 
         {currentuser?
-            <Grid>
-                <form onSubmit={handleSubmit}>
-                    <FormControl>
-                        <InputLabel htmlFor="text">Content</InputLabel>
-                        <Input
-                            type="text"
-                            name="text"
-                            autoComplete="off"
-                            multiline
-                            onChange={handleChange}
-                            required
-                            sx={{mb: 2}}
-                        />
-                    </FormControl>
-                    <br/>
-                    <Button type="submit">Comment</Button>
-                </form>
-
-                {postcomments.data.map((comnt) => (
-                    <Typography
-                        key={comnt._id}
-                    >   
-                        {comnt.user_id}: posted on {comnt.date}<br/>
-                        <span style={{marginLeft: "1rem"}}>
-                            {comnt.text}
-                        </span>
-                    </Typography>
-                ))}
-            </Grid>
+            <form onSubmit={handleSubmit}>
+                <FormControl>
+                    <InputLabel htmlFor="text">Content</InputLabel>
+                    <Input
+                        type="text"
+                        name="text"
+                        autoComplete="off"
+                        multiline
+                        onChange={handleChange}
+                        required
+                        sx={{mb: 2}}
+                    />
+                </FormControl>
+                <br/>
+                <Button type="submit">Comment</Button>
+            </form>
         :""}
-        
+        {postcomments.data.map((comnt) => (
+            <Typography
+                key={comnt._id}
+            >   
+                {comnt.user_id}: posted on {comnt.date}<br/>
+                <span style={{marginLeft: "1rem"}}>
+                    {comnt.text}
+                </span>
+            </Typography>
+        ))}
         </>
     );
 }
