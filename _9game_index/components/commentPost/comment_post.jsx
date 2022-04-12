@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import Like from "../likePost/like_post"
 import {useRouter} from "next/router";
+import CommentBlock from './comment_block';
 
 export default function PostPopUp(props) {
     const currentuser       = props.currentuser
@@ -110,16 +111,20 @@ export default function PostPopUp(props) {
             </form>
         :""}
         
-        {postcomments.data.map((comnt) => (
-            <Typography
-                key={comnt._id}
-            >   
-                {comnt.user_id}: posted on {comnt.date}<br/>
-                <span style={{marginLeft: "1rem"}}>
-                    {comnt.text}
-                </span>
-            </Typography>
-        ))}
+        <Box>
+            {postcomments.data.map((comnt) => (
+                // <Typography
+                //     key={comnt._id}
+                // >   
+                //     {comnt.user_id}: posted on {comnt.date}<br/>
+                //     <span style={{marginLeft: "1rem"}}>
+                //         {comnt.text}
+                //     </span>
+                // </Typography>
+                <CommentBlock _id={comnt._id} user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
+            ))}
+        </Box>
+        
         </>
     );
 }
