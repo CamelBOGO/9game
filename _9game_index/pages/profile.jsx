@@ -30,7 +30,6 @@ export default function Profile({users, currentUser}) {
 
 
     return (
-        
         <div className="container">
             <div>
                     {currentUser.isAdmin ? (
