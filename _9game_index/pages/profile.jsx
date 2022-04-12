@@ -34,11 +34,10 @@ export default function Profile({users, currentUser}) {
             <div>
                     {currentUser.isAdmin ? (
                     <div>
-                        
                     <fomr>
                             <p>Hello! admin:{currentUser.email}</p>
-                            <Button color="inherit" href="/changepassword">Change Password</Button>
                             <Button color="inherit" href="/admin">admin page</Button>
+                            <Button color="inherit" href="/changepassword">Change Password</Button>
                     </fomr>
                     </div>
                 ):(
@@ -52,9 +51,7 @@ export default function Profile({users, currentUser}) {
                 
 
                 <div className="card" key={ currentUser._id}>                
-                <div className="card-content">
-                    <span className="card-title activator grey-text text-darken-4">{currentUser.email}</span>
-                </div>
+  
                 <div className="card-image waves-effect waves-block waves-light">
                     <img className="activator" width="300" height="300"  src={currentUser.profileimg} />
                 </div>
