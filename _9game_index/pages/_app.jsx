@@ -15,7 +15,17 @@ const theme = createTheme({
             dark: '#cccccc',
             contrastText: '#000000',
         }
-    }
+    },
+
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 650,
+            md: 900,
+            lg: 1200,
+            xl: 1536,
+        },
+    },
 })
 
 export default function App({Component, pageProps}) {
