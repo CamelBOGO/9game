@@ -1,5 +1,4 @@
-import Head from "next/head"
-import {useEffect, useState} from 'react'
+
 import axios from 'axios'
 import {
     AppBar,
@@ -19,25 +18,11 @@ import dbConnect from "../lib/dbConnect";
 import User from "../db_models/user_model"
 import cookies from 'nookies'
 import {parseCookies} from 'nookies'
-import {red} from "@mui/material/colors";
+
 
 
 export default function admin({users, currentUser}) {
-    // const cookies = parseCookies()
-    // const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
-    // console.log("email:", user)
-    // const email = "michael@gamil.com"
-    // ,{ params: { email: user } }
 
-
-    /*useEffect(() => {
-        const fetchData = async () => {
-            const {data} = await axios.post("/api/profile/admin", {user})
-            console.log('HERE: ', data)
-        }
-        fetchData()
-    }, [])*/
-//    console.log("photo",users.map((user) => (user.profileimg)))
     return (
         <div>
             {currentUser ? (<>

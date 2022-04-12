@@ -7,47 +7,68 @@ import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card,
 
 
 export default function ChangePassword({users, currentUser}) {
-
-    const [email,setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const SubmitHandler = async(e) => {
-        e.preventDefault()
-        //console.log(email, password)
-        const config = {
-            headers:{
-                "Content-Type": "application/json"
+    if(currentUser){
+        const [email,setEmail] = useState("")
+        const [password, setPassword] = useState("")
+        const SubmitHandler = async(e) => {
+            e.preventDefault()
+            //console.log(email, password)
+            const config = {
+                headers:{
+                    "Content-Type": "application/json"
+                }
             }
+            const { data } = await axios.post("/api/profile/changepassword", { email, password }, config)
+            console.log(data)
         }
-        const { data } = await axios.post("/api/profile/changepassword", { email, password }, config)
-        console.log(data)
-    }
-    return (
-        <div>
-            {currentUser?(<>            
-                { currentUser.isAdmin ? (
+        return (
+            <div style={{paddingTop: 56}}>
+                            
+                    { currentUser.isAdmin ? (
+                    <>
+                        <AppBar position="fixed">
+                        <Toolbar>
+                            <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
+                                9Game
+                            </Typography>
+                                <>
+                                                         
+                                    <Button color="secondary" href="/admin">admin page</Button>
+                                    {/* <Button color="secondary" href="/changepassword">Change Password</Button> */}
+    
+                                    <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
+                                    <Button color="secondary" href="/">Home</Button>
+                                </>
+                        </Toolbar>
+                        </AppBar>
+                    
 
-                <form onSubmit={SubmitHandler}>
-                <h1>Password Change</h1>
-                <input value = {email} onChange={e => setEmail(e.target.value)}/>
-                <br></br>
-                <input value = {password} onChange={e => setPassword(e.target.value)}/>
-                <button type="submit">Change</button>
-                </form>
-            ):(
-                <div>
-                    <h1>error:404</h1>
-                    {/* <Button color="inherit" href="/">Click here to return home page</Button> */}
-                </div>
-            )
+                        <form onSubmit={SubmitHandler}>
+                        <h1>Password Change</h1>
+                        <input value = {email} onChange={e => setEmail(e.target.value)}/>
+                        <br></br>
+                        <input value = {password} onChange={e => setPassword(e.target.value)}/>
+                        <button type="submit">Change</button>
+                        </form>
+                    </>
+                ):(
+                    <div>
+                        <h1>error:404</h1>
+                        {/* <Button color="inherit" href="/">Click here to return home page</Button> */}
+                    </div>
+                )
 
-            }
-            </>):(
-                    <h1>error:404 notfind</h1>
-                )}
+                }
 
 
-        </div>
-    )
+                
+            </div>
+        )
+       
+    } 
+    return(<div>
+            <h1>error:404 notfind</h1>
+        </div>)
 }
 
 export async function getServerSideProps(ctx) {
