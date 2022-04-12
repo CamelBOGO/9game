@@ -36,83 +36,45 @@ const Register = () => {
         }
     }
 
-    const paperStyle = {padding: 15, minHeight: "65vh", width: 300, margin: "50px auto", borderRadius: "25px"}
-    const avatarStyle = {backgroundColor: "#212121"}
-    const buttonStyle = {
-        margin: "25px",
-        width: 250,
-        height: "50px",
-        border: "1px solid",
-        background: "#212121",
-        borderRadius: "25px",
-        "font-size": "18px",
-        "color": "#e9f4fb"
-    }
-
+    const paperStyle = {margin: "20px", maxHeight:"500px", width: 300, borderRadius: "25px", padding: 20}
+    const buttonStyle = {margin:"25px", width: 250, height: "50px", border: "1px solid", background: "#212121", borderRadius: "25px", "font-size": "18px", "color": "#e9f4fb"}
     return (
-        <Grid container
-              direction="column"
-              alignItems="center"
-              justifyContent="center"
-              celled
-              padded
-              style={{fontFamily: "sans-serif", minHeight: "100vh"}}>
-            <style>{"body { background-image: linear-gradient(315deg, #000000 0%, #ffffff 74%);}"}</style>
+        <Grid container align="center" alignItems={"center"} justifyContent="center" style={{ minHeight: '100vh', fontFamily: "sans-serif" }}>
+
+            <style>{"body { background: linear-gradient(315deg, #000000 0%, #ffffff 74%);}"}</style>
             <Paper elevation={20} style={paperStyle}>
-                <Grid
-                    container
-                    sx={{pt: 2}}
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="center"
-                >
-                    <div style={{margin: "10px auto"}}>
-                        <Grid
-                            container
-                            direction="column"
-                            alignItems="center"
-                            justifyContent="center"
-                        >
-                            <Avatar style={avatarStyle}><VpnKeyRoundedIcon/></Avatar>
-                            <h2>Login</h2>
-                        </Grid>
-                    </div>
+                <div style={{margin:"30px auto"}}>
+                    <Avatar style={{backgroundColor: "#212121"}}><VpnKeyRoundedIcon/></Avatar>
+                    <h2>Login</h2>
+                </div>
 
-                    <form onSubmit={SubmitHandler}>
-                        <Grid
-                            container
-                            direction="column"
-                            alignItems="center"
-                            justifyContent="center"
-                        >
-                            <FormControl style={{margin: "0px auto", width: 250}}>
-                                <TextField value={email} onChange={e => setEmail(e.target.value)}
-                                           type="email"
-                                           label="Email"
-                                           margin="dense"
-                                           fullWidth required/>
-                            </FormControl>
-                            <br/>
+                <form onSubmit={SubmitHandler}>
+                    <FormControl style={{margin:"0px auto", width:250}}>
+                        <TextField value={email} onChange={e => setEmail(e.target.value)} 
+                            type="email"
+                            label="email"
+                            margin="dense"
+                            fullWidth required/>
+                    </FormControl>
+                    <br/>
 
-                            <FormControl style={{margin: "0px auto", width: 250}}>
-                                <TextField value={password} onChange={e => setPassword(e.target.value)}
-                                           type="password"
-                                           label="Password"
-                                           margin="dense"
-                                           fullWidth required/>
-                            </FormControl>
-                            <br/>
+                    <FormControl style={{margin:"0px auto", width:250}}>
+                        <TextField value={password} onChange={e => setPassword(e.target.value)} 
+                            type="password"
+                            label="Password"
+                            margin="dense"
+                            fullWidth required/>
+                    </FormControl>
+                    <br/>
 
-                            <button type="submit" style={buttonStyle}>Login</button>
-                            <br/>
-                        </Grid>
-                    </form>
+                    <button type="submit" style={buttonStyle}>Login</button>
+                </form>
 
-                    <Grid align="center" style={{margin: "20px auto"}}>
-                        <Link href="/forget" sx={{mx: 3}} style={{textDecoration: "none"}}>Forget Password? </Link>
-                        <Link href="/register" sx={{mx: 3}} style={{textDecoration: "none"}}> Sign Up </Link>
-                    </Grid>
+                <Grid align = "center" style={{margin:"10px auto"}}>
+                    <Link href="/forget" sx={{mx: 3}} style={{textDecoration: "none"}}>Forget Password? </Link>
+                    <Link href="/register" sx={{mx: 3}} style={{textDecoration: "none"}}>Sign Up </Link>
                 </Grid>
+                        
             </Paper>
         </Grid>
     )
