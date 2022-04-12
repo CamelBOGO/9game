@@ -104,9 +104,7 @@ export default function Profile({users, currentUser}) {
 
         )
     }
-    return(<div>
-        <h1>error:404</h1>
-    </div>)
+    return(<Typography>Please login first.</Typography>)
     
 }
 

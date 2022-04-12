@@ -69,7 +69,10 @@ export default function admin({users, currentUser}) {
                             </Box>
                         </div>
                     ) : (
+                        <div>
                         <Typography>You should be here, please return.</Typography>
+                        <Button color="inherit" href="/">Click here to return home page</Button>
+                        </div>
                     )}
         </>
     )
