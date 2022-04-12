@@ -23,7 +23,7 @@ export default function ChangePassword({users, currentUser}) {
     }
     return (
         <div>
-            {email?(<>            
+            {currentUser?(<>            
                 { currentUser.isAdmin ? (
 
                 <form onSubmit={SubmitHandler}>
@@ -42,7 +42,7 @@ export default function ChangePassword({users, currentUser}) {
 
             }
             </>):(<div>
-                    <h1 style={color:red}>error:404</h1>
+                    <h1>error:404 notfind</h1>
                 </div>)}
 
 
