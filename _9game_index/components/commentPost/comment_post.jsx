@@ -8,13 +8,11 @@ import {
     Typography,
     Card
 } from "@mui/material";
-import Like from "../likePost/like_post"
 import {useRouter} from "next/router";
 import CommentBlock from './comment_block';
 
 export default function PostPopUp(props) {
     const currentuser = props.currentuser
-
     const postid = props.id
     const postcontent = props.content
     const postcomments = props.comment
@@ -82,22 +80,10 @@ export default function PostPopUp(props) {
                     {postcontent}
                 </Typography>
             </Box>
-            <Box Container>
-                <Like id={postid} email={currentuser} checked={check} setCheck={props.setCheck}
-                      style={{position: "sticky", left: 0}}/>
-                {currentuser ?
-                    <Like id={postid} email={currentuser} checked={check} setCheck={props.setCheck}
-                          style={{position: "sticky", left: 0}}/>
-                    : ""
-                }
-                <Typography>
-                    {postdate}
-                </Typography>
-            </Box>
-
+            
             <hr/>
 
-            {currentuser ?
+            {currentuser?
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <InputLabel htmlFor="text">Content</InputLabel>
@@ -114,25 +100,15 @@ export default function PostPopUp(props) {
                     <br/>
                     <Button type="submit">Comment</Button>
                 </form>
-                : ""}
-
+            :""}
+        
             <Box>
-                {postcomments.data.map((comnt) => (
-                    // <Typography
-                    //     key={comnt._id}
-                    // >
-                    //     {comnt.user_id}: posted on {comnt.date}<br/>
-                    //     <span style={{marginLeft: "1rem"}}>
-                    //         {comnt.text}
-                    //     </span>
-                    // </Typography>
-
-                    <Card key={props._id} style={{margin: "0.5rem"}}>
+                {postcomments.data.map((comnt) => (                    
+                    <Card key={comnt._id} style={{margin: "0.5rem"}}>
                         <CommentBlock user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
                     </Card>
                 ))}
             </Box>
-
         </>
     );
 }

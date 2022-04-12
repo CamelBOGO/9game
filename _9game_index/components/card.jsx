@@ -1,4 +1,4 @@
-import {Card, CardActionArea } from "@mui/material"
+import {Card, CardActionArea, CardContent, CardMedia, Container } from "@mui/material"
 import {Box, Typography} from "@mui/material"
 import {makeStyles} from "@material-ui/styles"
 import Like from "./likePost/like_post"
@@ -130,7 +130,7 @@ export default function IndexCard(props) {
                     {posttitle}
                 </DialogTitle>
                 <DialogContent dividers={scroll === 'paper'}>
-                    <PostPopUp id={postid} content={postcontent} comment={comnts} checked={checked} setCheck={setCheck}
+                    <PostPopUp id={postid} content={postcontent} comment={comnts}
                         date={postdate} user={postuser} currentuser={currentuser} likes={postlikes}/>
                 </DialogContent>
             </Dialog>
