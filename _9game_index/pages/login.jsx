@@ -4,7 +4,7 @@ import cookies from 'js-cookie'
 
 import {useRouter} from "next/router";
 import styles from "../styles/authstyle.module.css"
-import {FormControl, Grid, TextField, Typography, Card, Link} from "@mui/material";
+import {FormControl, Grid, TextField, Typography, Card, Link, Box} from "@mui/material";
 
 const Register = () => {
     const [email, setEmail] = useState("")
@@ -26,7 +26,7 @@ const Register = () => {
         const status = data.status
         const message = data.message
 
-        if(status == "error"){
+        if (status == "error") {
             alert(data.message)
         } else {
             cookies.set('email', data?.email)
@@ -37,16 +37,17 @@ const Register = () => {
     }
 
     return (
-        <div className={styles.body}>
+        <Box className={styles.body} sx={{minHeight: 450}}>
             <Grid
                 container
-                sx={{pt: 2}}
+                spacing={0}
                 direction="column"
                 alignItems="center"
                 justifyContent="center"
+                style={{minHeight: '100vh'}}
             >
 
-                <Card sx={{width: 400, height: 450, boxShadow: 10}}>
+                <Card sx={{width: 350, height: 450, boxShadow: 10}}>
                     <Grid
                         container
                         sx={{pt: 2}}
@@ -68,7 +69,7 @@ const Register = () => {
                                     <TextField value={email} onChange={e => setEmail(e.target.value)}
                                                type="email"
                                                label="email"
-                                               margin="dense" sx={{width: 300}}/>
+                                               margin="dense" sx={{width: 250}}/>
                                 </FormControl>
                                 <br/>
 
@@ -77,7 +78,7 @@ const Register = () => {
                                                type="password"
                                                label="Password"
                                                margin="dense"
-                                               sx={{width: 300, mb: 5}}/>
+                                               sx={{width: 250, mb: 5}}/>
                                 </FormControl>
 
                                 <button className={styles.button} type="submit">Login</button>
@@ -97,7 +98,7 @@ const Register = () => {
                     </Grid>
                 </Card>
             </Grid>
-        </div>
+        </Box>
     )
 }
 
