@@ -13,21 +13,34 @@ import {
     Container,
     CardContent, CardMedia
 } from "@mui/material";
-import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
 import User from "../db_models/user_model"
-import cookies from 'nookies'
 import {parseCookies} from 'nookies'
 
 
 
 export default function admin({users, currentUser}) {
-
+    if(currentUser){
     return (
-        <div>
-            {currentUser ? (<>
-                    {currentUser.isAdmin ? (
-                        <div>
+        <>
+            
+            {currentUser.isAdmin ? (
+                <div style={{paddingTop: 56}}>
+                    <AppBar position="fixed">
+                        <Toolbar>
+                            <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
+                                9Game
+                            </Typography>
+                                <>
+                                                         
+                                    {/* <Button color="secondary" href="/admin">admin page</Button> */}
+                                    <Button color="secondary" href="/changepassword">Change Password</Button>
+    
+                                    <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
+                                    <Button color="secondary" href="/">Home</Button>
+                                </>
+                        </Toolbar>
+                        </AppBar>
                             <Typography
                                 variant="h4"
                                 sx={{m: 3, mt: 5}}>Welcome! Admin</Typography>
@@ -57,10 +70,11 @@ export default function admin({users, currentUser}) {
                         </div>
                     ) : (
                         <Typography>You should be here, please return.</Typography>
-                    )}</>) :
-                (<Typography>Please login first.</Typography>)}
-        </div>
+                    )}
+        </>
     )
+    }
+    return(<Typography>Please login first.</Typography>)
 }
 
 export async function getServerSideProps(ctx) {
