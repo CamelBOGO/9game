@@ -3,23 +3,22 @@ import {
     Box,
     Button,
     FormControl,
-    Grid,
     Input,
     InputLabel,
-    Typography
+    Typography,
+    Card
 } from "@mui/material";
 import {useRouter} from "next/router";
-import {Card} from '@mui/material'
-import CommentBlock from './comment_block'
+import CommentBlock from './comment_block';
 
 export default function PostPopUp(props) {
-    const currentuser       = props.currentuser
-
-    const postid            = props.id
-    const postcontent       = props.content
-    const postcomments      = props.comment
-    const postdate          = props.date
-    const postuser          = props.user
+    const currentuser = props.currentuser
+    const postid = props.id
+    const postcontent = props.content
+    const postcomments = props.comment
+    const postdate = props.date
+    const postuser = props.user
+    const check = props.checked
     const [form, setForm] = useState({
         post_id: postid,
         user_id: currentuser,
@@ -32,7 +31,7 @@ export default function PostPopUp(props) {
     const handleSubmit = async function (e) {
         e.preventDefault()
         // Here I show you how to post data by calling api.
-        if (currentuser){
+        if (currentuser) {
             try {
                 const res = await fetch('/api/comnt', {
                     method: 'POST',
@@ -66,8 +65,8 @@ export default function PostPopUp(props) {
 
     return (
         <>
-        <Box Container>
-            <Typography gutterBottom variant="body1"
+            <Box Container>
+                <Typography gutterBottom variant="body1"
                             component="div"
                             sx={{
                                 overflow: 'hidden',
@@ -79,47 +78,37 @@ export default function PostPopUp(props) {
                     <Typography>{postuser}</Typography>
                     <Typography>{postdate}</Typography>
                     {postcontent}
-            </Typography>
-        </Box>
-        
-        <hr/>
+                </Typography>
+            </Box>
+            
+            <hr/>
 
-        {currentuser?
-            <form onSubmit={handleSubmit}>
-                <FormControl>
-                    <InputLabel htmlFor="text">Content</InputLabel>
-                    <Input
-                        type="text"
-                        name="text"
-                        autoComplete="off"
-                        multiline
-                        onChange={handleChange}
-                        required
-                        sx={{mb: 2}}
-                    />
-                </FormControl>
-                <br/>
-                <Button type="submit">Comment</Button>
-            </form>
-        :""}
+            {currentuser?
+                <form onSubmit={handleSubmit}>
+                    <FormControl>
+                        <InputLabel htmlFor="text">Content</InputLabel>
+                        <Input
+                            type="text"
+                            name="text"
+                            autoComplete="off"
+                            multiline
+                            onChange={handleChange}
+                            required
+                            sx={{mb: 2}}
+                        />
+                    </FormControl>
+                    <br/>
+                    <Button type="submit">Comment</Button>
+                </form>
+            :""}
         
-        <Box>
-            {postcomments.data.map((comnt) => (
-                // <Typography
-                //     key={comnt._id}
-                // >   
-                //     {comnt.user_id}: posted on {comnt.date}<br/>
-                //     <span style={{marginLeft: "1rem"}}>
-                //         {comnt.text}
-                //     </span>
-                // </Typography>
-                
-                <Card key={comnt._id} style={{margin: "0.5rem"}}>
-                    <CommentBlock user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
-                </Card>
-            ))}
-        </Box>
-        
+            <Box>
+                {postcomments.data.map((comnt) => (                    
+                    <Card key={comnt._id} style={{margin: "0.5rem"}}>
+                        <CommentBlock user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
+                    </Card>
+                ))}
+            </Box>
         </>
     );
 }
