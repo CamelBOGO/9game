@@ -7,6 +7,7 @@ import dbConnect from "../lib/dbConnect";
 import User from "../db_models/user_model"
 import cookies from 'nookies'
 import {parseCookies} from 'nookies'
+import { red } from "@mui/material/colors";
 
 
 export default function admin({users, currentUser}) {
@@ -27,62 +28,43 @@ export default function admin({users, currentUser}) {
 //    console.log("photo",users.map((user) => (user.profileimg)))
     return (
 
-        <div style={{paddingTop: 56}}>
-
+        <div>
+            
+            {currentUser?(<>               
             {currentUser.isAdmin ? (
-                <div>
-                    <Typography
-                        variant="h4"
-                        sx={{m: 3, mt: 5}}>Welcome! Admin</Typography>
-                    <Box display="flex" alignItems="center" justifyContent="center">                
-    
-                        <Grid container style={{maxWidth: 1400}}>
+                    <div>
+                        <Typography
+                            variant="h4"
+                            sx={{m: 3, mt: 5}}>Welcome! Admin</Typography>
+                        <Box display="flex" alignItems="center" justifyContent="center">                
+        
+                            <Grid container style={{maxWidth: 1400}}>
 
-                            {users.map((user) => (
-                                <Grid item xs={12} sm={6} key={user._id}>
-                                    <Container maxWidth="false" sx={{width: 330, my: 3}}>
-                                        <form>
-                                            <p>{user.email}</p>
-                                            <br></br>
-                                            <img className="activator" style={{width: '100%', height: 300}}
-                                                src={user.profileimg}/>
-                                            <br></br>
-                                        </form>
-                                        {/* <IndexCard id={user._id} title={user.email} content={user.password} /> */}
-                                    </Container>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-                </div>
-            ) : (
-                <p>404</p>
-            )}
+                                {users.map((user) => (
+                                    <Grid item xs={12} sm={6} key={user._id}>
+                                        <Container maxWidth="false" sx={{width: 330, my: 3}}>
+                                            <form>
+                                                <p>{user.email}</p>
+                                                <br></br>
+                                                <img className="activator" style={{width: '100%', height: 300}}
+                                                    src={user.profileimg}/>
+                                                <br></br>
+                                            </form>
+                                            {/* <IndexCard id={user._id} title={user.email} content={user.password} /> */}
+                                        </Container>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Box>
+                    </div>
+                ) : (
+                    <p>404</p>
+                )}</>):
+                (<h1>404 not found</h1>)}
+ 
 
-            {/* <Grid
-                container
-                direction="column"
-                alignItems="center"
-                justifyContent="center"
-            >
-                <Typography variant="h4">You are admin</Typography>
-                {
-                    // <Grid container style={{maxWidth: 700}}>
-                    // {User.map((users) => (
-                    //     <Grid item xs={12} sm={6} key={User.email}>
-                    //         <Container maxWidth="false" sx={{width: 330, my: 2}}>
-                    //             <IndexCard id={User._id} title={User.email} content={User.password}/>
-                    //         </Container>
-                    //     </Grid>
-                    // ))}
-                    // </Grid>
-                    
-
-                    }
-            </Grid> */}
         </div>
-    )
-        ;
+    );
 
 }
 
@@ -91,15 +73,19 @@ export async function getServerSideProps(ctx) {
     const cookies = parseCookies(ctx)
     const email = cookies?.email && cookies.email != "undefined" ? cookies.email : null
 
+
     const result = await User.find({})
     const users = result.map((doc) => {
         const user = doc.toObject()
         user._id = user._id.toString()
         return user
     })
+    if(email){    
+        let currentUser = await User.findOne({email: email}).lean()
+        currentUser._id = currentUser._id.toString()
+        return {props: {users: users, currentUser}}
+    }
 
-    let currentUser = await User.findOne({email: email}).lean()
-    currentUser._id = currentUser._id.toString()
 
-    return {props: {users: users, currentUser}}
+    return {props: {users: users, currentUser:null}}
 }

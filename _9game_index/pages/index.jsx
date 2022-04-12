@@ -1,25 +1,34 @@
 import Head from "next/head"
 import Link from "next/link"
 import "@fontsource/roboto"
-import {useState} from "react";
+import {useState, useRef, useEffect} from "react";
 import {Button, AppBar, Toolbar, Typography, Grid, Box, Container} from "@mui/material";
+import { Dialog, DialogContent } from "@mui/material";
 
 import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
 import post_model from "../db_models/post_model";
 import NewPost from "../components/newPost/new_post";
-import NewPostPopUp from "../components/newPost/new_post_popup"
 
 import {parseCookies, destroyCookie} from "nookies";
 import Post1 from "./card_postpopup";
 
 export default function Home({isConnected, posts, user}) {
-    const [visibility1, setVisibility1] = useState(false);
     const [likedPosts, updateLikedPosts] = useState([]);
 
-    const popupCloseHandler = () => {
-        setVisibility1(false);
-    }
+    ///// popup create new post /////
+    const [open, setOpen] = useState(false);
+    const [scroll, setScroll] = useState('body');
+
+    const handleClickOpen = (scrollType) => () => {
+        setOpen(true);
+        setScroll(scrollType);
+    };
+    
+    const handleClose = () => {
+        setOpen(false);
+    };
+    ///////////////////////////////
 
     const logout = async function () {
         destroyCookie(null, 'token')
@@ -44,7 +53,7 @@ export default function Home({isConnected, posts, user}) {
                             <Button
                                 color="secondary"
                                 sx={{mr: 2}}
-                                onClick={() => setVisibility1(true)}
+                                onClick={handleClickOpen('body')}
                             >New Post</Button>
                             <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
                             <Button color="secondary" onClick={logout}>Logout</Button>
@@ -73,12 +82,17 @@ export default function Home({isConnected, posts, user}) {
 
             </Grid>
 
-            <NewPostPopUp
-                display="flex"
-                show={visibility1}
-                onClose={popupCloseHandler}>
-                <NewPost email={user} onClose={popupCloseHandler}/>
-            </NewPostPopUp>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                scroll={scroll}
+                aria-labelledby="scroll-dialog-title"
+                aria-describedby="scroll-dialog-description"
+            >
+                    <DialogContent dividers={scroll === 'paper'}>
+                            <NewPost email={user}/>
+                    </DialogContent>
+            </Dialog>
 
             <Box display="flex" alignItems="center" justifyContent="center">
                 <Grid container style={{maxWidth: 700}}>
