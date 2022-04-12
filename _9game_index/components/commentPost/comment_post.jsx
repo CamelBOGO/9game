@@ -11,6 +11,7 @@ import {
 import Like from "../likePost/like_post"
 import {useRouter} from "next/router";
 import CommentBlock from './comment_block';
+import Card from '@mui/material'
 
 export default function PostPopUp(props) {
     const currentuser       = props.currentuser
@@ -20,7 +21,7 @@ export default function PostPopUp(props) {
     const postcomments      = props.comment
     const postdate          = props.date
     const postuser          = props.user
-
+    const check             = props.checked
     const [form, setForm] = useState({
         post_id: postid,
         user_id: currentuser,
@@ -85,7 +86,7 @@ export default function PostPopUp(props) {
         <Box Container>
             {/* <Like   id={postid} email={currentuser} checked={check} setCheck={props.setCheck} style={{position: "sticky", left: 0}}/> */}
             {currentuser? 
-                props.likebut
+                <Like   id={postid} email={currentuser} checked={check} setCheck={props.setCheck} style={{position: "sticky", left: 0}}/>
                 :""
             }
             <Typography>
@@ -124,7 +125,10 @@ export default function PostPopUp(props) {
                 //         {comnt.text}
                 //     </span>
                 // </Typography>
-                <CommentBlock _id={comnt._id} user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
+                
+                <Card key={props._id} style={{margin: "0.5rem"}}>
+                    <CommentBlock user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
+                </Card>
             ))}
         </Box>
         

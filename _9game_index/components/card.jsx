@@ -1,8 +1,9 @@
-import {Card, CardActionArea, CardContent, CardMedia, Container} from "@mui/material"
+import {Card, CardActionArea } from "@mui/material"
 import {Box, Typography} from "@mui/material"
 import {makeStyles} from "@material-ui/styles"
 import Like from "./likePost/like_post"
 import React, {useState} from 'react';
+import {useRouter} from "next/router";
 
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -34,8 +35,7 @@ export default function IndexCard(props) {
         }
     });
     const classes = cardTextStyle()
-
-    const likebut = <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
+    const router = useRouter();
 
     ///// popup /////
     const [open, setOpen] = useState(false);
@@ -69,7 +69,7 @@ export default function IndexCard(props) {
     
     const handleClose = () => {
         setOpen(false);
-        window.location.reload();
+        router.reload()
     };
     ////////////////
 
@@ -110,7 +110,7 @@ export default function IndexCard(props) {
                     {currentuser?
                     // <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck}
                     //         style={{margin:0, zIndex: 5}}/>
-                    likebut
+                    <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
                     :""}
                     <Typography noWrap variant="h5" component="div" style={{marginLeft: "0.5rem"}} sx={{my: 1}}>
                         {posttitle}
@@ -130,7 +130,7 @@ export default function IndexCard(props) {
                     {posttitle}
                 </DialogTitle>
                 <DialogContent dividers={scroll === 'paper'}>
-                    <PostPopUp id={postid} content={postcontent} likebut={likebut} comment={comnts}
+                    <PostPopUp id={postid} content={postcontent} comment={comnts} checked={checked} setCheck={setCheck}
                         date={postdate} user={postuser} currentuser={currentuser} likes={postlikes}/>
                 </DialogContent>
             </Dialog>
