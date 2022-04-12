@@ -22,10 +22,10 @@ export default function ChangePassword({users, currentUser}) {
             console.log(data)
         }
         return (
-            <div style={{paddingTop: 56}}>
+            <>
                             
                     { currentUser.isAdmin ? (
-                    <>
+                    <div style={{paddingTop: 56}}>
                         <AppBar position="fixed">
                         <Toolbar>
                             <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
@@ -50,24 +50,24 @@ export default function ChangePassword({users, currentUser}) {
                         <input value = {password} onChange={e => setPassword(e.target.value)}/>
                         <button type="submit">Change</button>
                         </form>
-                    </>
+                   </div>
                 ):(
                     <div>
-                        <h1>error:404</h1>
-                        {/* <Button color="inherit" href="/">Click here to return home page</Button> */}
+                        <Typography>You are not admin!!!</Typography>
+                        <Button color="inherit" href="/">Click here to return home page</Button>
                     </div>
                 )
 
                 }
 
 
-                
-            </div>
+             </>    
+            
         )
        
     } 
     return(<div>
-            <h1>error:404 notfind</h1>
+            <h1>error:404</h1>
         </div>)
 }
 
