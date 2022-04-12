@@ -23,7 +23,9 @@ export default function ChangePassword({users, currentUser}) {
     }
     return (
         <div>
-            {   currentUser.isAdmin ? (
+            {email?(<>            
+                { currentUser.isAdmin ? (
+
                 <form onSubmit={SubmitHandler}>
                 <h1>Password Change</h1>
                 <input value = {email} onChange={e => setEmail(e.target.value)}/>
@@ -33,12 +35,16 @@ export default function ChangePassword({users, currentUser}) {
                 </form>
             ):(
                 <div>
-                    <p>error:404</p>
-                    <Button color="inherit" href="/">Click here to return home page</Button>
+                    <h1>error:404</h1>
+                    {/* <Button color="inherit" href="/">Click here to return home page</Button> */}
                 </div>
             )
 
             }
+            </>):(<div>
+                    <h1 style={color:red}>error:404</h1>
+                </div>)}
+
 
         </div>
     )
@@ -56,8 +62,12 @@ export async function getServerSideProps(ctx) {
         return user
     })
 
-    let currentUser = await User.findOne({email: email}).lean()
-    currentUser._id = currentUser._id.toString()
+    if(email){    
+        let currentUser = await User.findOne({email: email}).lean()
+        currentUser._id = currentUser._id.toString()
+        return {props: {users: users, currentUser}}
+    }
 
-    return {props: {users: users, currentUser}}
+
+    return {props: {users: users, currentUser:null}}
 }

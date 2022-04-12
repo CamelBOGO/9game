@@ -8,8 +8,8 @@ import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card,
 
 
 export default function Profile({users, currentUser}) {
-
-    const [item, setItem] = useState();
+    if(currentUser){
+        const [item, setItem] = useState();
     
     const email=currentUser.email
     
@@ -87,6 +87,11 @@ export default function Profile({users, currentUser}) {
         </div>
 
     )
+    }
+    return(<div>
+        <h1>error:404</h1>
+    </div>)
+    
 }
 
 
@@ -102,8 +107,12 @@ export async function getServerSideProps(ctx) {
         return user
     })
 
-    let currentUser = await User.findOne({email: email}).lean()
-    currentUser._id = currentUser._id.toString()
+    if(email){    
+        let currentUser = await User.findOne({email: email}).lean()
+        currentUser._id = currentUser._id.toString()
+        return {props: {users: users, currentUser}}
+    }
 
-    return {props: {users: users, currentUser}}
+
+    return {props: {users: users, currentUser:null}}
 }
