@@ -5,24 +5,20 @@ import User from "../../../db_models/user_model"
 
 export default async (req, res) => {
     await dbConnect()             
-    const {item,currentUser}=req.body
+    const {email,item}=req.body
+    console.log("email:"+email)
+    
     try {
         if (req.method == "POST") {
             console.log("get req Post")
-            const newUser = User.findOneAndUpdate({ "email": currentUser},
-            {$set: { "profileimg": item  }},
-            (error, data) =>{
-                console.log("Here!!!!!!!!!!!!!!!!")
-                
-                res.status(200).json({
-                    "status": "success",
-                    "message": "change successfully.",
-                })
-            });
-
+            // const abc=User.findOne({"email":email})
+            // console.log(abc)
+            const newUser = User.findOneAndUpdate({ "email": email},
+            {$set: { "profileimg": item  }});
+            console.log("newUser:"+newUser)
             res.status(201).json({
                 "status": "success",
-                "message": "change not successfully.",
+                "message": "change successfully.",
                 "photo":item,
             })
         }

@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import axios from 'axios'
+import { parseCookies } from 'nookies'
+import dbConnect from "../lib/dbConnect";
+import User from "../db_models/user_model"
 
-export default function ChangePassword({users: users, currentUser}) {
+export default function ChangePassword({users, currentUser}) {
 
     const [email,setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -18,13 +21,40 @@ export default function ChangePassword({users: users, currentUser}) {
     }
     return (
         <div>
-            <form onSubmit={SubmitHandler}>
+            {   currentUser.isAdmin ? (
+                <form onSubmit={SubmitHandler}>
                 <h1>Password Change</h1>
                 <input value = {email} onChange={e => setEmail(e.target.value)}/>
                 <br></br>
                 <input value = {password} onChange={e => setPassword(e.target.value)}/>
                 <button type="submit">Change</button>
-            </form>
+                </form>
+            ):(
+                <div>
+                    <p>error:404</p>
+                </div>
+            )
+
+            }
+
         </div>
     )
+}
+
+export async function getServerSideProps(ctx) {
+    await dbConnect()
+    const cookies = parseCookies(ctx)
+    const email = cookies?.email && cookies.email != "undefined" ? cookies.email : null
+
+    const result = await User.find({})
+    const users = result.map((doc) => {
+        const user = doc.toObject()
+        user._id = user._id.toString()
+        return user
+    })
+
+    let currentUser = await User.findOne({email: email}).lean()
+    currentUser._id = currentUser._id.toString()
+
+    return {props: {users: users, currentUser}}
 }

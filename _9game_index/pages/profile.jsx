@@ -7,11 +7,11 @@ import User from "../db_models/user_model"
 import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card, Box, Container} from "@mui/material";
 
 
-export default function Profile({users: users, currentUser}) {
-    // const cookies = parseCookies()
-    // const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
-    // console.log("email:",user)
-    const [item, setItem] = useState({  image: '' });
+export default function Profile({users, currentUser}) {
+
+    const [item, setItem] = useState();
+    const email=currentUser.email
+    
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -21,7 +21,7 @@ export default function Profile({users: users, currentUser}) {
                 "Content-Type": "application/json"
             }
         }
-        const { data } = await axios.post("/api/profile/profile", { currentUser,item}, config)
+        const { data } = await axios.post("/api/profile/profile", { email,item}, config)
         console.log(data)
     // console.log("image",item.image)
     }
