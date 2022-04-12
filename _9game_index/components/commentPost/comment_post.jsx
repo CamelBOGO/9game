@@ -21,7 +21,6 @@ export default function PostPopUp(props) {
     const postdate          = props.date
     const postuser          = props.user
 
-    const check             = props.checked
     const [form, setForm] = useState({
         post_id: postid,
         user_id: currentuser,
@@ -85,6 +84,10 @@ export default function PostPopUp(props) {
         </Box>
         <Box Container>
             {/* <Like   id={postid} email={currentuser} checked={check} setCheck={props.setCheck} style={{position: "sticky", left: 0}}/> */}
+            {currentuser? 
+                props.likebut
+                :""
+            }
             <Typography>
                 {postdate}
             </Typography>

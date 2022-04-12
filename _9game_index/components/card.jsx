@@ -35,6 +35,8 @@ export default function IndexCard(props) {
     });
     const classes = cardTextStyle()
 
+    const likebut = <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
+
     ///// popup /////
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState('body');
@@ -67,6 +69,7 @@ export default function IndexCard(props) {
     
     const handleClose = () => {
         setOpen(false);
+        window.location.reload();
     };
     ////////////////
 
@@ -105,8 +108,9 @@ export default function IndexCard(props) {
                      style={{display: "flex"}}
                 >
                     {currentuser?
-                    <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck}
-                            style={{margin:0, zIndex: 5}}/>
+                    // <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck}
+                    //         style={{margin:0, zIndex: 5}}/>
+                    likebut
                     :""}
                     <Typography noWrap variant="h5" component="div" style={{marginLeft: "0.5rem"}} sx={{my: 1}}>
                         {posttitle}
@@ -126,7 +130,7 @@ export default function IndexCard(props) {
                     {posttitle}
                 </DialogTitle>
                 <DialogContent dividers={scroll === 'paper'}>
-                    <PostPopUp id={postid} content={postcontent} checked={check} setCheck={setCheck} comment={comnts}
+                    <PostPopUp id={postid} content={postcontent} likebut={likebut} comment={comnts}
                         date={postdate} user={postuser} currentuser={currentuser} likes={postlikes}/>
                 </DialogContent>
             </Dialog>
