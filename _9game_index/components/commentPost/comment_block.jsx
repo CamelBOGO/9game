@@ -4,11 +4,11 @@ export default function CommentBlock(props) {
 
     return (
         <Card style={{margin: "0.5rem"}}>
-            <Typography key={props._id}>   
-                {props.user_id}: posted on {props.date}<br/>
-                <span style={{marginLeft: "1rem"}}>
-                    {props.text}
-                </span>
+            <Typography key={props._id} style={{justifyContent: "space-between"}}>   
+                {props.user_id}: {props.date}
+            </Typography>
+            <Typography style={{marginLeft: "1rem", wordWrap: "break-word"}}>
+                {props.text}
             </Typography>
         </Card>
     )
