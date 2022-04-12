@@ -1,13 +1,25 @@
 import Head from "next/head"
 import {useEffect, useState} from 'react'
 import axios from 'axios'
-import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card, Box, Container} from "@mui/material";
+import {
+    AppBar,
+    Button,
+    Toolbar,
+    FormControl,
+    Grid,
+    TextField,
+    Typography,
+    Card,
+    Box,
+    Container,
+    CardContent, CardMedia
+} from "@mui/material";
 import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
 import User from "../db_models/user_model"
 import cookies from 'nookies'
 import {parseCookies} from 'nookies'
-import { red } from "@mui/material/colors";
+import {red} from "@mui/material/colors";
 
 
 export default function admin({users, currentUser}) {
@@ -27,45 +39,43 @@ export default function admin({users, currentUser}) {
     }, [])*/
 //    console.log("photo",users.map((user) => (user.profileimg)))
     return (
-
         <div>
-            
-            {currentUser?(<>               
-            {currentUser.isAdmin ? (
-                    <div>
-                        <Typography
-                            variant="h4"
-                            sx={{m: 3, mt: 5}}>Welcome! Admin</Typography>
-                        <Box display="flex" alignItems="center" justifyContent="center">                
-        
-                            <Grid container style={{maxWidth: 1400}}>
-
-                                {users.map((user) => (
-                                    <Grid item xs={12} sm={6} key={user._id}>
-                                        <Container maxWidth="false" sx={{width: 330, my: 3}}>
-                                            <form>
-                                                <p>{user.email}</p>
-                                                <br></br>
-                                                <img className="activator" style={{width: '100%', height: 300}}
-                                                    src={user.profileimg}/>
-                                                <br></br>
-                                            </form>
-                                            {/* <IndexCard id={user._id} title={user.email} content={user.password} /> */}
-                                        </Container>
-                                    </Grid>
-                                ))}
-                            </Grid>
-                        </Box>
-                    </div>
-                ) : (
-                    <p>404</p>
-                )}</>):
-                (<h1>404 not found</h1>)}
- 
-
+            {currentUser ? (<>
+                    {currentUser.isAdmin ? (
+                        <div>
+                            <Typography
+                                variant="h4"
+                                sx={{m: 3, mt: 5}}>Welcome! Admin</Typography>
+                            <Box display="flex" alignItems="center" justifyContent="center">
+                                <Grid container style={{maxWidth: 1400}}>
+                                    {users.map((user) => (
+                                        <Grid item xs={12} sm={6} key={user._id}>
+                                            <Container maxWidth="false" sx={{width: 330, my: 3}}>
+                                                <Card sx={{width: 300, boxShadow: 5}}>
+                                                    <CardMedia
+                                                        component="img"
+                                                        height="300"
+                                                        image={user.profileimg}
+                                                        alt="No profile picture."
+                                                    />
+                                                    <CardContent>
+                                                        <Typography variant="h5" component="div">
+                                                            {user.email}
+                                                        </Typography>
+                                                    </CardContent>
+                                                </Card>
+                                            </Container>
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </Box>
+                        </div>
+                    ) : (
+                        <Typography>You should be here, please return.</Typography>
+                    )}</>) :
+                (<Typography>Please login first.</Typography>)}
         </div>
-    );
-
+    )
 }
 
 export async function getServerSideProps(ctx) {
@@ -80,12 +90,12 @@ export async function getServerSideProps(ctx) {
         user._id = user._id.toString()
         return user
     })
-    if(email){    
+    if (email) {
         let currentUser = await User.findOne({email: email}).lean()
         currentUser._id = currentUser._id.toString()
         return {props: {users: users, currentUser}}
     }
 
 
-    return {props: {users: users, currentUser:null}}
+    return {props: {users: users, currentUser: null}}
 }
