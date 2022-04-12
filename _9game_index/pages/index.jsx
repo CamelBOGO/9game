@@ -11,7 +11,6 @@ import post_model from "../db_models/post_model";
 import NewPost from "../components/newPost/new_post";
 
 import {parseCookies, destroyCookie} from "nookies";
-import Post1 from "./card_postpopup";
 
 export default function Home({isConnected, posts, user}) {
     const [likedPosts, updateLikedPosts] = useState([]);
@@ -103,13 +102,6 @@ export default function Home({isConnected, posts, user}) {
                                 <IndexCard container id={post._id} title={post.title} content={post.content}
                                            date={post.postdate} user={post.username} likes={post.likes}
                                            likeduser={post.likeduser} currentuser={user}/>
-
-                                <Post1 id={post._id} title={post.title} content={post.content} date={post.postdate}
-                                       user={post.username}
-                                       likes={post.likes} updateLikedPosts={updateLikedPosts}
-                                       likedPosts={likedPosts} likeduser={post.likeduser}>
-                                </Post1>
-
                             </Container>
                         </Grid>
                     ))}

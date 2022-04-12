@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import Favorite from '@mui/icons-material/Favorite';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
@@ -8,8 +8,9 @@ export default function Like(props) {
     const id = props.id;
     const username = props.email
 
-    let currentlikeduser = props.likeduser
-    const checkprevious = (currentlikeduser.includes(username)) ? true : false
+    // let currentlikeduser = props.likeduser
+    // const checkprevious = ((currentlikeduser.includes(username)) ? true : false)
+    const checkprevious = props.checked
     const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
     const [form, setForm] = useState({
@@ -17,6 +18,10 @@ export default function Like(props) {
         email: username,
         inside: checkprevious
     })
+
+    useEffect(() => {
+        props.setCheck(form.inside)
+    }, [form.inside])
 
     const tryfetch = async (e) => {
         e.persist()
