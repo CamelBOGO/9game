@@ -1,6 +1,6 @@
-import Head from "next/head"
-import {useEffect, useState} from 'react'
+
 import axios from 'axios'
+<<<<<<< Updated upstream
 import {
     AppBar,
     Button,
@@ -64,16 +64,89 @@ export default function admin({users, currentUser}) {
                                                         </Typography>
                                                     </CardContent>
                                                 </Card>
+=======
+import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card, Box, Container} from "@mui/material";
+import dbConnect from "../lib/dbConnect";
+import User from "../db_models/user_model"
+import {parseCookies, destroyCookie} from 'nookies'
+
+
+
+export default function admin({users, currentUser}) {
+    if(currentUser){
+
+
+
+        return (
+
+            <div style={{paddingTop: 56}}>
+                
+                              
+                {currentUser.isAdmin ? (
+                <>
+                    <AppBar position="fixed">
+                    <Toolbar>
+                        <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
+                            9Game
+                        </Typography>
+                            <>
+                                                     
+                                {/* <Button color="secondary" href="/admin">admin page</Button> */}
+                                <Button color="secondary" href="/changepassword">Change Password</Button>
+                                <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
+                                <Button color="secondary" href="/">Home</Button>
+                            </>
+                    </Toolbar>
+                    </AppBar>
+                        
+                            <Typography
+                                variant="h4"
+                                sx={{m: 3, mt: 5}}>Welcome! Admin</Typography>
+                            <Box display="flex" alignItems="center" justifyContent="center">                
+            
+                                <Grid container style={{maxWidth: 1400}}>
+
+                                    {users.map((user) => (
+                                        <Grid item xs={12} sm={6} key={user._id}>
+                                            <Container maxWidth="false" sx={{width: 330, my: 3}}>
+                                                <form>
+                                                    <p>{user.email}</p>
+                                                    <br></br>
+                                                    <img className="activator" style={{width: '100%', height: 300}}
+                                                        src={user.profileimg}/>
+                                                    <br></br>
+                                                </form>
+                                                {/* <IndexCard id={user._id} title={user.email} content={user.password} /> */}
+>>>>>>> Stashed changes
                                             </Container>
                                         </Grid>
                                     ))}
                                 </Grid>
                             </Box>
+<<<<<<< Updated upstream
                         </div>
                     ) : (
                         <Typography>You should be here, please return.</Typography>
                     )}</>) :
                 (<Typography>Please login first.</Typography>)}
+=======
+                </>
+                    ) : (
+                        <div>
+                        <h1>You should not be here!</h1>
+                        <Button color="inherit" href="/">Click Here to return Home Page</Button>
+                        </div>
+                    )}
+                    
+    
+
+            </div>
+        );
+    }
+    return(
+        <div>
+            <h1>404 not found</h1>
+>>>>>>> Stashed changes
         </div>
     )
 }
