@@ -27,45 +27,28 @@ export default function Profile({users, currentUser}) {
         console.log(data)
     // console.log("image",item.image)
     }
-    // useEffect(() => {
-    //     const fetchData = async () => {
-            
-    //       const result = await axios.post("/api/profile/profileget",{user}).then(res => res.data);
-    //       console.log('get profile ',  result)
-    //       console.log('Extract '+ result.email)
-    //       setItems(result)
-    //       console.log(items)
-  
-    //     }
-    //     fetchData()
-    //   }, [])
 
 
     return (
         <div className="container">
-            <div className="row">
-
-                <form onSubmit={onSubmit}>
-                    {/* <input type="text"  onChange={e => setItem({...item,email: e.target.value})}/> */}
-                    <div className="form-group">
-                        {/* <input type="file" id="profile" accept="image/png, image/jpeg"
-                            value={images}onChange={e => setImages(e.target.value)}>
-                            </input> */}
-                            <FileBase64
-                            type="file"
-                            multiple={false}
-                            onDone={({ base64 }) => setItem( base64 )}
-                            />
-
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary" type="submit">Upload</button>
-                    </div>
-                </form>
-            </div>
             <div>
-            </div>
+                    {currentUser.isAdmin ? (
+                    <div>
+                    <fomr>
+                            <p>Hello! admin:{currentUser.email}</p>
+                            <Button color="inherit" href="/changepassword">Change Password</Button>
+                            <Button color="inherit" href="/admin">admin page</Button>
+                    </fomr>
+                    </div>
+                ):(
+                    <div>
+                        <p>Hello!{currentUser.email}</p>
+                    </div>
+                )}
+                
                 {
+
+                
 
                 <div className="card" key={ currentUser._id}>                
                 <div className="card-content">
@@ -77,24 +60,30 @@ export default function Profile({users, currentUser}) {
 
 
                 </div>
-
-
-
                 }
 
-            {currentUser.isAdmin ? (
-                <div>
-                   <p>You are admin</p> 
-                   <fomr>
-                        <Button color="inherit" href="/changepassword">password Change</Button>
-                        <Button color="inherit" href="/admin">admin page</Button>
-                   </fomr>
+
+            </div>
+            <div>
+            <div className="row">
+
+                <form onSubmit={onSubmit}>
+                    {/* <input type="text"  onChange={e => setItem({...item,email: e.target.value})}/> */}
+                    <div className="form-group">
+                            <FileBase64
+                            type="file"
+                            multiple={false}
+                            onDone={({ base64 }) => setItem( base64 )}
+                            />
+
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-primary" type="submit">Upload</button>
+                    </div>
+                </form>
                 </div>
-            ):(
-                <div>
-                    <p>not a admin</p>
-                </div>
-            )}
+            </div>
+                
         </div>
 
     )
