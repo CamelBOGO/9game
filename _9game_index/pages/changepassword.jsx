@@ -41,9 +41,9 @@ export default function ChangePassword({users, currentUser}) {
             )
 
             }
-            </>):(<div>
+            </>):(
                     <h1>error:404 notfind</h1>
-                </div>)}
+                )}
 
 
         </div>
