@@ -80,10 +80,10 @@ export default function PostPopUp(props) {
                     {postcontent}
                 </Typography>
             </Box>
-            
+
             <hr/>
 
-            {currentuser?
+            {currentuser ?
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <InputLabel htmlFor="text">Content</InputLabel>
@@ -100,10 +100,10 @@ export default function PostPopUp(props) {
                     <br/>
                     <Button type="submit">Comment</Button>
                 </form>
-            :""}
-        
+                : ""}
+
             <Box>
-                {postcomments.data.map((comnt) => (                    
+                {postcomments.data.map((comnt) => (
                     <Card key={comnt._id} style={{margin: "0.5rem"}}>
                         <CommentBlock user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
                     </Card>
