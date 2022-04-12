@@ -5,12 +5,12 @@ import {
     FormControl,
     Input,
     InputLabel,
-    Typography
+    Typography,
+    Card
 } from "@mui/material";
 import Like from "../likePost/like_post"
 import {useRouter} from "next/router";
 import CommentBlock from './comment_block';
-import Card from '@mui/material'
 
 export default function PostPopUp(props) {
     const currentuser = props.currentuser
