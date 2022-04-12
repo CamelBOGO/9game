@@ -100,16 +100,19 @@ export default function IndexCard(props) {
                      direction="row"
                      alignItems="center"
                      justifyContent="left"
+                     fullHeight
                      sx={{height: 68, px: 1}}
                      style={{display: "flex"}}
                 >
-                    <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck}/>
-                    <Typography noWrap variant="h5" component="div" sx={{my: 1}}>
+                    {currentuser?
+                    <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck}
+                            style={{margin:0, zIndex: 5}}/>
+                    :""}
+                    <Typography noWrap variant="h5" component="div" style={{marginLeft: "0.5rem"}} sx={{my: 1}}>
                         {posttitle}
                     </Typography>
                 </Box>
             </CardActionArea>
-
             <Dialog
                 open={open}
                 onClose={handleClose}

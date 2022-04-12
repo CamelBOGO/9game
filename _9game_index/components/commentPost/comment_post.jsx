@@ -109,6 +109,7 @@ export default function PostPopUp(props) {
                 <Button type="submit">Comment</Button>
             </form>
         :""}
+        
         {postcomments.data.map((comnt) => (
             <Typography
                 key={comnt._id}
