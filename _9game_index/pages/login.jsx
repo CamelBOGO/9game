@@ -31,7 +31,7 @@ const Register = () => {
         } else {
             cookies.set('email', data?.email)
             cookies.set('token', data?.accessToken)
-            alert(data.message)
+            //alert(data.message)
             router.push("/")
         }
     }
