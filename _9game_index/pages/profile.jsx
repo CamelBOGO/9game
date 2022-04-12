@@ -30,10 +30,12 @@ export default function Profile({users, currentUser}) {
 
 
     return (
+        
         <div className="container">
             <div>
                     {currentUser.isAdmin ? (
                     <div>
+                        
                     <fomr>
                             <p>Hello! admin:{currentUser.email}</p>
                             <Button color="inherit" href="/changepassword">Change Password</Button>
