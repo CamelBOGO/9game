@@ -3,6 +3,8 @@ import axios from 'axios'
 import { parseCookies } from 'nookies'
 import dbConnect from "../lib/dbConnect";
 import User from "../db_models/user_model"
+import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card, Box, Container} from "@mui/material";
+
 
 export default function ChangePassword({users, currentUser}) {
 
@@ -32,6 +34,7 @@ export default function ChangePassword({users, currentUser}) {
             ):(
                 <div>
                     <p>error:404</p>
+                    <Button color="inherit" href="/">Click here to return home page</Button>
                 </div>
             )
 

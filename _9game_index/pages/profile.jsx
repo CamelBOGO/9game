@@ -10,12 +10,14 @@ import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card,
 export default function Profile({users, currentUser}) {
 
     const [item, setItem] = useState();
+    
     const email=currentUser.email
     
 
     const onSubmit = async (e) => {
         e.preventDefault()
         //console.log(email, password)
+        console.log(item)
         const config = {
             headers:{
                 "Content-Type": "application/json"
@@ -52,7 +54,7 @@ export default function Profile({users, currentUser}) {
                             <FileBase64
                             type="file"
                             multiple={false}
-                            onDone={({ base64 }) => setItem({ ...item, image: base64 })}
+                            onDone={({ base64 }) => setItem( base64 )}
                             />
 
                     </div>
