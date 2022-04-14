@@ -2,7 +2,7 @@ import {Card, CardActionArea, CardContent, CardMedia, Container } from "@mui/mat
 import {Box, Typography} from "@mui/material"
 import {makeStyles} from "@material-ui/styles"
 import Like from "./likePost/like_post"
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useRouter} from "next/router";
 
 import Dialog from '@mui/material/Dialog';
@@ -12,6 +12,7 @@ import PostPopUp from "./commentPost/comment_post";
 
 export default function IndexCard(props) {
     const [comnts, setComnts] = useState({data: []})
+    const [init, setinit] = useState(false)
     const currentuser           = props.currentuser
 
     const postid                = props.id
@@ -24,6 +25,7 @@ export default function IndexCard(props) {
 
     const check = (postlikeduser?.includes(currentuser)) ? true : false
     const [checked, setCheck] = useState(check)
+    const [likestate, setlike] = useState(postlikes)
 
     const cardTextStyle = makeStyles({
         textEllipsis: {
@@ -36,6 +38,20 @@ export default function IndexCard(props) {
     });
     const classes = cardTextStyle()
     const router = useRouter();
+
+    useEffect(() => {
+        let newlike = likestate;
+        if (init) {
+            if (checked) {
+                newlike++
+                setlike(newlike)
+            } else {
+                newlike--
+                setlike(newlike)
+            }
+        }
+        setinit(true)
+    }, [checked])
 
     ///// popup /////
     const [open, setOpen] = useState(false);
@@ -54,6 +70,7 @@ export default function IndexCard(props) {
             if (!res.ok) {
                 throw new Error(res.status)
             }
+
             const data = await res.json()
             setComnts({
                 ...comnts,
@@ -76,8 +93,8 @@ export default function IndexCard(props) {
     return (
         <Card sx={{width: 300, height: 400, boxShadow: 5}}>
             {/* <CardActionArea href={`/post/${props.id}/comnt`}> */}
-            <CardActionArea onClick={handleClickOpen('paper')}>
-                <Box component="div" sx={{height: 300, p: 2}} style={{top: "0", width: "auto"}}>
+            <CardActionArea  onClick={handleClickOpen('paper')}>
+                <Box component="div" sx={{height: 300, p: 2}} style={{top: "0", width: "auto"}} > 
                     {/*<CardMedia
                         component="img"
                         height="140"
@@ -130,8 +147,8 @@ export default function IndexCard(props) {
                     {posttitle}
                 </DialogTitle>
                 <DialogContent dividers={scroll === 'paper'}>
-                    <PostPopUp id={postid} content={postcontent} comment={comnts}
-                        date={postdate} user={postuser} currentuser={currentuser} likes={postlikes}/>
+                    <PostPopUp id={postid} content={postcontent} comnts={comnts} checked={checked} setcheck={setCheck}
+                        date={postdate} user={postuser} currentuser={currentuser} likes={likestate}/>
                 </DialogContent>
             </Dialog>
         </Card>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Box,
     Button,
@@ -10,23 +10,45 @@ import {
 } from "@mui/material";
 import {useRouter} from "next/router";
 import CommentBlock from './comment_block';
+import { COOKIE_NAME_PRERENDER_DATA } from 'next/dist/server/api-utils';
+import Like from '../likePost/like_post';
 
 export default function PostPopUp(props) {
     const currentuser = props.currentuser
     const postid = props.id
     const postcontent = props.content
-    const postcomments = props.comment
-    const postdate = props.date
+    const postcomment = props.comnts
     const postuser = props.user
-    const check = props.checked
+    const postlikes = props.likes
+    const setCheck = props.setcheck
+    const checked = props.checked
+    const likebut = <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
+    const [likestate, setlike] = useState(postlikes)
+    const [init, setinit] = useState(false)
     const [form, setForm] = useState({
         post_id: postid,
         user_id: currentuser,
         date: new Date(),
         text: "",
     })
+    const [comnts, setComnts] = useState({data:postcomment.data})
 
-    const router = useRouter();
+    useEffect(() => {
+        let newlike = likestate
+        let localcheck = likebut.props.checked
+        if (init) {
+            if (localcheck){
+                newlike++
+                setlike(newlike)
+            } 
+            if (!localcheck) {
+                newlike--
+                setlike(newlike)
+            }
+        }
+        setCheck(localcheck)
+        setinit(true)
+    }, [likebut.props.checked]);
 
     const handleSubmit = async function (e) {
         e.preventDefault()
@@ -44,10 +66,30 @@ export default function PostPopUp(props) {
                 if (!res.ok) {
                     throw new Error(res.status)
                 }
-                router.reload()
             } catch (error) {
                 console.error(error)
                 console.log("Fail to upload!")
+            }
+
+            try {
+                console.log("NOW FETCH: " + props.id)
+                const res = await fetch(`/api/post/${props.id}/comnt`, {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                })
+                if (!res.ok) {
+                    throw new Error(res.status)
+                }
+                const data = await res.json()
+                setComnts({
+                    ...comnts,
+                    data: data.data,
+                })
+            } catch (error) {
+                console.error(error)
             }
         }
     }
@@ -75,9 +117,20 @@ export default function PostPopUp(props) {
                                 WebkitLineClamp: '12',
                                 WebkitBoxOrient: 'vertical',
                             }}>
-                    <Typography>{postuser}</Typography>
-                    <Typography>{postdate}</Typography>
+                    {postuser}
                     {postcontent}
+                </Typography>
+            </Box>
+            
+            <Box style={{display: "inline-flex"}}>
+                {likebut}
+                <Typography variant="h6" 
+                direction="row"
+                alignItems="center"
+                justifyContent="left"
+                sx={{ px: 1}}
+                     style={{display: "flex"}}>
+                    {likestate}
                 </Typography>
             </Box>
 
@@ -103,12 +156,14 @@ export default function PostPopUp(props) {
                 : ""}
 
             <Box>
-                {postcomments.data.map((comnt) => (
+                {comnts.data.map((comnt) => (
                     <Card key={comnt._id} style={{margin: "0.5rem"}}>
                         <CommentBlock user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
                     </Card>
                 ))}
             </Box>
+
+
         </>
     );
 }
