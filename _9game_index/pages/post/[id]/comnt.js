@@ -4,9 +4,9 @@ import Comnt from "../../../db_models/comnt_model";
 import {Button, FormControl, Input, InputLabel, TextField, Typography} from "@mui/material";
 import {useState} from "react";
 import dbConnect from "../../../lib/dbConnect";
-import styles from  "../../../styles/indexcard.module.css"
-import { height } from "@mui/system";
-import Like from "../../../components/like_post"
+import styles from "../../../styles/indexcard.module.css"
+import {height} from "@mui/system";
+import Like from "../../../components/likePost/like_post"
 
 export default function ({post, comnts}) {
     const router = useRouter()
@@ -50,88 +50,88 @@ export default function ({post, comnts}) {
         })
     }
 
-    
+
     const likeduser = post.likeduser
     const currentuser = post.currentuser
     const check = (likeduser?.includes(currentuser)) ? true : false
 
     return (
-         <> 
-                    <div className ={styles.body}>     
-                        <div className ={styles.container }>
-                             <div className ={styles.box1}>
+        <>
+            <div className={styles.body}>
+                <div className={styles.container}>
+                    <div className={styles.box1}>
 
-                                            <div className ={styles.box2}>
-                                            <Typography variant="h4">{post.title.toString()}</Typography>
-                                            </div>
+                        <div className={styles.box2}>
+                            <Typography variant="h4">{post.title.toString()}</Typography>
+                        </div>
 
-                                            <div className ={styles.box3}>
-                                            <br></br>
-                                                <Typography>{post.content.toString()}</Typography>
-                                                
-                                            </div>
+                        <div className={styles.box3}>
+                            <br></br>
+                            <Typography>{post.content.toString()}</Typography>
 
-                                        <br></br>
+                        </div>
 
-                                            <div className ={styles.box4}>
-                                            <form onSubmit={handleSubmit}>
-                                            <br></br>
-                                                    <FormControl>
-                                                        <InputLabel htmlFor="text" >Content</InputLabel>
-                                                        <Input
-                                                            type="text"
-                                                            name="text"
-                                                            autoComplete="off"
-                                                            multiline
-                                                            rows={2}
-                                                            onChange={handleChange}
-                                                            required
-                                                            sx={{mb: 2, width: 660}}
-                                                        />
-                                                    </FormControl>
-                                                    <br></br>
-                                                    <br></br>
-                                                    <Button className={styles.button} type="submit">Comment</Button>
-                                                    
-                                                            <span>
+                        <br></br>
+
+                        <div className={styles.box4}>
+                            <form onSubmit={handleSubmit}>
+                                <br></br>
+                                <FormControl>
+                                    <InputLabel htmlFor="text">Content</InputLabel>
+                                    <Input
+                                        type="text"
+                                        name="text"
+                                        autoComplete="off"
+                                        multiline
+                                        rows={2}
+                                        onChange={handleChange}
+                                        required
+                                        sx={{mb: 2, width: 660}}
+                                    />
+                                </FormControl>
+                                <br></br>
+                                <br></br>
+                                <Button className={styles.button} type="submit">Comment</Button>
+
+                                <span>
                                                             <Like id={post.id} likes={post.likes}
-                                                                likeduser={post.likeduser}
-                                                                email={post.currentuser} checked={check}/>
-                                                            </span>    
-                                                    
-                                                </form>
-                                            </div>
+                                                                  likeduser={post.likeduser}
+                                                                  email={post.currentuser} checked={check}/>
+                                                            </span>
 
-                                            <br></br>
+                            </form>
+                        </div>
 
-                                            <div className ={styles.box6}>
-                                                <Typography variant="h5">User comment:</Typography>
-                                            </div>  
+                        <br></br>
 
-                                            <br></br>
-                                            
-                                            <div className ={styles.box5}>
+                        <div className={styles.box6}>
+                            <Typography variant="h5">User comment:</Typography>
+                        </div>
 
-                                                <ul>
-                                                {comnts.map((comnt) => (
-                                                        <Typography key={comnt._id}>
-                                                                    Comment:{comnt.text.toString()} 
-                                                                    <div  className="combox">
-                                                                            <span  className="userID">
+                        <br></br>
+
+                        <div className={styles.box5}>
+
+                            <ul>
+                                {comnts.map((comnt) => (
+                                    <Typography key={comnt._id}>
+                                        Comment:{comnt.text.toString()}
+                                        <div className="combox">
+                                                                            <span className="userID">
                                                                             </span>
-                                                                            <span  className="Date"> Date: {comnt.date.toString()}</span>
-                                                                    </div>              
-                                                        </Typography>
-                                                    ))}
-                                                </ul>     
+                                            <span className="Date"> Date: {comnt.date.toString()}</span>
+                                        </div>
+                                    </Typography>
+                                ))}
+                            </ul>
 
-                                            </div>
-                                 </div>            
-                            
                         </div>
                     </div>
 
-        
+                </div>
+            </div>
+
+
         </>
 
     )
