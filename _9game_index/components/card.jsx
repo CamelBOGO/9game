@@ -26,6 +26,7 @@ export default function IndexCard(props) {
     const check = (postlikeduser?.includes(currentuser)) ? true : false
     const [checked, setCheck] = useState(check)
     const [likestate, setlike] = useState(postlikes)
+    let likebut = <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
 
     const cardTextStyle = makeStyles({
         textEllipsis: {
@@ -40,7 +41,7 @@ export default function IndexCard(props) {
     const router = useRouter();
 
     useEffect(() => {
-        let newlike = likestate;
+        let newlike = likestate
         if (init) {
             if (checked) {
                 newlike++
@@ -127,7 +128,7 @@ export default function IndexCard(props) {
                     {currentuser?
                     // <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck}
                     //         style={{margin:0, zIndex: 5}}/>
-                    <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
+                    likebut
                     :""}
                     <Typography noWrap variant="h5" component="div" style={{marginLeft: "0.5rem"}} sx={{my: 1}}>
                         {posttitle}
