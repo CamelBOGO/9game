@@ -23,9 +23,8 @@ export default function Like(props) {
         props.setCheck(form.inside)
     }, [form.inside])
 
-    const tryfetch = async (e) => {
+    const tryfetch = async(e) => {
         e.persist()
-
         if (username) {
             const check = e.target.checked
             setForm({
@@ -55,9 +54,11 @@ export default function Like(props) {
     }
 
     return (
-        <Checkbox {...label} checked={form.inside} icon={<FavoriteBorder/>}
+        <Checkbox {...label} checked={form.inside} icon={<FavoriteBorder/>} 
                   checkedIcon={<Favorite sx={{color: pink[300], '&.Mui-checked': {color: pink[300],},}}/>}
                   onChange={tryfetch} style={{position: "relative", width: "auto", height: "auto", zIndex: "2"}}
+                  onMouseDown={event => event.stopPropagation()}
+                  onClick={event => { event.stopPropagation(); }}
         />
     );
 };
