@@ -14,7 +14,7 @@ export default async (req, res) => {
             // console.log(abc)
             const newUser = await User.findOneAndUpdate({"email": email},
                 {$set: {"profileimg": item}});
-            console.log("newUser:" + newUser)
+            // console.log("newUser:" + newUser)
             res.status(201).json({
                 "status": "success",
                 "message": "change successfully.",
