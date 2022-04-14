@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import {useRouter} from "next/router";
 import CommentBlock from './comment_block';
-import { COOKIE_NAME_PRERENDER_DATA } from 'next/dist/server/api-utils';
+import {COOKIE_NAME_PRERENDER_DATA} from 'next/dist/server/api-utils';
 import Like from '../likePost/like_post';
 
 export default function PostPopUp(props) {
@@ -22,7 +22,8 @@ export default function PostPopUp(props) {
     const postlikes = props.likes
     const setCheck = props.setcheck
     const checked = props.checked
-    const likebut = <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
+    const likebut = <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck}
+                          style={{margin: 0, zIndex: 5}}/>
     const [likestate, setlike] = useState(postlikes)
     const [init, setinit] = useState(false)
     const [form, setForm] = useState({
@@ -31,16 +32,16 @@ export default function PostPopUp(props) {
         date: new Date(),
         text: "",
     })
-    const [comnts, setComnts] = useState({data:postcomment.data})
+    const [comnts, setComnts] = useState({data: postcomment.data})
 
     useEffect(() => {
         let newlike = likestate
         let localcheck = likebut.props.checked
         if (init) {
-            if (localcheck){
+            if (localcheck) {
                 newlike++
                 setlike(newlike)
-            } 
+            }
             if (!localcheck) {
                 newlike--
                 setlike(newlike)
@@ -117,19 +118,19 @@ export default function PostPopUp(props) {
                                 WebkitLineClamp: '12',
                                 WebkitBoxOrient: 'vertical',
                             }}>
-                    {postuser}
                     {postcontent}
                 </Typography>
+                <Typography>Author: {postuser}</Typography>
             </Box>
-            
+
             <Box style={{display: "inline-flex"}}>
                 {likebut}
-                <Typography variant="h6" 
-                direction="row"
-                alignItems="center"
-                justifyContent="left"
-                sx={{ px: 1}}
-                     style={{display: "flex"}}>
+                <Typography variant="h6"
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="left"
+                            sx={{px: 1}}
+                            style={{display: "flex"}}>
                     {likestate}
                 </Typography>
             </Box>

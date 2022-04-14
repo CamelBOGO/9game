@@ -21,7 +21,7 @@ export default function IndexCard(props) {
     const postlikeduser         = props.likeduser
     const posttitle             = props.title
     const postcontent           = props.content 
-    const postuser              = props.username
+    const postuser              = props.user
 
     const check = (postlikeduser?.includes(currentuser)) ? true : false
     const [checked, setCheck] = useState(check)
