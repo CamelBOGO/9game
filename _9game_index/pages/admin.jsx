@@ -70,7 +70,7 @@ export default function admin({users, currentUser}) {
                         </div>
                     ) : (
                         <div>
-                        <Typography>You should be here, please return.</Typography>
+                        <Typography>You should not be here, please return.</Typography>
                         <Button color="inherit" href="/">Click here to return home page</Button>
                         </div>
                     )}
