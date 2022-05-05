@@ -20,6 +20,7 @@ export default function ChangePassword({users, currentUser}) {
             }
             const { data } = await axios.post("/api/profile/changepassword", { email, password }, config)
             console.log(data)
+            alert("Password Changed")
         }
         return (
             <>
