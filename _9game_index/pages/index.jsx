@@ -10,11 +10,9 @@
  */
 
 import Head from "next/head"
-import Link from "next/link"
 import "@fontsource/roboto"
-import {useState, useRef, useEffect} from "react";
-import {Button, AppBar, Toolbar, Typography, Grid, Box, Container} from "@mui/material";
-import {Dialog, DialogContent} from "@mui/material";
+import {useState} from "react";
+import {Button, AppBar, Toolbar, Typography, Grid, Box, Container, Dialog, DialogContent} from "@mui/material";
 
 import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
@@ -79,16 +77,12 @@ export default function Home({isConnected, posts, user}) {
                 alignItems="center"
                 justifyContent="center"
             >
-
-                {/*<Typography variant="h4">{isConnected ? "MongoDB connected." : "MongoDB NOT connected."}</Typography>*/}
-
                 <Typography
                     variant="h4"
                     sx={{
                         m: 3,
                         mt: 5
                     }}>{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
-
             </Grid>
 
             <Dialog
@@ -136,7 +130,7 @@ export async function getServerSideProps(props) {
                     username: "Admin",
                     likes: 1000
                 })
-                post.save() // You can upload it directly.*/
+                post.save()
             }
         })
     } catch (e) {
