@@ -1,6 +1,4 @@
 import mongoose from "mongoose"
-import { stringifyQuery } from "next/dist/server/server-route-utils"
-import validator from "validator"
 
 const userSchema = new mongoose.Schema({
     email: {

@@ -1,3 +1,3 @@
-This index page made by Next.js (https://nextjs.org/learn).
-
-Use 'npm run dev' to run the index page.
+Use 'npm run dev' to run the index page in dev mode.  
+Use 'npm run build' to build project.  
+Use 'npm start' to run the index page in release mode.  
