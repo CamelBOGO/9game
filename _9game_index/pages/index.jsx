@@ -1,9 +1,20 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Index Page
+ * Programmer: Yu Sun Leung
+ * The default page called by server when user entering.
+ * Version: 12, Date: 2022-05-05
+ * Purpose: Generate an index page for visitor or logged-in user.
+ * Data Structure:
+ * Algorithm:
+ */
+
 import Head from "next/head"
 import Link from "next/link"
 import "@fontsource/roboto"
 import {useState, useRef, useEffect} from "react";
 import {Button, AppBar, Toolbar, Typography, Grid, Box, Container} from "@mui/material";
-import { Dialog, DialogContent } from "@mui/material";
+import {Dialog, DialogContent} from "@mui/material";
 
 import IndexCard from "../components/card";
 import dbConnect from "../lib/dbConnect";
@@ -23,11 +34,10 @@ export default function Home({isConnected, posts, user}) {
         setOpen(true);
         setScroll(scrollType);
     };
-    
+
     const handleClose = () => {
         setOpen(false);
     };
-    ///////////////////////////////
 
     const logout = async function () {
         destroyCookie(null, 'token')
@@ -88,9 +98,9 @@ export default function Home({isConnected, posts, user}) {
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
             >
-                    <DialogContent dividers={scroll === 'paper'}>
-                            <NewPost email={user}/>
-                    </DialogContent>
+                <DialogContent dividers={scroll === 'paper'}>
+                    <NewPost email={user}/>
+                </DialogContent>
             </Dialog>
 
             <Box display="flex" alignItems="center" justifyContent="center">
