@@ -43,9 +43,12 @@ const forget = () => {
         const message = data.message
         // check if the fetch success
         if(status == "error"){
+            // error message
             alert(data.message)
         } else {
+            // success message
             alert(data.message)
+            // back to login page
             router.push("/login")
         }
 
