@@ -101,9 +101,9 @@ export default function ChangePassword({users, currentUser}) {
        
     } 
     // render error message for non-admin user.
-    return(<div>
+    return( <div>
             <h1>error:404</h1>
-        </div>)
+            </div>)
 }
 
 export async function getServerSideProps(ctx) {
