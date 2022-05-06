@@ -95,6 +95,12 @@ To access the website, you can access the following link by any browser.
 http://localhost:3000/
 ```
 
+If the port forwarding is set, you may access the website from internet.
+
+```
+http://(your_ip_address)/
+```
+
 ### Start to browse the website.
 
 Now, you can browse the website and do some operation or test on it.
