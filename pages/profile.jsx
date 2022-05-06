@@ -34,7 +34,9 @@ import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card,
 
 
 export default function Profile({users, currentUser}) {
+    //rendering a web page when user is logged in.
     if(currentUser){
+        // Define variable to store the status for popup.
         const [image, setImage] = useState();
     
         const email=currentUser.email
