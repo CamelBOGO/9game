@@ -38,26 +38,26 @@ import NewPost from "../components/newPost/new_post";
 import {parseCookies, destroyCookie} from "nookies";
 
 export default function Home({posts, user}) {
-    ///// popup create new post /////
-    const [open, setOpen] = useState(false);
-    const [scroll, setScroll] = useState('body');
+    // Define variable to store the status for popup.
+    const [open, setOpen] = useState(false)
+    const [scroll, setScroll] = useState('body')
 
     // Function: Handle popup opening.
     const handleClickOpen = (scrollType) => () => {
-        setOpen(true);
-        setScroll(scrollType);
+        setOpen(true)
+        setScroll(scrollType)
     };
 
     // Function: Handle popup closing.
     const handleClose = () => {
-        setOpen(false);
-    };
+        setOpen(false)
+    }
 
     // Function: Logout.
     const logout = async function () {
         destroyCookie(null, 'token')
         destroyCookie(null, 'email')
-        window.location.reload();
+        window.location.reload()
     }
 
     // Rendering
