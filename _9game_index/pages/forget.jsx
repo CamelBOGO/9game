@@ -1,3 +1,15 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Forget Page
+ * Programmer: Wong Wa Yiu
+ * Date: 2022-06-05
+ * Purpose: Generate an forget page for user to type their email and send an verifying email.
+        There are 2 purpose for this forget.jsx
+            1. Render the forget page to give the basic UI design
+            2. When the user click the submit button, the data should be pass to the forget.js API for
+                the communication of backend for further checking.
+ */
+
 import { useState } from 'react'
 import axios from 'axios'
 
@@ -11,6 +23,7 @@ const forget = () => {
     const [email,setEmail] = useState("")
     const router = useRouter()
     
+    //user click the submit button
     const SubmitHandler = async(e) => {
         e.preventDefault()
 
@@ -21,7 +34,10 @@ const forget = () => {
             }
         }
 
+        //POST data to the API
         const { data } = await axios.post("/api/auth/forget", { email }, config)
+
+        //Return data from the API side
         const status = data.status
         const message = data.message
 
@@ -34,6 +50,7 @@ const forget = () => {
 
     }
 
+    //rendering
     const paperStyle = {margin: "20px", maxHeight:"500px", width: 300, borderRadius: "25px", padding: 20}
     const buttonStyle = {margin:"25px", width: 250, height: "50px", border: "1px solid", background: "#212121", borderRadius: "25px", "font-size": "18px", "color": "#e9f4fb"}
     return (

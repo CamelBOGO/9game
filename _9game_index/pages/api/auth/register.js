@@ -1,3 +1,22 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Register Page API
+ * Programmer: Wong Wa Yiu
+ * Date: 2022-06-05
+ * This is the Register API for exchanging the data to and from the server side.
+ * Purpose: Generate an Register password page for user.
+ * Algorithm:
+            1. dBConnect()
+            2. Check to see if the email exists in the backend
+            3. Check to see if the password matches the confirmed password
+            4. Hash the password
+            5. Add a field for the users that contains the following fields:
+                i.      email
+                ii.     hashed passsword
+                iii.    isVerified = false
+            6. Send a verifying email to the users email by using our own email account
+ */
+
 import dbConnect from "../../../lib/dbConnect";
 import User from "../../../db_models/user_model"
 import bcrypt from 'bcryptjs'
@@ -33,6 +52,7 @@ export default async (req, res) => {
         if (req.method == "POST") {
             const { email , password, confirmPassword } = req.body
             
+            //check to see if the password matches the confirmed password
             if( password == "" || confirmPassword == "") {
                 res.json({
                     "status": "error",
@@ -44,6 +64,7 @@ export default async (req, res) => {
                     "message": "Password Not Match"
                 })
             } else {
+                //add the user data to the database
                 const user = await User.findOne({ email: email })
                 const HashedPassword = await bcrypt.hash(password, 12)
                 const newUser = await new User({ email:email, password:HashedPassword, reset_token: reset_token, 

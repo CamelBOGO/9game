@@ -1,3 +1,15 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Login Page
+ * Programmer: Wong Wa Yiu
+ * Date: 2022-06-05
+ * Purpose: Generate an login page for user.
+        There are 2 purpose for this login.jsx
+            1. Render the login page to give the basic UI design
+            2. When the user click the submit button, the data should be pass to the login.js API for
+                the communication of backend for further checking.
+ */
+
 import {useState} from "react"
 import axios from "axios"
 import cookies from "js-cookie"
@@ -11,31 +23,33 @@ const Register = () => {
     const [password, setPassword] = useState("")
     const router = useRouter()
 
+    //user click the submit button
     const SubmitHandler = async (e) => {
         e.preventDefault()
 
-        //console.log(email, password)
         const config = {
             headers: {
                 "Content-Type": "application/json"
             }
         }
 
+        //POST data to the API
         const {data} = await axios.post("/api/auth/login", {email, password}, config)
 
+        //Return data from the API side
         const status = data.status
         const message = data.message
-
         if (status == "error") {
             alert(data.message)
         } else {
             cookies.set("email", data?.email)
             cookies.set("token", data?.accessToken)
-            //alert(data.message)
             router.push("/")
         }
     }
 
+
+    //rendering
     const paperStyle = {margin: "20px", maxHeight:"500px", width: 300, borderRadius: "25px", padding: 20}
     const buttonStyle = {margin:"25px", width: 250, height: "50px", border: "1px solid", background: "#212121", borderRadius: "25px", "font-size": "18px", "color": "#e9f4fb"}
     return (
