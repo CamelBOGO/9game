@@ -19,7 +19,7 @@
  *          Receive props.
  *          Created a function to handle the change password requst. 
  *          The requst will pass to changepassword.js API.
- *          If the logined user is a admin.
+ *          If the logged in user is a admin.
  *              Return admin page rendering.
  *          Else retrun a error access page.
  *          
@@ -33,7 +33,7 @@ import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card,
 
 
 export default function ChangePassword({users, currentUser}) {
-    //Check if the user logined.
+    //Check if the user logged in.
     if(currentUser){
         // data for change password.
         const [email,setEmail] = useState("")
@@ -122,7 +122,7 @@ export async function getServerSideProps(ctx) {
         return user
     })
 
-    // if the user is logined.
+    // if the user is logged in.
     if(email){    
         let currentUser = await User.findOne({email: email}).lean()
         currentUser._id = currentUser._id.toString()
