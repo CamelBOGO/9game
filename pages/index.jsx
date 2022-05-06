@@ -80,7 +80,9 @@ export default function Home({posts, user}) {
                         9Game
                     </Typography>
 
+                    {/*Different components will show according to login status.*/}
                     {user ? (
+                        // Render this when it is logged-in.
                         <>
                             <Button
                                 color="secondary"
@@ -91,12 +93,13 @@ export default function Home({posts, user}) {
                             <Button color="secondary" onClick={logout}>Logout</Button>
                         </>
                     ) : (
+                        // Render thsi when it is NOT logged-in.
                         <Button color="secondary" href="/login">Login</Button>
                     )}
                 </Toolbar>
             </AppBar>
 
-            {/*Welcome String*/}
+            {/*Welcome String; different strings will show according to login status.*/}
             <Grid
                 container
                 direction="column"
@@ -124,7 +127,7 @@ export default function Home({posts, user}) {
                 </DialogContent>
             </Dialog>
 
-            {/*Main Content: Post Cards*/}
+            {/*Main Content: Post Cards (in grid style)*/}
             <Box display="flex" alignItems="center" justifyContent="center">
                 <Grid container style={{maxWidth: 700}}>
                     {posts.map((post) => (
