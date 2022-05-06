@@ -1,7 +1,25 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * _app: Project properties for React
+ * Programmer: Yu Sun Leung
+ * Calling by backend server before everything.
+ * Version: 2, Date: 2022-04-10
+ * Purpose: Record the project properties for React.
+ * Data Structure:
+ *      Theme: Theme
+ *
+ * Algorithm:
+ *      Rendering Function:
+ *          Define a theme.
+ *          Return global rendering.
+ */
+
 import Head from "next/head";
 import {ThemeProvider, createTheme} from "@mui/material";
 
+// Define a theme.
 const theme = createTheme({
+    // Colour
     palette: {
         primary: {
             light: '#484848',
@@ -17,6 +35,7 @@ const theme = createTheme({
         }
     },
 
+    // Layout
     breakpoints: {
         values: {
             xs: 0,
@@ -28,6 +47,7 @@ const theme = createTheme({
     },
 })
 
+// Export project properties.
 export default function App({Component, pageProps}) {
     return (
         <ThemeProvider theme={theme}>

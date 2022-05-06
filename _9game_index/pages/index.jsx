@@ -6,7 +6,23 @@
  * Version: 12, Date: 2022-05-05
  * Purpose: Generate an index page for visitor or logged-in user.
  * Data Structure:
+ *      Boolean: isOpen (for popup window)
+ *      String: scroll (indicating scrolling mode)
+ *
  * Algorithm:
+ *      Get Serverside Porps:
+ *          Connect DB.
+ *          If no data in DB, create a sample data.
+ *          Get all post by calling API.
+ *          Check login.
+ *          Return all post and login status by props.
+ *
+ *      Rendering Function:
+ *          Receive props.
+ *          Create a function to handle popup opening.
+ *          Create a function to handle popup closing.
+ *          Create a function for logout.
+ *          Return index page rendering.
  */
 
 import Head from "next/head"
@@ -21,34 +37,37 @@ import NewPost from "../components/newPost/new_post";
 
 import {parseCookies, destroyCookie} from "nookies";
 
-export default function Home({isConnected, posts, user}) {
-    const [likedPosts, updateLikedPosts] = useState([]);
-
+export default function Home({posts, user}) {
     ///// popup create new post /////
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState('body');
 
+    // Function: Handle popup opening.
     const handleClickOpen = (scrollType) => () => {
         setOpen(true);
         setScroll(scrollType);
     };
 
+    // Function: Handle popup closing.
     const handleClose = () => {
         setOpen(false);
     };
 
+    // Function: Logout.
     const logout = async function () {
         destroyCookie(null, 'token')
         destroyCookie(null, 'email')
         window.location.reload();
     }
 
+    // Rendering
     return (
         <div style={{paddingTop: 56}}>
             <Head>
                 <title>9Game</title>
             </Head>
 
+            {/*App Bar*/}
             <AppBar position="fixed">
                 <Toolbar>
                     <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
@@ -71,6 +90,7 @@ export default function Home({isConnected, posts, user}) {
                 </Toolbar>
             </AppBar>
 
+            {/*Welcome String*/}
             <Grid
                 container
                 direction="column"
@@ -85,6 +105,7 @@ export default function Home({isConnected, posts, user}) {
                     }}>{user ? "Welcome! " + user.toString() : "Press LOGIN button to login."}</Typography>
             </Grid>
 
+            {/*Popup Window*/}
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -97,6 +118,7 @@ export default function Home({isConnected, posts, user}) {
                 </DialogContent>
             </Dialog>
 
+            {/*Main Content: Post Cards*/}
             <Box display="flex" alignItems="center" justifyContent="center">
                 <Grid container style={{maxWidth: 700}}>
                     {posts.map((post) => (
@@ -116,8 +138,8 @@ export default function Home({isConnected, posts, user}) {
 }
 
 export async function getServerSideProps(props) {
-    let isConnected = true
     try {
+        // Try to connect the DB.
         await dbConnect()
         post_model.find({}, function (err, post) {
             // Create a sample data if no data inside.
@@ -135,9 +157,9 @@ export async function getServerSideProps(props) {
         })
     } catch (e) {
         console.error(e)
-        isConnected = false
     }
 
+    // Fetch all post from DB.
     const result = await post_model.find().sort({postdate: "desc"})
     const posts = result.map((doc) => {
         const post = doc.toObject()
@@ -146,8 +168,10 @@ export async function getServerSideProps(props) {
         return post
     })
 
+    // Check login status.
     const cookies = parseCookies(props)
     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
 
-    return {props: {isConnected: isConnected, posts: posts, user: user}}
+    // Return all post and login status by props.
+    return {props: {posts, user}}
 }
