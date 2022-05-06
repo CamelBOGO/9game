@@ -33,7 +33,7 @@ export default function admin({users, currentUser}) {
                             </Typography>
                                 <>
                                                          
-                                    {/* <Button color="secondary" href="/admin">admin page</Button> */}
+                                   
                                     <Button color="secondary" href="/changepassword">Change Password</Button>
     
                                     <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
