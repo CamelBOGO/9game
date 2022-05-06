@@ -39,28 +39,34 @@ import {parseCookies, destroyCookie} from "nookies";
 
 export default function Home({posts, user}) {
     // Define variable to store the status for popup.
+    // 1. Status of popup.
     const [open, setOpen] = useState(false)
+    // 2. Status of scrolling mode.
     const [scroll, setScroll] = useState('body')
 
     // Function: Handle popup opening.
     const handleClickOpen = (scrollType) => () => {
+        // Update the status of popup opening and scrolling mode.
         setOpen(true)
         setScroll(scrollType)
-    };
+    }
 
     // Function: Handle popup closing.
     const handleClose = () => {
+        // Update the status of popup opening.
         setOpen(false)
     }
 
     // Function: Logout.
     const logout = async function () {
+        // Simply delete the login cookies.
         destroyCookie(null, 'token')
         destroyCookie(null, 'email')
+        // Force reload.
         window.location.reload()
     }
 
-    // Rendering
+    // Render the HTML code.
     return (
         <div style={{paddingTop: 56}}>
             <Head>
@@ -137,10 +143,14 @@ export default function Home({posts, user}) {
     )
 }
 
+// A server function which will run for every client request.
+// It will run before the main functions.
 export async function getServerSideProps(props) {
     try {
         // Try to connect the DB.
         await dbConnect()
+
+        // If success, check if there is any post data in DB.
         post_model.find({}, function (err, post) {
             // Create a sample data if no data inside.
             if (!post.length) {
@@ -152,15 +162,19 @@ export async function getServerSideProps(props) {
                     username: "Admin",
                     likes: 1000
                 })
+
+                // Upload sample data.
                 post.save()
             }
         })
     } catch (e) {
+        // If it cannot connect to DB, output log to console by using error flag.
         console.error(e)
     }
 
     // Fetch all post from DB.
     const result = await post_model.find().sort({postdate: "desc"})
+    // Convert all datatype from DB datatype to a type that JS can support.
     const posts = result.map((doc) => {
         const post = doc.toObject()
         post._id = post._id.toString()
@@ -168,8 +182,9 @@ export async function getServerSideProps(props) {
         return post
     })
 
-    // Check login status.
+    // Check login status by cookies.
     const cookies = parseCookies(props)
+    // Identify user.
     const user = cookies?.email && cookies.email != "undefined" ? cookies.email : null
 
     // Return all post and login status by props.
