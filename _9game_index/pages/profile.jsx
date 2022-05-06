@@ -1,3 +1,29 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * profile Page
+ * Programmer: Shek Tsz Chuen
+ * The profile page called by user when user enter the host /profile.
+ * Version: 8, Date: 2022-04-11
+ * Purpose: Generate an profile page for logined user to see the users' profile.
+ * Data Structure:
+ *      User
+ *      Current User
+ *      image
+ * 
+ * Algorithm:
+ *      Get Serverside Props:
+ *          Connect DB.
+ *          Check login.
+ *          Get all user data.
+ *          Return all user data and login status by props.
+ *
+ *      Rendering Function:
+ *          Receive props.
+ *          Created a function to handle uploading new profile image. 
+ *          Return profile page rendering for the logined user.
+ *          If the user is admin, the profile page will show more function.
+ *          Return "Please login first." if the user does not login yet.
+ */
 import { useState} from "react";
 import axios from 'axios'
 import FileBase64 from 'react-file-base64';
@@ -9,29 +35,27 @@ import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card,
 
 export default function Profile({users, currentUser}) {
     if(currentUser){
-        const [item, setItem] = useState();
+        const [image, setImage] = useState();
     
         const email=currentUser.email
-
-
+        
+        //user click the upload button
         const onSubmit = async (e) => {
             e.preventDefault()
-            //console.log(email, password)
-            console.log(item)
             const config = {
                 headers:{
                     "Content-Type": "application/json"
                 }
             }
-            const { data } = await axios.post("/api/profile/profile", { email,item}, config)
-            console.log(data)
+            // post data to the profile.js API
+            const { data } = await axios.post("/api/profile/profile", { email,image}, config)
+            // reload the page after the image is uploaded to db.
             window.location.reload();
-        // console.log("image",item.image)
         }
     
 
 
-
+        // render the page for logined user.
         return (
             <div style={{paddingTop: 56}}>
                 <AppBar position="fixed">
@@ -89,7 +113,7 @@ export default function Profile({users, currentUser}) {
                                 <FileBase64
                                 type="file"
                                 multiple={false}
-                                onDone={({ base64 }) => setItem( base64 )}
+                                onDone={({ base64 }) => setImage( base64 )}
                                 />
 
                         </div>
@@ -104,16 +128,21 @@ export default function Profile({users, currentUser}) {
 
         )
     }
+    // render message if the user is not yet login.
     return(<Typography>Please login first.</Typography>)
     
 }
 
 
 export async function getServerSideProps(ctx) {
+    //Try to connect the DB.
     await dbConnect()
+    
+    // Check login status.
     const cookies = parseCookies(ctx)
     const email = cookies?.email && cookies.email != "undefined" ? cookies.email : null
 
+    // Fetch all user data from DB.
     const result = await User.find({})
     const users = result.map((doc) => {
         const user = doc.toObject()
@@ -121,12 +150,14 @@ export async function getServerSideProps(ctx) {
         return user
     })
 
+    // if the user is logined.
     if(email){    
         let currentUser = await User.findOne({email: email}).lean()
         currentUser._id = currentUser._id.toString()
+        // Return all user data and login status by props.
         return {props: {users: users, currentUser}}
     }
 
-
+    // Return all user data and login status by props.
     return {props: {users: users, currentUser:null}}
 }

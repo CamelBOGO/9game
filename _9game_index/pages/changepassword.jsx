@@ -1,3 +1,29 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Admin change passwork Page
+ * Programmer: Shek Tsz Chuen
+ * Version: 4, Date: 2022-04-11
+ * Purpose: Generate an change password page for admin user only.
+ * Data Structure:
+ *      User
+ *      Current User
+ *      email
+ *      password
+ * Algorithm:
+ *      Get Serverside Props:
+ *          Connect DB.
+ *          Check login.
+ *          Return all user data and login status by props.
+ *
+ *      Rendering Function:
+ *          Receive props.
+ *          Created a function to handle the change password requst. 
+ *          The requst will pass to changepassword.js API.
+ *          If the logined user is a admin.
+ *              Return admin page rendering.
+ *          Else retrun a error access page.
+ *          
+ */
 import { useState } from 'react'
 import axios from 'axios'
 import { parseCookies } from 'nookies'
@@ -7,21 +33,28 @@ import {AppBar, Button, Toolbar, FormControl, Grid, TextField, Typography, Card,
 
 
 export default function ChangePassword({users, currentUser}) {
+    //Check if the user logined.
     if(currentUser){
+        // data for change password.
         const [email,setEmail] = useState("")
         const [password, setPassword] = useState("")
+        // when the change button click, do the following function.
         const SubmitHandler = async(e) => {
             e.preventDefault()
-            //console.log(email, password)
+            //console.log(email, password) //check if the email and password have inputted.
             const config = {
                 headers:{
                     "Content-Type": "application/json"
                 }
             }
+            // post data to changepassword API.
             const { data } = await axios.post("/api/profile/changepassword", { email, password }, config)
+            
             console.log(data)
+            // tell the user successed to change the password.
             alert("Password Changed")
         }
+        // render a change password page for admin user only.
         return (
             <>
                             
@@ -67,16 +100,21 @@ export default function ChangePassword({users, currentUser}) {
         )
        
     } 
+    // render error message for non-admin user.
     return(<div>
             <h1>error:404</h1>
         </div>)
 }
 
 export async function getServerSideProps(ctx) {
+    //Try to connect the DB.
     await dbConnect()
+    
+    // Check login status.
     const cookies = parseCookies(ctx)
     const email = cookies?.email && cookies.email != "undefined" ? cookies.email : null
 
+    // Fetch all user data from DB.
     const result = await User.find({})
     const users = result.map((doc) => {
         const user = doc.toObject()
@@ -84,12 +122,14 @@ export async function getServerSideProps(ctx) {
         return user
     })
 
+    // if the user is logined.
     if(email){    
         let currentUser = await User.findOne({email: email}).lean()
         currentUser._id = currentUser._id.toString()
+        // Return all user data and login status by props.
         return {props: {users: users, currentUser}}
     }
 
-
+    // Return all user data and login status by props.
     return {props: {users: users, currentUser:null}}
 }
