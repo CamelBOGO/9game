@@ -1,5 +1,27 @@
 
-import axios from 'axios'
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Admin Page
+ * Programmer: Shek Tsz Chuen
+ * The admin page called by user when user enter the host /admin.
+ * Version: 4, Date: 2022-04-11
+ * Purpose: Generate an admin page for admin user to see all users' profile and reject other user to enter.
+ * Data Structure:
+ *      User
+ *      Current User
+ * Algorithm:
+ *      Get Serverside Props:
+ *          Connect DB.
+ *          Check login.
+ *          Get all user data.
+ *          Return all user data and login status by props.
+ *
+ *      Rendering Function:
+ *          Receive props.
+ *          Return admin page rendering if the logined user is a admin.
+ *          Return "Please login first." if the user does not login yet.
+ *          Return a rejected access page if the user is not a admin.
+ */
 import {
     AppBar,
     Button,
@@ -20,6 +42,7 @@ import {parseCookies} from 'nookies'
 
 
 export default function admin({users, currentUser}) {
+    //rendering a web page when user is logined.
     if(currentUser){
     return (
         <>
@@ -77,27 +100,33 @@ export default function admin({users, currentUser}) {
         </>
     )
     }
+    //render a message when the user is not login
     return(<Typography>Please login first.</Typography>)
 }
 
 export async function getServerSideProps(ctx) {
+    //Try to connect the DB.
     await dbConnect()
+
+    // Check login status.
     const cookies = parseCookies(ctx)
     const email = cookies?.email && cookies.email != "undefined" ? cookies.email : null
 
-
+    // Fetch all user data from DB.
     const result = await User.find({})
     const users = result.map((doc) => {
         const user = doc.toObject()
         user._id = user._id.toString()
         return user
     })
+    // if the user is logined.
     if (email) {
         let currentUser = await User.findOne({email: email}).lean()
         currentUser._id = currentUser._id.toString()
+        // Return all user data and login status by props.
         return {props: {users: users, currentUser}}
     }
 
-
+    // Return all user data and login status by props.
     return {props: {users: users, currentUser: null}}
 }
