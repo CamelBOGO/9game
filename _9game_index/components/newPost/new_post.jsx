@@ -1,3 +1,18 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Post Create Module
+ * Programmer: Fong Sze Chung, Yu Sun Leung
+ * The post create module called by user when the user clicking the new post button on the toolbar on the cover page
+ * Version: 2, Date: 2022-05-05
+ * Purpose: Generate a popup window for user to create a new post instead of redirect to a new page, which
+ * can reduce the loading time of the page and also enhance the user experience with a smooth animation of a 
+ * small popup window
+ * Data Stucture:
+ * Variable   email - string
+ *            form  - Object of a post consists of title, content, username, postdate, likes, likeduser
+ * Algorithm:
+ */
+
 import {useState} from "react";
 import {Grid, FormControl, InputLabel, Input, Button, Typography} from "@mui/material";
 

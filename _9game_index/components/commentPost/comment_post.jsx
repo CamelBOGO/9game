@@ -1,3 +1,27 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Post Popup Module
+ * Programmer: Fong Sze Chung, Yu Sun Leung
+ * The post popup module called by user when the user clicking on the post card on the cover page.
+ * Version: 2, Date: 2022-05-05
+ * Purpose: Handle the popup event for the user to see the detailed post content including
+ *          comments, and likes.
+ * Data Stucture:
+ * Variable currentuser - string
+ *          postid      - mongodb ObjectId
+ *          postcontent - string
+ *          postuser    - string
+ *          postlikes   - integer
+ *          setCheck    - function handler passed by parent
+ *          checked     - state
+ *          likebut     - Object of like button
+ *          likestate   - state of like button
+ *          init        - initial state of like button
+ *          form        - Object of a post consists of postid, content, date, and text
+ * Array    postcomment - Object array
+ * Algorithm:
+ */
+
 import React, {useEffect, useState} from 'react';
 import {
     Box,
@@ -8,9 +32,6 @@ import {
     Typography,
     Card
 } from "@mui/material";
-import {useRouter} from "next/router";
-import CommentBlock from './comment_block';
-import {COOKIE_NAME_PRERENDER_DATA} from 'next/dist/server/api-utils';
 import Like from '../likePost/like_post';
 
 export default function PostPopUp(props) {
@@ -159,7 +180,12 @@ export default function PostPopUp(props) {
             <Box>
                 {comnts.data.map((comnt) => (
                     <Card key={comnt._id} style={{margin: "0.5rem"}}>
-                        <CommentBlock user_id={comnt.user_id} date={comnt.date} text={comnt.text}/>
+                        <Typography style={{justifyContent: "space-between"}}>   
+                            {comnt.user_id}: {comnt.date}
+                        </Typography>
+                        <Typography style={{marginLeft: "1rem", wordWrap: "break-word"}}>
+                            {comnt.text}
+                        </Typography>
                     </Card>
                 ))}
             </Box>

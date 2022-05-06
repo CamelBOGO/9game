@@ -1,3 +1,20 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Schema for Post
+ * Programmer: Fong Sze Chung, Yu Sun Leung
+ * The post schema model called by server when system request for post
+ * Version: 2, Date: 2022-05-05
+ * Purpose: Provided a formated data structure for the content of a post
+ * Data Stucture:
+ * Variable     title       - String
+ *              content     - String
+ *              username    - String
+ *              postdate    - Date
+ *              likes       - Number (integer)
+ * Array        likeduser   - User array
+ * Algorithm:
+ */
+
 import mongoose from "mongoose"
 
 const PostSchema = new mongoose.Schema({

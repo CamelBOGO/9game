@@ -1,3 +1,30 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Post Card module
+ * Programmer: Fong Sze Chung, Yu Sun Leung
+ * The post card framework called by server when user entering the cover page.
+ * Version: 2, Date: 2022-05-05
+ * Purpose: Generate a structured post card item as an Ojbect to group the post elements
+ * Data Stucture:
+ * Variable         init            - initital state of the like button
+ *                  currentuser     - String
+ *                  postid          - ObjectId
+ *                  postdate        - Date
+ *                  postlikes       - Integer
+ *                  posttitle       - String
+ *                  postcontent     - String
+ *                  postuser        - String
+ *                  check           - boolean
+ *                  checked         - state of the like button
+ *                  likestate       - state of the like button
+ *                  likebut         - Object of the like button
+ *                  open            - state of the post popup
+ *                  scroll          - scroll type of the popup element
+ * Array            comnts          - Array of comments
+ *                  postlikeduser   - Array of users
+ * Algorithm:
+ */
+
 import {Card, CardActionArea, CardContent, CardMedia, Container } from "@mui/material"
 import {Box, Typography} from "@mui/material"
 import {makeStyles} from "@material-ui/styles"

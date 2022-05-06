@@ -1,3 +1,18 @@
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Post Like Module
+ * Programmer: Fong Sze Chung
+ * The post like module called by server when there is a post card and post popup.
+ * Version: 2, Date: 2022-05-05
+ * Purpose: Generate a like button to handle the like event when user click on the like button
+ * Data Stucture:
+ * Variable     id              - ObjectId
+ *              username        - String
+ *              checkprevious   - Boolean
+ *              form            - Object of post parameter consists of post ObjectId, email, inside (boolean for checking the user already in the likedlist)
+ * Algorithm:
+ */
+
 import React, {useEffect, useState} from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import Favorite from '@mui/icons-material/Favorite';
@@ -8,8 +23,6 @@ export default function Like(props) {
     const id = props.id;
     const username = props.email
 
-    // let currentlikeduser = props.likeduser
-    // const checkprevious = ((currentlikeduser.includes(username)) ? true : false)
     const checkprevious = props.checked
     const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
