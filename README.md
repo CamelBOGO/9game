@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://github.com/CamelBOGO/9game/blob/main/concepts/concept1.png?raw=true" alt="Project Logo"></a>
+ <img width=200px height=200px src="https://github.com/CamelBOGO/9game/blob/main/public/logo_white.svg?raw=true" alt="Project Logo"></a>
 </p>
 
 <h3 align="center">9Game</h3>
