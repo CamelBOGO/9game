@@ -17,7 +17,7 @@
  *
  *      Rendering Function:
  *          Receive props.
- *          Return admin page rendering if the logined user is a admin.
+ *          Return admin page rendering if the logged in user is a admin.
  *          Return "Please login first." if the user does not login yet.
  *          Return a rejected access page if the user is not a admin.
  */
@@ -41,7 +41,7 @@ import {parseCookies} from 'nookies'
 
 
 export default function admin({users, currentUser}) {
-    //rendering a web page when user is logined.
+    //rendering a web page when user is logged in.
     if(currentUser){
     return (
         <>
@@ -118,7 +118,7 @@ export async function getServerSideProps(ctx) {
         user._id = user._id.toString()
         return user
     })
-    // if the user is logined.
+    // if the user is logged in.
     if (email) {
         let currentUser = await User.findOne({email: email}).lean()
         currentUser._id = currentUser._id.toString()

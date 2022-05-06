@@ -20,7 +20,7 @@
  *      Rendering Function:
  *          Receive props.
  *          Created a function to handle uploading new profile image. 
- *          Return profile page rendering for the logined user.
+ *          Return profile page rendering for the logged in user.
  *          If the user is admin, the profile page will show more function.
  *          Return "Please login first." if the user does not login yet.
  */
@@ -55,7 +55,7 @@ export default function Profile({users, currentUser}) {
     
 
 
-        // render the page for logined user.
+        // render the page for logged in user.
         return (
             <div style={{paddingTop: 56}}>
                 <AppBar position="fixed">
@@ -150,7 +150,7 @@ export async function getServerSideProps(ctx) {
         return user
     })
 
-    // if the user is logined.
+    // if the user is logged in.
     if(email){    
         let currentUser = await User.findOne({email: email}).lean()
         currentUser._id = currentUser._id.toString()
