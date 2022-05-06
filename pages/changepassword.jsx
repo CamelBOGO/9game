@@ -71,7 +71,7 @@ export default function ChangePassword({users, currentUser}) {
                                     <Button color="secondary" href="/admin">admin page</Button>
                                     
                                     {/*Function button: jump to profile page */}
-                                    <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
+                                    <Button color="secondary" href="/profile">My Profile</Button>
                                     {/*Function button: jump to index page */}
                                     <Button color="secondary" href="/">Home</Button>
                                 </>

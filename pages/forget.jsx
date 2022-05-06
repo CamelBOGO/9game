@@ -12,7 +12,6 @@
 
 import { useState } from 'react'
 import axios from 'axios'
-
 import {useRouter} from "next/router";
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 import {Grid, Paper, Avatar, FormControl, TextField, Link} from "@mui/material";
@@ -20,6 +19,8 @@ import {Grid, Paper, Avatar, FormControl, TextField, Link} from "@mui/material";
 
 
 const forget = () => {
+    // Define variable to store the status for forget function.
+    // email
     const [email,setEmail] = useState("")
     const router = useRouter()
     
@@ -27,7 +28,7 @@ const forget = () => {
     const SubmitHandler = async(e) => {
         e.preventDefault()
 
-        //console.log(email, password)
+        
         const config = {
             headers:{
                 "Content-Type": "application/json"
@@ -40,7 +41,7 @@ const forget = () => {
         //Return data from the API side
         const status = data.status
         const message = data.message
-
+        // check if the fetch success
         if(status == "error"){
             alert(data.message)
         } else {

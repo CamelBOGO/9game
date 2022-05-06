@@ -59,7 +59,7 @@ export default function admin({users, currentUser}) {
                                     {/*Function button: jump to change password page */}
                                     <Button color="secondary" href="/changepassword">Change Password</Button>
                                     {/*Function button: jump to profile page */}
-                                    <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
+                                    <Button color="secondary" href="/profile">My Profile</Button>
                                     {/*Function button: jump to index page */}
                                     <Button color="secondary" href="/">Home</Button>
                                 </>
