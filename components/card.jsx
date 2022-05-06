@@ -18,7 +18,7 @@
  *                  open            (indicating post popup window)
  *      Date:       postdate
  *      Integer:    postlikes
- *      ObjectId:   postid          
+ *      ObjectId:   postid
  *      Object:     likebut         (like button)
  *      Array:      comnts          (Array of comments)
  *                  postlikeduser   (Array of users)
@@ -27,7 +27,7 @@
  *          Connect DB
  *          Get all comment by calling API
  *          Return all comments by props
- * 
+ *
  *      Rendering Function:
  *          Receive props
  *          Create a Styling block for styling the card design
@@ -37,7 +37,7 @@
  *          Return post card rendering
  */
 
-import {Card, CardActionArea, CardContent, CardMedia, Container } from "@mui/material"
+import {Card, CardActionArea, CardContent, CardMedia, Container} from "@mui/material"
 import {Box, Typography} from "@mui/material"
 import {makeStyles} from "@material-ui/styles"
 import Like from "./likePost/like_post"
@@ -53,20 +53,21 @@ export default function IndexCard(props) {
     // Variables used in this module
     const [comnts, setComnts] = useState({data: []})
     const [init, setinit] = useState(false)
-    const currentuser           = props.currentuser
+    const currentuser = props.currentuser
 
-    const postid                = props.id
-    const postdate              = props.postdate
-    const postlikes             = props.likes
-    const postlikeduser         = props.likeduser
-    const posttitle             = props.title
-    const postcontent           = props.content 
-    const postuser              = props.user
+    const postid = props.id
+    const postdate = props.postdate
+    const postlikes = props.likes
+    const postlikeduser = props.likeduser
+    const posttitle = props.title
+    const postcontent = props.content
+    const postuser = props.user
 
     const check = (postlikeduser?.includes(currentuser)) ? true : false
     const [checked, setCheck] = useState(check)
     const [likestate, setlike] = useState(postlikes)
-    let likebut = <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
+    let likebut = <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck}
+                        style={{margin: 0, zIndex: 5}}/>
 
     // Styling
     const cardTextStyle = makeStyles({
@@ -96,12 +97,12 @@ export default function IndexCard(props) {
         setinit(true)
     }, [checked])
 
-    ///// popup /////
+    // Variables to store the popup status.
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState('body');
 
     // Function: Handle popup opening
-    const handleClickOpen = (scrollType) => async() => {
+    const handleClickOpen = (scrollType) => async () => {
         try {
             console.log("NOW FETCH: " + props.id)
             const res = await fetch(`/api/post/${props.id}/comnt`, {
@@ -127,30 +128,20 @@ export default function IndexCard(props) {
         setOpen(true);
         setScroll(scrollType);
     };
-    
+
     // Function: Handle popup closing
     const handleClose = () => {
         setOpen(false);
         router.reload()
     };
-    ////////////////
 
-    //Rendering
+    // Rendering
     return (
         <Card sx={{width: 300, height: 400, boxShadow: 5}}>
             {/* Post Card framework */}
-            {/* <CardActionArea href={`/post/${props.id}/comnt`}> */}
-            <CardActionArea  onClick={handleClickOpen('paper')}>
+            <CardActionArea onClick={handleClickOpen('paper')}>
                 {/* Post Content */}
-                <Box component="div" sx={{height: 300, p: 2}} style={{top: "0", width: "auto"}} > 
-                    {/*<CardMedia
-                        component="img"
-                        height="140"
-                        image=""
-                        alt={content}
-                        sx={{m: 2}}
-                    />*/}
-
+                <Box component="div" sx={{height: 300, p: 2}} style={{top: "0", width: "auto"}}>
                     <Typography gutterBottom variant="body1"
                                 component="div"
                                 sx={{
@@ -173,11 +164,7 @@ export default function IndexCard(props) {
                      style={{display: "flex"}}
                 >
                     {/* Check if the user has logged in */}
-                    {currentuser?
-                    // <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck}
-                    //         style={{margin:0, zIndex: 5}}/>
-                    likebut
-                    :""}
+                    {currentuser ? likebut : ""}
                     <Typography noWrap variant="h5" component="div" style={{marginLeft: "0.5rem"}} sx={{my: 1}}>
                         {posttitle}
                     </Typography>
@@ -193,13 +180,13 @@ export default function IndexCard(props) {
                 aria-describedby="scroll-dialog-description"
             >
                 <DialogTitle id="scroll-dialog-title"
-                    style={{padding: "1rem"}}
+                             style={{padding: "1rem"}}
                 >
                     {posttitle}
                 </DialogTitle>
                 <DialogContent dividers={scroll === 'paper'}>
                     <PostPopUp id={postid} content={postcontent} comnts={comnts} checked={checked} setcheck={setCheck}
-                        date={postdate} user={postuser} currentuser={currentuser} likes={likestate}/>
+                               date={postdate} user={postuser} currentuser={currentuser} likes={likestate}/>
                 </DialogContent>
             </Dialog>
         </Card>
