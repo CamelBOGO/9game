@@ -6,11 +6,16 @@
  * Version: 2, Date: 2022-05-05
  * Purpose: Generate a like button to handle the like event when user click on the like button
  * Data Stucture:
- * Variable     id              - ObjectId
- *              username        - String
- *              checkprevious   - Boolean
- *              form            - Object of post parameter consists of post ObjectId, email, inside (boolean for checking the user already in the likedlist)
+ *      String:         username        (current user)
+ *      Boolean:        checkprevious   (like button state)
+ *      ObjectId:       id              (post Id)
+ *      Object:         form            (grouping parameter used to update the likes in database)
  * Algorithm:
+ *      Rendering Function:
+ *          Receive props
+ *          Create a function to handle data fetching
+ *          Create a useEffect hook to handle the like button state changes
+ *          Return like button rendering
  */
 
 import React, {useEffect, useState} from 'react';
@@ -20,22 +25,26 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import {pink} from '@mui/material/colors'
 
 export default function Like(props) {
+    // Variables used in this module
     const id = props.id;
     const username = props.email
 
     const checkprevious = props.checked
     const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
+    // Form for updating the likes of a post
     const [form, setForm] = useState({
         _id: id,
         email: username,
         inside: checkprevious
     })
 
+    // useEffect handle the like state change when the user clicked on the like button
     useEffect(() => {
         props.setCheck(form.inside)
     }, [form.inside])
 
+    // Function: try to fetch the likes data of a post from the database
     const tryfetch = async(e) => {
         e.persist()
         if (username) {
@@ -66,6 +75,8 @@ export default function Like(props) {
         }
     }
 
+    // Rendering
+    // Checkbox is used as a like button
     return (
         <Checkbox {...label} checked={form.inside} icon={<FavoriteBorder/>} 
                   checkedIcon={<Favorite sx={{color: pink[300], '&.Mui-checked': {color: pink[300],},}}/>}

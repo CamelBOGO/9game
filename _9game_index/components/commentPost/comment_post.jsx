@@ -7,19 +7,24 @@
  * Purpose: Handle the popup event for the user to see the detailed post content including
  *          comments, and likes.
  * Data Stucture:
- * Variable currentuser - string
- *          postid      - mongodb ObjectId
- *          postcontent - string
- *          postuser    - string
- *          postlikes   - integer
- *          setCheck    - function handler passed by parent
- *          checked     - state
- *          likebut     - Object of like button
- *          likestate   - state of like button
- *          init        - initial state of like button
- *          form        - Object of a post consists of postid, content, date, and text
- * Array    postcomment - Object array
+ *          String:     currentuser
+ *                      postcontent
+ *                      postuser
+ *          Integer:    postlikes
+ *          Boolean:    init        (initital state of the like button)
+ *                      checked     (for like button)
+ *                      likestate   (for like button)
+ *          ObjectId:   postid
+ *          Object:     likebut     
+ *                      form
+ *          Array:      postcomment
  * Algorithm:
+ *          Rendering Function:
+ *              Receive props
+ *              Create a function to handle comment form submit
+ *              Create a function to handle comment form changes
+ *              Create a useEffect hook to handle the like button state changes
+ *              Return post popup rendering
  */
 
 import React, {useEffect, useState} from 'react';
@@ -35,6 +40,7 @@ import {
 import Like from '../likePost/like_post';
 
 export default function PostPopUp(props) {
+    // Variables used in this module
     const currentuser = props.currentuser
     const postid = props.id
     const postcontent = props.content
@@ -55,6 +61,7 @@ export default function PostPopUp(props) {
     })
     const [comnts, setComnts] = useState({data: postcomment.data})
 
+    // useEffect handle the like button state changing
     useEffect(() => {
         let newlike = likestate
         let localcheck = likebut.props.checked
@@ -72,10 +79,13 @@ export default function PostPopUp(props) {
         setinit(true)
     }, [likebut.props.checked]);
 
+    // Function: Handle submission of a new comment
     const handleSubmit = async function (e) {
         e.preventDefault()
         // Here I show you how to post data by calling api.
+        // If the user has logged in
         if (currentuser) {
+            // Try to create a new comment for the corresponding post
             try {
                 const res = await fetch('/api/comnt', {
                     method: 'POST',
@@ -92,7 +102,8 @@ export default function PostPopUp(props) {
                 console.error(error)
                 console.log("Fail to upload!")
             }
-
+            
+            // Try to fetch the new comment list from the database
             try {
                 console.log("NOW FETCH: " + props.id)
                 const res = await fetch(`/api/post/${props.id}/comnt`, {
@@ -105,7 +116,10 @@ export default function PostPopUp(props) {
                 if (!res.ok) {
                     throw new Error(res.status)
                 }
+
+                // If fetching is successful
                 const data = await res.json()
+                // Update the comment list in the current post popup window
                 setComnts({
                     ...comnts,
                     data: data.data,
@@ -116,6 +130,7 @@ export default function PostPopUp(props) {
         }
     }
 
+    // Function: Handle comment form input changes
     const handleChange = async function (e) {
         const value = e.target.value
         const name = e.target.name
@@ -127,9 +142,11 @@ export default function PostPopUp(props) {
         })
     }
 
+    // Rendering
     return (
         <>
             <Box Container>
+                {/* Post content and author of the post will be shown in this part */}
                 <Typography gutterBottom variant="body1"
                             component="div"
                             sx={{
@@ -145,6 +162,7 @@ export default function PostPopUp(props) {
             </Box>
 
             <Box style={{display: "inline-flex"}}>
+                {/* Like button and the total Likes of the post*/}
                 {likebut}
                 <Typography variant="h6"
                             direction="row"
@@ -157,9 +175,11 @@ export default function PostPopUp(props) {
             </Box>
 
             <hr/>
-
+            
+            {/* Check the user has logged in */}
             {currentuser ?
                 <form onSubmit={handleSubmit}>
+                    {/* Shows the user the comment input form if the user has logged in */}
                     <FormControl>
                         <InputLabel htmlFor="text">Content</InputLabel>
                         <Input
@@ -178,6 +198,8 @@ export default function PostPopUp(props) {
                 : ""}
 
             <Box>
+                {/* Comment card generation by mapping the data of comment into one card
+                    and showing as a list*/}
                 {comnts.data.map((comnt) => (
                     <Card key={comnt._id} style={{margin: "0.5rem"}}>
                         <Typography style={{justifyContent: "space-between"}}>   
@@ -189,8 +211,6 @@ export default function PostPopUp(props) {
                     </Card>
                 ))}
             </Box>
-
-
         </>
     );
 }

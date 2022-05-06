@@ -6,23 +6,35 @@
  * Version: 2, Date: 2022-05-05
  * Purpose: Generate a structured post card item as an Ojbect to group the post elements
  * Data Stucture:
- * Variable         init            - initital state of the like button
- *                  currentuser     - String
- *                  postid          - ObjectId
- *                  postdate        - Date
- *                  postlikes       - Integer
- *                  posttitle       - String
- *                  postcontent     - String
- *                  postuser        - String
- *                  check           - boolean
- *                  checked         - state of the like button
- *                  likestate       - state of the like button
- *                  likebut         - Object of the like button
- *                  open            - state of the post popup
- *                  scroll          - scroll type of the popup element
- * Array            comnts          - Array of comments
- *                  postlikeduser   - Array of users
+ *      String:     posttitle
+ *                  postcontent
+ *                  postuser
+ *                  currentuser
+ *                  scroll          (indicating scroll mode)
+ *      Boolean:    init            (initial state of the like button)
+ *                  check           (for indicating the state of the like button)
+ *                  checked         (for indicating the state of the like button)
+ *                  likestate       (for indicating the state of the like button)
+ *                  open            (indicating post popup window)
+ *      Date:       postdate
+ *      Integer:    postlikes
+ *      ObjectId:   postid          
+ *      Object:     likebut         (like button)
+ *      Array:      comnts          (Array of comments)
+ *                  postlikeduser   (Array of users)
  * Algorithm:
+ *      Get Serverside Props:
+ *          Connect DB
+ *          Get all comment by calling API
+ *          Return all comments by props
+ * 
+ *      Rendering Function:
+ *          Receive props
+ *          Create a Styling block for styling the card design
+ *          Create a useEffect to handle likke button state changes
+ *          Create a function to handle popup opening
+ *          Create a function to handle popup closing
+ *          Return post card rendering
  */
 
 import {Card, CardActionArea, CardContent, CardMedia, Container } from "@mui/material"
@@ -38,6 +50,7 @@ import DialogContent from '@mui/material/DialogContent';
 import PostPopUp from "./commentPost/comment_post";
 
 export default function IndexCard(props) {
+    // Variables used in this module
     const [comnts, setComnts] = useState({data: []})
     const [init, setinit] = useState(false)
     const currentuser           = props.currentuser
@@ -55,6 +68,7 @@ export default function IndexCard(props) {
     const [likestate, setlike] = useState(postlikes)
     let likebut = <Like id={postid} email={currentuser} checked={checked} setCheck={setCheck} style={{margin:0, zIndex: 5}}/>
 
+    // Styling
     const cardTextStyle = makeStyles({
         textEllipsis: {
             overflow: "hidden",
@@ -67,6 +81,7 @@ export default function IndexCard(props) {
     const classes = cardTextStyle()
     const router = useRouter();
 
+    // useEffect handle the like button state changing
     useEffect(() => {
         let newlike = likestate
         if (init) {
@@ -85,6 +100,7 @@ export default function IndexCard(props) {
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState('body');
 
+    // Function: Handle popup opening
     const handleClickOpen = (scrollType) => async() => {
         try {
             console.log("NOW FETCH: " + props.id)
@@ -112,16 +128,20 @@ export default function IndexCard(props) {
         setScroll(scrollType);
     };
     
+    // Function: Handle popup closing
     const handleClose = () => {
         setOpen(false);
         router.reload()
     };
     ////////////////
 
+    //Rendering
     return (
         <Card sx={{width: 300, height: 400, boxShadow: 5}}>
+            {/* Post Card framework */}
             {/* <CardActionArea href={`/post/${props.id}/comnt`}> */}
             <CardActionArea  onClick={handleClickOpen('paper')}>
+                {/* Post Content */}
                 <Box component="div" sx={{height: 300, p: 2}} style={{top: "0", width: "auto"}} > 
                     {/*<CardMedia
                         component="img"
@@ -143,7 +163,7 @@ export default function IndexCard(props) {
                         {postcontent}
                     </Typography>
                 </Box>
-
+                {/* Post title and like button */}
                 <Box component="div"
                      direction="row"
                      alignItems="center"
@@ -152,6 +172,7 @@ export default function IndexCard(props) {
                      sx={{height: 68, px: 1}}
                      style={{display: "flex"}}
                 >
+                    {/* Check if the user has logged in */}
                     {currentuser?
                     // <Like   id={postid} email={currentuser} checked={checked} setCheck={setCheck}
                     //         style={{margin:0, zIndex: 5}}/>
@@ -162,6 +183,8 @@ export default function IndexCard(props) {
                     </Typography>
                 </Box>
             </CardActionArea>
+
+            {/* Post popup */}
             <Dialog
                 open={open}
                 onClose={handleClose}
@@ -184,16 +207,15 @@ export default function IndexCard(props) {
 }
 
 export async function getServerSideProps(context) {
+    // Connect the DB
     await dbConnect()
     const {id} = context.query
-
-    // Here I show you how to fetch data in script, //<Typography key={props._id}>Comment: {props.text} / {props.date}</Typography>
-    // but you can also call api to help you.
 
     let post = await Post.findById(id).lean()
     post._id = post._id.toString()
     post.postdate = post.postdate.toString()
 
+    // Fetch all comments from DB
     const comntsResult = await Comnt.find({post_id: id.toString()})
     const comnts = comntsResult.map((doc) => {
         const comnt = doc.toObject()
@@ -202,5 +224,6 @@ export async function getServerSideProps(context) {
         return comnt
     })
 
+    // Return all comments by props
     return {props: {post: post, comnts: comnts}}
 }

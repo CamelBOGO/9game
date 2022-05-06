@@ -8,15 +8,21 @@
  * can reduce the loading time of the page and also enhance the user experience with a smooth animation of a 
  * small popup window
  * Data Stucture:
- * Variable   email - string
- *            form  - Object of a post consists of title, content, username, postdate, likes, likeduser
+ *      String: email   (current username)
+ *      Object: form    (grouping paramters for a new post)
  * Algorithm:
+ *      Rendering Function:
+ *          Receive props
+ *          Create a function to handle form submission
+ *          Create a function to handle form changes
+ *          Return create post popup rendering
  */
 
 import {useState} from "react";
 import {Grid, FormControl, InputLabel, Input, Button, Typography} from "@mui/material";
 
 export default function NewPost(props) {
+    // Variables used in this module
     const email = props.email
 
     const [form, setForm] = useState({
@@ -28,6 +34,7 @@ export default function NewPost(props) {
         likeduser: [],
     })
 
+    // Function: Handle form submit
     const handleSubmit = async function (e) {
         e.preventDefault()
         try {
@@ -49,6 +56,7 @@ export default function NewPost(props) {
         }
     }
 
+    // Function: Handle form changes
     const handleChange = async function (e) {
         const value = e.target.value
         const name = e.target.name
@@ -59,6 +67,7 @@ export default function NewPost(props) {
         })
     }
 
+    // Rendering
     return (
         <>
             <Grid
@@ -69,6 +78,7 @@ export default function NewPost(props) {
                 justifyContent="center"
             >
                 <Typography>New post by {email}</Typography>
+                {/* Input form of the content required to create a new post */}
                 <form onSubmit={handleSubmit}>
                     <FormControl>
                         <InputLabel htmlFor="title">Title</InputLabel>

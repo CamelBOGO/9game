@@ -10,7 +10,7 @@
  *      String: scroll (indicating scrolling mode)
  *
  * Algorithm:
- *      Get Serverside Porps:
+ *      Get Serverside Props:
  *          Connect DB.
  *          If no data in DB, create a sample data.
  *          Get all post by calling API.
