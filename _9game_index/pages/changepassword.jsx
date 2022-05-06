@@ -41,7 +41,7 @@ export default function ChangePassword({users, currentUser}) {
         // when the change button click, do the following function.
         const SubmitHandler = async(e) => {
             e.preventDefault()
-            //console.log(email, password) //check if the email and password have inputted.
+
             const config = {
                 headers:{
                     "Content-Type": "application/json"
@@ -60,17 +60,19 @@ export default function ChangePassword({users, currentUser}) {
                             
                     { currentUser.isAdmin ? (
                     <div style={{paddingTop: 56}}>
+                        {/* App Bar */}
                         <AppBar position="fixed">
                         <Toolbar>
                             <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
                                 9Game
                             </Typography>
                                 <>
-                                                         
+                                    {/*Function button: jump to admin page */}
                                     <Button color="secondary" href="/admin">admin page</Button>
-                                    {/* <Button color="secondary" href="/changepassword">Change Password</Button> */}
-    
+                                    
+                                    {/*Function button: jump to profile page */}
                                     <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
+                                    {/*Function button: jump to index page */}
                                     <Button color="secondary" href="/">Home</Button>
                                 </>
                         </Toolbar>
@@ -106,6 +108,9 @@ export default function ChangePassword({users, currentUser}) {
             </div>)
 }
 
+
+// A server function which will run for every client request.
+// It will run before the main functions.
 export async function getServerSideProps(ctx) {
     //Try to connect the DB.
     await dbConnect()
@@ -116,6 +121,7 @@ export async function getServerSideProps(ctx) {
 
     // Fetch all user data from DB.
     const result = await User.find({})
+    // Convert all datatype from DB datatype to a type that JS can support.
     const users = result.map((doc) => {
         const user = doc.toObject()
         user._id = user._id.toString()

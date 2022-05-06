@@ -133,7 +133,8 @@ export default function Profile({users, currentUser}) {
     
 }
 
-
+// A server function which will run for every client request.
+// It will run before the main functions.
 export async function getServerSideProps(ctx) {
     //Try to connect the DB.
     await dbConnect()
@@ -144,6 +145,7 @@ export async function getServerSideProps(ctx) {
 
     // Fetch all user data from DB.
     const result = await User.find({})
+    // Convert all datatype from DB datatype to a type that JS can support.
     const users = result.map((doc) => {
         const user = doc.toObject()
         user._id = user._id.toString()
