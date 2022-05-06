@@ -45,9 +45,10 @@ export default function admin({users, currentUser}) {
     if(currentUser){
     return (
         <>
-            
+            {/* if the user is admin */}
             {currentUser.isAdmin ? (
                 <div style={{paddingTop: 56}}>
+                    {/* App Bar */}
                     <AppBar position="fixed">
                         <Toolbar>
                             <Typography variant="h6" component="div" color="common.white" sx={{flexGrow: 1}}>
@@ -55,10 +56,11 @@ export default function admin({users, currentUser}) {
                             </Typography>
                                 <>
                                                          
-                                   
+                                    {/*Function button: jump to change password page */}
                                     <Button color="secondary" href="/changepassword">Change Password</Button>
-    
+                                    {/*Function button: jump to profile page */}
                                     <Button color="secondary" sx={{mr: 2}} href="/profile">My Profile</Button>
+                                    {/*Function button: jump to index page */}
                                     <Button color="secondary" href="/">Home</Button>
                                 </>
                         </Toolbar>
@@ -91,6 +93,7 @@ export default function admin({users, currentUser}) {
                             </Box>
                         </div>
                     ) : (
+                        // if the user is not a admin
                         <div>
                         <Typography>You should not be here, please return.</Typography>
                         <Button color="inherit" href="/">Click here to return home page</Button>
@@ -103,6 +106,9 @@ export default function admin({users, currentUser}) {
     return(<Typography>Please login first.</Typography>)
 }
 
+
+// A server function which will run for every client request.
+// It will run before the main functions.
 export async function getServerSideProps(ctx) {
     //Try to connect the DB.
     await dbConnect()
@@ -113,6 +119,7 @@ export async function getServerSideProps(ctx) {
 
     // Fetch all user data from DB.
     const result = await User.find({})
+    // Convert all datatype from DB datatype to a type that JS can support.
     const users = result.map((doc) => {
         const user = doc.toObject()
         user._id = user._id.toString()
