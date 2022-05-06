@@ -1,12 +1,25 @@
-// ! This API is NOT finished !
-// This API has 2 function: post one comment, and get all comments.
+/**
+ * Header Comment Block: what, who, where, when, why, how
+ * Comment API for POST and GET
+ * Programmer: Yu Sun Leung
+ * Call by post module to post comments to or fetch comments from the database
+ * Version: 1, Date: 2022-04-09
+ * Purpose: To handle the GET and POST event of comments
+ * Algorithm:
+ *      GET Function:
+ *          Get all comments from the database
+ *      Post Function:
+ *          Post or add one comment to the database
+ */
 
 import dbConnect from "../../../lib/dbConnect";
 import Comnt from "../../../db_models/comnt_model";
 
 export default async function handler(req, res) {
-    const {method} = req
+    // Connect to DB
     await dbConnect()
+    // Variables used in this API
+    const {method} = req
 
     switch (method) {
         // Post one comment.

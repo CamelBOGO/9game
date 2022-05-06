@@ -6,16 +6,16 @@
  * Version: 2, Date: 2022-05-05
  * Purpose: Provided a formated data structure for the content of a user
  * Data Stucture:
- * Variable     email                   - String
- *              password                - String
- *              reset_token             - String
- *              isVerified              - Boolean
- *              verification_token      - String
- *              accessToken             - String
- *              isAdmin                 - Boolean
- *              profileimg              - String
- * Array        likedPosts              - array
- * Algorithm:
+ * Variable     
+ *      String:     email      
+ *                  password   
+ *                  reset_token
+ *                  verification_token
+ *                  accessToken
+ *                  profileimg
+ *      Boolean:    isVerified
+ *                  isAdmin
+ * Array            likedPosts
  */
 
 import mongoose from "mongoose"

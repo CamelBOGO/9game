@@ -6,11 +6,11 @@
  * Version: 1, Date: 2022-05-05
  * Purpose: Provided a formated data structure for the content of a comment
  * Data Stucture:
- * Variable     post_id - String
- *              user_id - String
- *              data    - Date
- *              text    - String 
- * Algorithm:
+ * Variable
+ *      String: post_id
+ *              user_id
+ *              text
+ *      Date:   date
  */
 
 import mongoose from "mongoose"

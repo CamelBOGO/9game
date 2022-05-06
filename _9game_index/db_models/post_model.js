@@ -6,13 +6,14 @@
  * Version: 2, Date: 2022-05-05
  * Purpose: Provided a formated data structure for the content of a post
  * Data Stucture:
- * Variable     title       - String
- *              content     - String
- *              username    - String
- *              postdate    - Date
- *              likes       - Number (integer)
- * Array        likeduser   - User array
- * Algorithm:
+ * Variable     
+ *      String: title
+ *              content
+ *              username
+ *      Date:   postdate
+ *      Number: likes
+ * Array        
+ *      User:   likeduser
  */
 
 import mongoose from "mongoose"
