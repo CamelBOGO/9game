@@ -53,7 +53,7 @@ https://nodejs.org/en/download/
 First, cd to the directory of this project.
 
 ```
-cd ...\9game\_9_game_index
+cd ...\9game\
 ```
 
 Install the required libraries and all dependencies by using npm.
