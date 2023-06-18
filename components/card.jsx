@@ -39,7 +39,7 @@
 
 import {Card, CardActionArea, CardContent, CardMedia, Container} from "@mui/material"
 import {Box, Typography} from "@mui/material"
-import {makeStyles} from "@material-ui/styles"
+import {makeStyles} from "@mui/styles"
 import Like from "./likePost/like_post"
 import React, {useState, useEffect} from 'react';
 import {useRouter} from "next/router";
